@@ -1,0 +1,147 @@
+Linux – Practicum
+Table of Contents
+	Scenario:	1
+	Objective:	2
+	Prerequisites:	2
+	Computer-	2
+	Software-	2
+	Optional- (But recommended)	2
+	Stages:	2
+	Stage 00- Setup	2
+	Stage 01- Installation-	3
+		1 Partitioning (Custom/Expert)	3
+		2 Applications, User, & Software	3
+	Stage 02- Network Configuration	4
+		1 Hostname, IP, DNS, Route	4
+		2 Update Software	4
+		3 Remote Access	4
+		4 User Access	4
+	Stage 03- Applications	5
+		1 Repositories	5
+		2 RPM management	5
+		3 Source Management	5
+	Stage 04- Servers	5
+		1 NFS	5
+		2 SFTP	5
+		3 Web	5
+	Stage 05- Automation & System Management	5
+		1 Scripting	5
+		2 LVM Management	5
+	Stage 06- Backup, Maintenance, & Monitoring	5
+		1 SystemD	5
+		2 Monitoring & Trouble-Shooting	6
+		3 Virtual Machines (VirtualBox)	6
+	Stage 07- Advanced Operations	6
+		1 Hardening	6
+		2 Version Control	6
+		3 Configuration Management	6
+
+Scenario:
+	The Wood-Bee Company (WBC) network needs to provide a platform to replace some existing Servers, and for some new services. Stand up a new computer and configure it per the Stages.
+
+Objective:
+	To complete each Stage and be tested and pass successfully before moving on to the next Stage.
+
+Prerequisites:
+	Computer-
+		◦ Hard Drive space => 30-40GB minimum free space, recommend 60GB free
+		◦ Memory => 4GB Minimum (can still manage with 2GB but will be slow & wont be able to have anything else running) Recommend at least 8GB
+	Software-
+		◦ VirtualBox (Oracle) or Vmware (I recommend and use VirtualBox)
+		    ▪ https://www.virtualbox.org/wiki/Downloads
+		◦ Latest release of GeckoLinux or OpenSUSE-Leap (for this training GeckoLinux is perfect and Light-Weight)
+		    ▪ GeckoLinux => https://sourceforge.net/projects/geckolinux/files/Static/422.170302/GeckoLinux_Gnome.x86_64-422.170302.0.iso/download
+		    ▪ OpenSUSE-Leap (At time of this release) => https://software.opensuse.org/distributions/leap
+		◦ ISO Image Burning software (“Windows disk image burner” built-in application is fine)
+	Optional- (But recommended)
+		◦ Any form of external (or internal) additional storage for any files or notes you may want to keep and or use in the future.
+		◦ Hardware-
+		    ▪ DVD-R (if OpenSUSE, CD-R if GeckoLinux) OR USB-Stick for ISO-Image
+
+Stages:
+Stage 00- Setup
+	    1. On Your Own
+		1. Download the ISO for the Linux version you wish to use.
+		2. Download and install the VM software
+		3. Run the VM software => New => Linux => OpenSUSE-64bit
+		    1. HDD => 30-40GB (25GB Min.)
+		    2. Memory => 2GB Minimum
+		    3. Most other options remain the Default
+	    2. While in communication via IRC
+		1. Start the new vm and point the image path to where you downloaded the ISO-Image
+		2. Move to Stage 01
+
+Stage 01- Installation-
+	    • Desktop Manager=	Gnome
+	1 Partitioning (Custom/Expert)
+	    • /dev/sda1	Boot- 
+		◦ Primary Partition	/boot	=	1GB	ext4
+	    • /dev/sda2	Swap- 
+		◦ Primary Partition	swap	=	2GB	swap
+	    • /dev/sda3	Logical Volume Management (LVM)-
+		◦ Primary Partition	for lvm	Max	ext4
+		◦ Logical Volume Management (LVM)
+		    ▪ Volume name “system” 
+		    ▪ LVM Partition Layout
+		        • /opt		=	1GB	ext4
+		        • /tmp		=	1GB	ext4
+		        • /var		=	1GB	ext4
+		        • /var/log	=	2GB	ext4
+		        • /srv		=	8Gb	ext4
+		        • /home		=	Max	ext4
+	2 Applications, User, & Software
+	    • User, Password, & root Password
+		◦ User= training
+		◦ Password= linux (same for root)
+	    • MultiMedia=	ALL
+	    • Add-on=	Remote, Office, C++, RPM Devel
+	    • Servers=	File, LAMP, 
+
+Stage 02- Network Configuration
+	1 Hostname, IP, DNS, Route
+	    • Hostname=	wbclearn
+	    • Domain=	woodbeeco.com
+	    • IP-Address=	TBD (While in communication via IRC)
+	    • Gateway=	TBD (While in communication via IRC)
+	    • DNS=		TBD (While in communication via IRC)
+		◦ Search=	TBD (While in communication via IRC)
+	2 Update Software
+	    • YaST
+	    • Zypper
+	3 Remote Access
+	    • SSH-	Enable
+		◦ Open Port (YaST)
+	4 User Access
+	    • training=	RSA Key, Authorized_keys
+	    • root=	Authorized_keys, /etc/hosts PermitRootLogin
+
+Stage 03- Applications
+	1 Repositories
+	2 RPM management
+	3 Source Management
+
+Stage 04- Servers
+	1 NFS
+	    • Client
+	    • Server
+	2 SFTP
+	    • Standard
+	    • Chroot Jails
+	3 Web
+	    • Standard
+	    • VHosts
+
+Stage 05- Automation & System Management
+	1 Scripting
+	2 LVM Management
+	Stage 06- Backup, Maintenance, & Monitoring
+	1 SystemD
+	    • Basics
+	2 Monitoring & Trouble-Shooting
+	3 Virtual Machines (VirtualBox)
+	Stage 07- Advanced Operations
+	1 Hardening
+	2 Version Control
+	    • Git
+	3 Configuration Management
+	    • Puppet

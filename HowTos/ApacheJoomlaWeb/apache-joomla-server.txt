@@ -1,0 +1,212 @@
+My Apache2 Web-Server setup, with Joomla
+
+Setup- Step-By-Step
+    This is based on my setup, using Virtuabox and OpenSUSE-Leap-15.0
+Install VirtualBox from your distro's repositories
+  Add YOUR user to group vboxusers 
+    With SUSE this is easy with [CLI] yast2 users # [TUI] TAB between tabs, menus, and fields
+  Or
+    [CLI] usermod -a -G vboxusers <username> # To append vboxusers to the groups <username> is a member of
+  Your user needs to logout and login again to take affect.
+  Do [CLI] id <username> # To confirm group membership
+Launch Virtualbox and create the linux VM
+  [CLI] Virtualbox # Opens the x-gui Virtualbox window
+  Or Select the application from your applications Menu
+  Select NEW and populate the drop-down menus with your specs
+  Be sure to-
+    Use a simple name for VM
+    Mem = minimum 2G
+    Disk = minimum 20G
+  Before starting the VM select the Settings for the VM and set your Network settings needs
+  Start the new VM and select the folder to navigate to the linux ISO you want to use for this VM
+  Begin the Installation process for your distro
+    My personal installation prefs- # All available with SUSE
+      Filesystem = LVM with separate partions, including /srv
+      X = Minimal X, DE = XFCE (or fatter Gnome)
+      Startup Mode = runlevel/init 3
+      Server Pattern = LAMP/WEB Server
+      Additional = C++/GCC, Puppet, Salt
+      Remove = Browser/s, Office, Games
+  When complete, reboot the VM
+SSH to the VM and Login to the VM, become root - Either remain root or add your user to the sudoers
+    Set your Network settings, DNS, Default Route/Gateway, and Hostname
+    Enable SSHD, ensure ports are open
+    Enable any addtional repos you may want/need
+    Update/Patch the OS to ALL the latest available Patches & Updates
+  Reboot
+SSH to the VM and Login to the VM, become root/sudo
+  Install all applications/packages from the lists in this document
+    Apache2, mysql/sqlite, mariadb, PHPx [where x is the latest release availble],
+  Enabble and start all Services from the lists in this document
+  Enable all needed Apache modules as listed in this document
+  Set your DocumentRoot directory structure
+    /srv/www/htdoccs/<sitename>
+    /srv/www/tools
+  Set the mysql root password from the lists in this document
+  Create the mysql DATABASE as from the lists in this document
+  Create and configure the vhost in /etc/apache2/vhosts.d/
+    [CLI] cp /etc/apache2/vhosts.d/vhost.template /etc/apache2/vhosts.d/<sitename>.conf 
+    [CLI] vi /etc/apache2/vhosts.d/<sitename>.conf
+      [<sitename>.conf]
+        <VirtualHost *>
+         DocumentRoot /srv/www/htdocs/<sitename>
+         ServerName <sitename>.com
+         ServerAdmin admin@<sitename>.com
+         <Directory /srv/www/htdocs/<sitename>>
+          AllowOverride All
+          Require all granted
+          DirectoryIndex index.php
+         </Directory>
+         UserDir public_html
+        </VirtualHost>
+  Get the Joomla package file tarball
+    cd /srv/www/tools
+    wget https://downloads.joomla.org/us/cms/joomla3/3-8-6/Joomla_3-8-6-Stable-Full_Package.tar.gz
+       Be sure that the version number matches the Latest- Joomla3/3-8-6 was latest at time of this writing
+  Decompress and configure Joomla
+    cd /srv/www/htdocs/<sitename>
+    cp ../../tools/Joomla_3-8-6-Stable-Full_Package.tar.gz .
+    tar -xzvf Joomla_3-8-6-Stable-Full_Package.tar.gz
+    touch configuration.php
+    chown -R wwwrun:www /srv/www/htdocs/
+  Restart all Services- apache2 & mysql
+  Be Sure that your hostname is configured correctly-
+    [CLI] hostname # Should show short name
+    [CLI] hostname # Should show FQDN
+Launch Virtualbox and take a snapshot
+Edit your /etc/hosts with the info for your webserver VM
+  [/etc/hosts]
+    <IP-ADDRESS>   <FQDN> <short-name>
+Launch a web browser, and input URL- 
+  [Browser]
+    http://<FQDN>
+If all is well you'll see the initial Joomla Configuration & Installation page.
+  Pay VERY close attention to ALL Options, Warnings, Errors, Drop-Down-Menus, etc.
+If NOT, then review all logs and try and debug, as this works for me every time-
+
+-  If I missed a step, I will update this doc, if the reader finds the missing step/s, or has any other suggestions please feel free to email me-
+seaphoratwoodbeecodotcom
+
+Lists in this document
+
+Installed Packages-
+Apache2 Packages-
+S  | Name                  | Summary                                          | Type   
+---+-----------------------+--------------------------------------------------+--------
+i  | apache2               | The Apache Web Server Version 2.4                | package
+i  | apache2-devel         | Apache 2 Header and Include Files                | package
+i  | apache2-doc           | Additional Package Documentation                 | package
+i  | apache2-example-pages | Example Pages for the Apache 2 Web Server        | package
+i  | apache2-mod_perl      | Embedded Perl for Apache                         | package
+i+ | apache2-mod_php7      | PHP7 module for the Apache 2.x webserver         | package
+i  | apache2-prefork       | Apache 2 "prefork" MPM (Multi-Processing Module) | package
+i  | apache2-utils         | Apache 2 utilities                               | package
+
+SQL Packages-
+S  | Name                           | Summary                                        | Type   
+---+--------------------------------+-----------------------------------------------------------------------+--------
+i  | libmysqlcppconn7               | MySQL Connector/C++: Standardized database     |
+                                       driver for C++ development | package
+i  | libreoffice-base-drivers-mysql | MySQL Database Driver for LibreOffice          | package
+i  | libsqlite3-0                   | Shared libraries for the Embeddable SQL        |
+                                       Database Engine                               | package
+i  | perl-DBD-SQLite                | Self-contained RDBMS in a DBI Driver           | package
+i  | perl-DBD-mysql                 | MySQL driver for the Perl5 Database Interface  |
+                                       (DBI)                                         | package
+i  | perl-SQL-Statement             | SQL parsing and processing engine              | package
+i+ | php7-mysql                     | MySQL database client for PHP                  | package
+i  | php7-sqlite                    | SQLite database client for PHP                 | package
+i  | psqlODBC                       | ODBC Driver for PostgreSQL                     | package
+
+Mariadb Packages-
+S  | Name                  | Summary                                                           | Type   
+---+-----------------------+-------------------------------------------------------------------+--------
+i+ | libmariadb-devel      | Development files for the MariaDB Connector C API                 | package
+i  | libmariadb3           | MariaDB connector in C                                            | package
+i  | mariadb               | Server part of MariaDB                                            | package
+i  | mariadb-client        | Client for MariaDB                                                | package
+i  | mariadb-errormessages | The error messages files required by server, client and libmysqld | package
+i+ | mariadb-tools         | MariaDB tools                                                     | package
+
+Installed PHP Packages-
+S  | Name             | Summary                                                | Type   
+---+------------------+--------------------------------------------------------+--------
+i+ | apache2-mod_php7 | PHP7 module for the Apache 2.x webserver               | package
+i+ | php7             | Interpreter for the PHP scripting language version 7   | package
+i  | php7-ctype       | Character class extension for PHP                      | package
+i  | php7-dom         | Document Object Model extension for PHP                | package
+i+ | php7-gd          | GD Graphics Library extension for PHP                  | package
+i  | php7-iconv       | Character set conversion functions for PHP             | package
+i  | php7-json        | JSON (de)serializer functions for PHP                  | package
+i+ | php7-mbstring    | Multibyte string functions for PHP                     | package
+i+ | php7-mysql       | MySQL database client for PHP                          | package
+i  | php7-pdo         | PHP Data Objects extension for PHP                     | package
+i  | php7-sqlite      | SQLite database client for PHP                         | package
+i  | php7-tokenizer   | Extension module to access Zend Engine's PHP tokenizer | package
+i  | php7-xmlreader   | Streaming XML reader extension for PHP                 | package
+i  | php7-xmlwriter   | Streaming-based XML writer extension for PHP           | package
+i+ | php7-zlib        | Zlib compression support for PHP                       | package
+
+Manually installed modules-
+ a2enmod php7
+ a2enmod rewrite
+ a2enmod proxy
+ a2enmod proxy_http
+
+Apache2 Modules Loaded-
+From Output of 'apache2ctl -M'
+ core_module (static)
+ so_module (static)
+ http_module (static)
+ mpm_prefork_module (static)
+ unixd_module (static)
+ systemd_module (static)
+ actions_module (shared)
+ alias_module (shared)
+ auth_basic_module (shared)
+ authn_file_module (shared)
+ authz_host_module (shared)
+ authz_groupfile_module (shared)
+ authz_core_module (shared)
+ authz_user_module (shared)
+ autoindex_module (shared)
+ cgi_module (shared)
+ dir_module (shared)
+ env_module (shared)
+ expires_module (shared)
+ include_module (shared)
+ log_config_module (shared)
+ mime_module (shared)
+ negotiation_module (shared)
+ setenvif_module (shared)
+ ssl_module (shared)
+ socache_shmcb_module (shared)
+ userdir_module (shared)
+ reqtimeout_module (shared)
+ authn_core_module (shared)
+ php7_module (shared)
+ rewrite_module (shared)
+ proxy_module (shared)
+ proxy_http_module (shared)
+
+Mysql commands-
+ mysqlshow 
+ mysql -u root
+ systemctl restart mysql.service 
+ mysqlaccess 
+ mysql_secure_installation
+ mysql -u root -p
+Mysql shell commands-
+ create database mysitename;
+ show databases;
+ SET PASSWORD FOR 'root'@'localhost' = PASSWORD('secretpasswd');
+
+Services-
+ systemctl status apache2.service 
+ systemctl enable apache2.service
+ systemctl start apache2.service 
+ systemctl restart apache2.service 
+ systemctl status mysql.service 
+ systemctl enable mysql.service 
+ systemctl status mysql.service 
+
