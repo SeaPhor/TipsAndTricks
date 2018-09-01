@@ -70,43 +70,57 @@ https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code
 EOT
 }
 #
-function show_opts
-{
-printf "\n$LTCYN$BOLD$BGYLLW\tUsage-$RESET$LTMAG
-  sh $PROGNAME$YELLOW [$LTCYN option | option-info$YELLOW ] optional-$LTCYN quiet$YELLOW for non-interactive
-  EXAMPLE-$LTMAG $PROGNAME pep8$YELLOW or $LTMAG $PROGNAME pep8 quiet
-"
-printf "$LTCYN$BOLD$BGYLLW\tOptions-$RESET$YELLOW
-$ULINE  Option\tShort Desc.\t  Description$LTCYN$NULINE
-  []$BOLD\t\tNone\t\t$RESET$LTCYN  Shows this menu and exits. same as help
-  [help]$BOLD\tHelp\t\t$RESET$LTCYN  Shows the entire menu and exits
-  [sobj]$BOLD\tObjective\t$RESET$LTCYN  Show the Objective for this script and all coding,\n\t\t\t\t  commands, and structure.
-  [vers]$BOLD\tVersion\t\t$RESET$LTCYN  Shows this revision's Verion and exits.$YELLOW
+show_opts () {
+	cat <<EOT
+
+${LTCYN}${BOLD}${BGYLLW}    Usage-${RESET}${LTMAG}
+  sh${PROGNAME}${YELLOW} [${LTCYN} option | option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
+  EXAMPLE-${LTMAG}${PROGNAME} pep8${YELLOW} or ${LTMAG}${PROGNAME} pep8 quiet
+
+${LTCYN}${BOLD}${BGYLLW}    Options-${RESET}${YELLOW}${ULINE}
+  Option    Short Desc.    Description${LTCYN}${NULINE}
+  []${BOLD}    None           ${RESET}${LTCYN}  Shows this menu and exits. same as help
+  [help]${BOLD}    Help       ${RESET}${LTCYN}  Shows the entire menu and exits
+  [sobj]${BOLD}    Objective  ${RESET}${LTCYN}  Show the Objective for this script and all coding,
+                          commands, and structure.
+  [vers]${BOLD}    Version    ${RESET}${LTCYN}  Shows this revision's Verion and exits.${YELLOW}
   Options Below have an 'INFO' option-
-    [-info]\t Information\t  Add to the end of option the '-info' to get\n\t\t\t\t  more detailed description-\n\t\t\t\t  EXAMPLE-$LTMAG $PROGNAME meta-info$LTCYN
-  [meta]$BOLD\tMeta Chars\t$RESET$LTCYN  Shows ways to remove files with names that are\n\t\t\t\t  meta-characters including by-inode number.
-  [lvmn]$BOLD\tLVM Notes\t$RESET$LTCYN  Shows LVM management for adding a disk.
-  [tool]$BOLD\tUseful Tools\t$RESET$LTCYN  Tools- Security, Monitoring, and troubleshooting
-  [umnt]$BOLD\tMonitor Tips\t$RESET$LTCYN  Tips for Monitoring and troubleshooting
-  [vims]$BOLD\tVIM Tips\t$RESET$LTCYN  Helpful vim shortcuts and tips.
-  [pend]$BOLD\tPrepend\t\t$RESET$LTCYN  Prepend the beginning of every line in a file\n$BOLD\t\tAppend\t\t$RESET$LTCYN  Or, append to the end of every line in a file.
-  [seds]$BOLD\tSed Stuff\t$RESET$LTCYN  Helpful Replacement shortcuts and tips- sed, tr, etc.
-  [emty]$BOLD\tEmpty Lines\t$RESET$LTCYN  Remove Empty Lines in a file, including \n\t\t\t\t  white-space, tabs, and commented lines.
-  [sftp]$BOLD\tSFTP Chroot\t$RESET$LTCYN  Create a secure SFTP environment using\n\t\t\t\t  a chroot-jail file system structure.
-  [susr]$BOLD\tUserAdd SFTP\t$RESET$LTCYN  Create a secure SFTP user and password with hash,\n\t\t\t\t  in a chroot-jail environment.
-  [expr]$BOLD\tExpressions\t$RESET$LTCYN  Full list and explanation of Conditional\n\t\t\t\t  and Regular Expressions.
-  [pep8]$BOLD\tPEP8 Tools\t$RESET$LTCYN  PEP8 Living Doc- Code compliane structure and tips.
-  [irsi]$BOLD\tIRSSI Tips\t$RESET$LTCYN  IRSSI Living Doc- Helpful Info and tips.
-  [link]$BOLD\tMy Links\t$RESET$LTCYN  Links to various helpful tools, tips, tutorials, etc.
-  [read]$BOLD\tUser Input\t$RESET$LTCYN  Request user input in bash script, supress the stdin/out
-  [date]$BOLD\tCustom Date\t$RESET$LTCYN  Using custom date command in scripts and/or cli
-  [type]$BOLD\tType Command\t$RESET$LTCYN  Using the type command to find other command in scripting.
-  [colr]$BOLD\tAdd Colors\t$RESET$LTCYN  Add colors and effects to the output of your\n\t\t\t\t   scripts asn commands.
-  [cows]$BOLD\tLogin Profile\t$RESET$LTCYN  Silly little hack so you will have a fortune\n\t\t\t\t   each time you log in. -Also has cows-info
-  [gtal]$BOLD\tGit Aliases\t$RESET$LTCYN  Add Aliases to short-cuts to git commands in ~/.gitconfig
-  [gtbr]$BOLD\tGit Branches\t$RESET$LTCYN  Working with Branches in GIT
-  [gitl]$BOLD\tGitLab Setup\t$RESET$LTCYN  Setup your own GitLab Server from Beginning to end.$RESET
-\n"
+    [-info]    Information     Add to the end of option the '-info' to get
+                               more detailed description-
+                            EXAMPLE-${LTMAG}${PROGNAME}meta-info${LTCYN}
+  [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are
+                           meta-characters including by-inode number.
+  [lvmn]${BOLD}    LVM Notes${RESET}${LTCYN}     Shows LVM management for adding a disk.
+  [tool]${BOLD}    Useful Tools${RESET}${LTCYN}  Tools- Security, Monitoring, and troubleshooting
+  [umnt]${BOLD}    Monitor Tips${RESET}${LTCYN}  Tips for Monitoring and troubleshooting
+  [vims]${BOLD}    VIM Tips${RESET}${LTCYN}      Helpful vim shortcuts and tips.
+  [pend]${BOLD}    Prepend${RESET}${LTCYN}       Prepend the beginning of every line in a file
+${BOLD}            Append${RESET}${LTCYN}        Or, append to the end of every line in a file.
+  [seds]${BOLD}    Sed Stuff${RESET}${LTCYN}     Helpful Replacement shortcuts and tips- sed, tr, etc.
+  [emty]${BOLD}    Empty Lines${RESET}${LTCYN}   Remove Empty Lines in a file, including
+                           white-space, tabs, and commented lines.
+  [sftp]${BOLD}    SFTP Chroot${RESET}${LTCYN}   Create a secure SFTP environment using
+                           a chroot-jail file system structure.
+  [susr]${BOLD}    UserAdd SFTP${RESET}${LTCYN}  Create a secure SFTP user and password with hash,
+                           in a chroot-jail environment.
+  [expr]${BOLD}    Expressions${RESET}${LTCYN}   Full list and explanation of Conditional
+                           and Regular Expressions.
+  [pep8]${BOLD}    PEP8 Tools${RESET}${LTCYN}    PEP8 Living Doc- Code compliane structure and tips.
+  [irsi]${BOLD}    IRSSI Tips${RESET}${LTCYN}    IRSSI Living Doc- Helpful Info and tips.
+  [link]${BOLD}    My Links${RESET}${LTCYN}      Links to various helpful tools, tips, tutorials, etc.
+  [read]${BOLD}    User Input${RESET}${LTCYN}    Request user input in bash script, supress
+                           the stdin/out
+  [date]${BOLD}    Custom Date${RESET}${LTCYN}   Using custom date command in scripts and/or cli
+  [type]${BOLD}    Type Command${RESET}${LTCYN}  Using the type command to find other command in scripting.
+  [colr]${BOLD}    Add Colors${RESET}${LTCYN}    Add colors and effects to the output of your
+                           scripts and commands.
+  [cows]${BOLD}    Login Profile${RESET}${LTCYN} Silly little hack so you will have a fortune
+                           each time you log in. -Also has cows-info
+  [gtal]${BOLD}    Git Aliases${RESET}${LTCYN}   Add Aliases to short-cuts to git commands in ~/.gitconfig
+  [gtbr]${BOLD}    Git Branches${RESET}${LTCYN}  Working with Branches in GIT
+  [gitl]${BOLD}    GitLab Setup${RESET}${LTCYN}  Setup your own GitLab Server from Beginning to end.${RESET}
+
+EOT
 }
 #
 [[ ${MYOPT} ]] || { show_opts; echo -e "\t${BOLD}${RED}Requires at least 1 parameter\n${RESET}"; exit 1; }
