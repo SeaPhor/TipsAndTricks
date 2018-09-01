@@ -216,27 +216,27 @@ Using tr and awk to parse a file with 4 digit strings within brackets,
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function rem_meta
-{
-printf "$LTCYN $BOLD
-\t Removing files with special characters and by inode-$RESET $CYAN
-https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such$RESET $LTMAG
+rem_meta () {
+	cat <<EOT
+
+${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYAN}
+https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such${RESET}${LTMAG}
 Tip #1: Put filenames in quotes
 Tip #3: Try a ./ at the beginning of the filename or absolute path
-Tip #4: Try a -- at the beginning of the filename$RESET $YELLOW
+Tip #4: Try a -- at the beginning of the filename${RESET}${YELLOW}
 Tip #5: Remove file by an inode number
-# ls -li$RESET $LTYLLW #Find the inode <nnnnnnn> of the file$RESET $YELLOW
+# ls -li${RESET}${LTYLLW} #Find the inode <nnnnnnn> of the file${RESET}${YELLOW}
 # find . -inum <nnnnnnn> -delete
-# find . -inum <nnnnnnn> -exec rm -i {} \; $RESET $LTYLLW
-If you just typo'd and want to keep the file-$RESET $YELLOW
-# find . -inum <nnnnnnn> -exec cp {} <goodname> \; $RESET $LTYLLW
-  OR $RESET $YELLOW
-# find . -inum <nnnnnnn> -exec cp -a {} <goodname> \;
-\n$RESET
-"
+# find . -inum <nnnnnnn> -exec rm -i {} \;${RESET}${LTYLLW}
+If you just typo'd and want to keep the file-${RESET}${YELLOW}
+# find . -inum <nnnnnnn> -exec cp {} <goodname> \;${RESET}${LTYLLW}
+  OR ${RESET}${YELLOW}
+# find . -inum <nnnnnnn> -exec cp -a {} <goodname> \;${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function meta_info
 {
