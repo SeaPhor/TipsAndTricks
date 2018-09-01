@@ -393,73 +393,91 @@ ${LTMAG}${BOLD}  Tools for Security, Monitoring, and troubleshooting${RESET}${YE
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function tool_info
-{
-printf "\n\t No Info for tool yet- In-Progress... coming soon\n "
+tool_info () {
+	cat <<EOT
+
+    No Info for tool yet- In-Progress... coming soon
+
+EOT
 }
 #
 ###    Replacing TABS with 4 spaces for PEP8 Compliance
-function rep_tabs
-{
-REPNEW='\\t'
-printf "$LTCYN$BOLD    Replacing all TABS with 4 SPACES for PEP8 Compliance\n$RESET$CYAN  I prefer the expand command over sed because that is what it is for-$RESET$YELLOW$BOLD
-  expand command, In lines that begin with a TAB-$RESET$LTYLLW
-#  expand -i -t 4 input | sponge output$RESET$YELLOW
+rep_tabs () {
+	cat <<EOT
+
+${BOLD}${LTCYN}    Replacing all TABS with 4 SPACES for PEP8 Compliance$RESET$CYAN
+  I prefer the expand command over sed because that is what it is for-${BOLD}${YELLOW}
+  expand command, In lines that begin with a TAB-${RESET}${LTYLLW}
+#  expand -i -t 4 input | sponge output${YELLOW}
     where
     -i is used to expand only leading tabs on each line;
     -t 4 means that each tab will be converted to 4 whitespace chars (8 by default).
-    sponge is from the moreutils package, and avoids clearing the input file.$RESET$LTYLLW
-#  expand -i -t 4 input | sponge tstoutput && mv tstoutput input$RESET$YELLOW$BOLD
-\n  sed command, In ALL lines-$RESET$YELLOW
+    sponge is from the moreutils package, and avoids clearing the input file.${LTYLLW}
+#  expand -i -t 4 input | sponge tstoutput && mv tstoutput input${BOLD}${YELLOW}
+
+  sed command, In ALL lines-${RESET}${YELLOW}
     Use backslash-escaped sed.
-  Replace all tabs with 1 hyphen inplace, in all *.txt files:$RESET$LTYLLW
-# sed -i 's/$REPNEW/-/g' *.txt$RESET$YELLOW
-  Replace all tabs with 1 space inplace, in all *.txt files:$RESET$LTYLLW
-# sed -i 's/$REPNEW/ /g' *.txt$RESET$YELLOW
-  Replace all tabs with 4 spaces inplace, in all *.txt files:$RESET$LTYLLW
-# sed -i 's/$REPNEW/    /g' *.txt\n$RESET
-"
-}
-function tabs_info
-{
-printf "\n\t No Info for tabs yet- In-Progress... coming soon\n "
+  Replace all tabs with 1 hyphen inplace, in all *.txt files:${LTYLLW}
+# sed -i 's/\t/-/g' *.txt${YELLOW}
+  Replace all tabs with 1 space inplace, in all *.txt files:${LTYLLW}
+# sed -i 's/\t/ /g' *.txt${YELLOW}
+  Replace all tabs with 4 spaces inplace, in all *.txt files:${LTYLLW}
+# sed -i 's/\t/    /g' *.txt${RESET}
+
+EOT
 }
 #
-function sed_cmds
-{
-printf "\n\t$LTCYN$BOLD  Helpful Replacement shortcuts and tips- sed, tr, etc.$RESET$LTYLLW \n \t Output Deleting a individual line in a file [Line #3] $RESET$LTMAG
- $ sed '3d' file $RESET$LTYLLW
-\t Delete a individual line in a file [Line #3] $RESET$LTMAG
- $ sed -i '3d' file$RESET$LTYLLW
-\t Delete a range of lines, [2nd line till 4th line] $RESET$LTMAG
- $ sed '2,4d' file$RESET$LTYLLW
-\t Delete the lines starting from the 3rd line till encountering the pattern 'Linux' $RESET$LTMAG
- $ sed '1,/Linux/d' file
-\t$RESET$YELLOW Resource-
-  $RESET$CYAN  http://www.theunixschool.com/2012/06/sed-25-examples-to-delete-line-or.html
-$RESET$LTCYN\n\t Remove Spaces in filenames and replace with underscore-\n$RESET$LTYLLW  Best amd easiest wasy I know of...$RESET$LTMAG
- $ for f in *\\ *; do mv \"\$f\" \"\${f// /_}\"; done\n$RESET$LTYLLW  In script form for standardized code...$RESET$LTMAG
-for f in *\\ *
+tabs_info () {
+	cat <<EOT
+
+    No Info for tabs yet- In-Progress... coming soon
+
+EOT
+}
+#
+sed_cmds () {
+	cat <<EOT
+
+${BOLD}${LTCYN}    Helpful Replacement shortcuts and tips- sed, tr, etc.${RESET}${LTYLLW}
+
+    Output Deleting a individual line in a file [Line #3]${LTMAG}
+ $ sed '3d' file${LTYLLW}
+ Delete a individual line in a file [Line #3]${LTMAG}
+ $ sed -i '3d' file${LTYLLW}
+ Delete a range of lines, [2nd line till 4th line]${LTMAG}
+ $ sed '2,4d' file${LTYLLW}
+ Delete the lines starting from the 3rd line till encountering the pattern 'Linux'${LTMAG}
+ $ sed '3,/Linux/d' file${YELLOW}
+    Resource-${CYAN}
+http://www.theunixschool.com/2012/06/sed-25-examples-to-delete-line-or.html${LTCYN}
+
+    Remove Spaces in filenames and replace with underscore-${LTYLLW}
+  Best amd easiest wasy I know of...${LTMAG}
+ $ for f in *\ *; do mv "\$f" "\${f// /_}"; done${LTYLLW}
+  In script form for standardized code...${LTMAG}
+for f in *\ *
 do
-    mv \"\$f\" \"\${f// /_}\"
-done
-\t$RESET$YELLOW Resource-
-  $RESET$CYAN  https://stackoverflow.com/questions/2709458/how-to-replace-spaces-in-file-names-using-a-bash-script
-$RESET$LTCYN $BOLD
-\t Remove Empty Lines in a file, including white-space and tabs...$RESET $YELLOW
-Using sed example-$RESET $CYAN
-# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\\s*$/d'
-$RESET
-"
+    mv "\$f" "\${f// /_}"
+done${YELLOW}
+    Resource-${CYAN}
+ https://stackoverflow.com/questions/2709458/how-to-replace-spaces-in-file-names-using-a-bash-script${BOLD}${LTCYN}
+    Remove Empty Lines in a file, including white-space and tabs...${YELLOW}
+Using sed example-${CYAN}
+# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}
+EOT
 rep_tabs
 rem_emty
 }
-function seds_info
-{
-echo -e "\n\t No Info for seds yet- In-Progress... coming soon\n "
+#
+seds_info () {
+	cat <<EOT
+
+No Info for seds yet- In-Progress... coming soon
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function pep_eight
 {
