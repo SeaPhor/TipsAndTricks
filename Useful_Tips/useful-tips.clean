@@ -236,17 +236,18 @@ If you just typo'd and want to keep the file-${RESET}${YELLOW}
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function meta_info
-{
-printf "$LTCYN $BOLD
-\t Removing files with special characters and by inode-$RESET $CYAN
-https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such $RESET $LTYLLW
-\t  Sometimes we find, or create a file with special characters, a '-' prepending the filename, or other special characters in the filename that prevents us from being able to move, copy, or delete them, and outputs an error- [$RESET$LTRED <partial-filename> No such file...$RESET$LTYLLW ].
-\t  This Option gives a few ways to accomplish what we need to do.
-\n $RESET"
+meta_info () {
+	cat <<EOT
+
+${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYAN}
+https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such${RESET}${LTYLLW}
+    Sometimes we find, or create a file with special characters, a '-' prepending the filename, or other special characters in the filename that prevents us from being able to move, copy, or delete them, and outputs an error- [${RESET}${LTRED} <partial-filename> No such file...${RESET}${LTYLLW} ].
+    This Option gives a few ways to accomplish what we need to do.${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 ###    Monitoring and Troubleshooting
 function mon_troub
