@@ -354,43 +354,47 @@ Executing pvdisplay again shows the /dev/sdb is now part of VG system:${LTCYN}
 
 EOT
 }
+#
+add_prefix () {
+	cat <<EOT
+
+${YELLOW}    To add a character to the beginning of every line in myfile.txt${RESET}${LTMAG}
+# sed 's/^/#/' myfile.txt >> myfile-commented.txt${RESET}${YELLOW}
+ Or${RESET}${LTMAG}
+# sed -i 's/^/#/' myfile.txt${RESET}${YELLOW}
+
+    Also, add a space & character to the end of every line in myfile.txt${RESET}${LTMAG}
+# sed -i 's/$/\ #/' myfile.txt${RESET}
+
+EOT
+}
+#
+use_tools () {
+	cat <<EOT
+
+${LTMAG}${BOLD}  Tools for Security, Monitoring, and troubleshooting${RESET}${YELLOW}
+    Monitoring & troubleshooting${LTCYN}
+  nmon${CYAN} - In most distributions repositories${LTCYN}
+  sysstat${CYAN} - In most distributions repositories${LTCYN}
+  htop${CYAN} - In most distributions${LTCYN}
+  Nagios${CYAN} - Availabale at https://www.nagios.org/projects/nagios-core/${YELLOW}
+    Security Settings${LTYLLW}
+  PermitRootLogin${LTCYN} without-password${YELLOW} or${LTCYN} no${CYAN} - In /etc/ssh/sshd_config${LTYLLW}
+  AllowGroups${LTMAG} OR${LTYLLW}  AllowUsers${CYAN} - In /etc/ssh/sshd_config${LTYLLW} to limit who can even login${YELLOW}
+    System Mangement${LTCYN}
+  Puppet${CYAN} - In SUSE repos, or from puppelabs.org, manages all OSs${LTCYN}
+  Git${CYAN} - In most distributions repositories${LTCYN}
+  GitLab Server${CYAN} - See http://woodbeeco.com/docs/GitLab_Setup.pdf${LTCYN}
+  PXE-Boot Server${CYAN} - Doc. Coming soon at http://woodbeeco.com${YELLOW}
+    Enterprise Level tools${LTCYN}
+  SUSE Manager Server${CYAN} - Manages SLES & RHEL, PXE-Boot AutoInstall, has Salt Built-In for management and provisioning.${LTCYN}
+  SaltStack${CYAN} - Manages All OSs, Config Management, provisioning, deploying- on-prem & Cloud${LTRED}
+    NOTE: I will not add any items here that are not OS-Agnostic, Support ALL/Most or stay HOME!${RESET}
+
+EOT
+}
 ###@COMPLETEDTESTED
 #
-function add_prefix
-{
-echo -e "$YELLOW
-\tTo add a character to the beginning of every line in myfile.txt$RESET $LTMAG
-# sed 's/^/#/' myfile.txt >> myfile-commented.txt$RESET $YELLOW
- Or$RESET $LTMAG
-# sed -i 's/^/#/' myfile.txt$RESET $YELLOW
-\n\tAlso, add a space & character to the end of every line in myfile.txt$RESET $LTMAG
-# sed -i 's/$/\\ #/' myfile.txt
-\n $RESET "
-}
-#
-function use_tools
-{
-printf "$LTMAG $BOLD
-  Tools for Security, Monitoring, and troubleshooting$RESET
-\t$YELLOW  Monitoring & troubleshooting $RESET
-$LTCYN  nmon$RESET $CYAN - In most distributions repositories$RESET
-$LTCYN  sysstat$RESET $CYAN - In most distributions repositories$RESET
-$LTCYN  htop$RESET $CYAN - In most distributions$RESET
-$LTCYN  Nagios$RESET $CYAN - Availabale at https://www.nagios.org/projects/nagios-core/$RESET
-$YELLOW \t  Security Settings $RESET
-$LTYLLW  PermitRootLogin$RESET$LTCYN without-password$RESET $CYAN - In /etc/ssh/sshd_config$RESET
-$LTYLLW  AllowGroups $RESET $LTMAG OR $RESET $LTYLLW  AllowUsers$RESET $CYAN - In /etc/ssh/sshd_config$RESET
-$YELLOW \t  System Mangement $RESET
-$LTCYN  Puppet$RESET $CYAN - In SUSE repos, or from puppelabs.org, manages all OSs$RESET
-$LTCYN  Git$RESET $CYAN - In most distributions repositories$RESET
-$LTCYN  GitLab Server$RESET $CYAN - See http://woodbeeco.com/docs/GitLab_Setup.pdf$RESET
-$LTCYN  PXE-Boot Server$RESET $CYAN - Doc. Coming soon at http://woodbeeco.com$RESET
-$YELLOW \t  Enterprise Level tools $RESET
-$LTCYN  SUSE Manager Server$RESET $CYAN - Manages SLES & RHEL, PXE-Boot AutoInstall, has Salt Built-In for management, $RESET
-$LTCYN  SaltStack$RESET $CYAN - Manages All OSs, Config Management, provisioning, deploying- on-prem & Cloud$RESET
-$LTRED \n    NOTE: I will not add any items here that are not OS-Agnostic, Support ALL/Most or stay HOME! $RESET
-\n "
-}
 function tool_info
 {
 printf "\n\t No Info for tool yet- In-Progress... coming soon\n "
