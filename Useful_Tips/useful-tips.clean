@@ -202,21 +202,21 @@ ${LTCYN}${BOLD}    Helpful vim shortcuts and tips${RESET}${YELLOW}
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function rem_emty
-{
-printf "$LTCYN $BOLD
-\t Remove Empty Lines in a file, including white-space and tabs...$RESET $YELLOW
-Using sed example-$RESET $CYAN
-# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'
-$RESET $YELLOW
-Using tr and awk to parse a file with 4 digit strings within brackets,\n and then have the output linier rather than vertical,\n and then remove the leading bracket-$RESET"
-echo "$CYAN
-# cat myfile.txt | grep \"\\[....\\]\" | awk -F] '{print \$1}' | tr -d '\n' | tr -d '['
-$RESET
-"
+rem_emty () {
+	cat <<EOT
+${LTCYN}${BOLD}    Remove Empty Lines in a file, including white-space and tabs...${RESET}${YELLOW}
+Using sed example-${RESET}${CYAN}
+# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}${YELLOW}
+Using tr and awk to parse a file with 4 digit strings within brackets,
+ and then have the output linier rather than vertical,
+ and then remove the leading bracket-${RESET}${CYAN}
+
+# cat myfile.txt | grep "\[....\]" | awk -F] '{print \$1}' | tr -d '\n' | tr -d '['${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function rem_meta
 {
