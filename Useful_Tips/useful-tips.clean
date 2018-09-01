@@ -43,26 +43,31 @@ RESET=`tput sgr0`
 ###########################################
 #
 ### Sticky- Keep at top
-function show_objective
-{
-printf "\n\t $LTYLLW $BOLD Objective- Effective Code Writing and Execution$RESET $LTCYN
+show_objective () {
+    cat <<EOT
+
+${LTYLLW}${BOLD}    Objective- Effective Code Writing and Execution${RESET}${LTCYN}
   1. Evaluate conditions
   2. Take actions
-  3. Carry out tasks, repeat some of them$LTYLLW [with functions and variables- NOT code]$LTCYN
-  4. Cleanup and close. $LTYLLW
-\t   Desired End Results$LTCYN
+  3. Carry out tasks, repeat some of them${LTYLLW} [with functions and variables- NOT code]${LTCYN}
+  4. Cleanup and close. ${LTYLLW}
+    Desired End Results${LTCYN}
   1. Must be OS/Release Agnostic
   2. Must be scalable and allow for growth
-  3. Must be adaptable- able to adjust with changed/better tools easily$LTYLLW [variables]$LTCYN
+  3. Must be adaptable- able to adjust with changed/better tools easily${LTYLLW} [variables]${LTCYN}
   4. Must be portable
   5. Must have structure, order, and Comments for easy reading/debugging
-  6. Must use The$BOLD$LTYLLW DRY$RESET$LTCYN (Don't Repeat Yourself) principle, which states that you\n     should never repeat the same piece of code more than once in your application
-$RESET
-"
-printf "\t$YELLOW$BOLD PEP8 Compliance Guidelines and suggested Resolution\n\t$LTYLLW PEP8 is technically for Python coding but we believe it is a good\n  standard for all coding.$YELLOW
-\t  Find more at $CYAN \nhttps://www.datacamp.com/community/tutorials/pep8-tutorial-python-code\n And Here-  https://www.python.org/dev/peps/pep-0008/\n$RESET
-"
-#sleep 3
+  6. Must use The${BOLD}${LTYLLW} DRY${RESET}${LTCYN} (${BOLD}${LTYLLW}D${RESET}${LTCYN}on't ${BOLD}${LTYLLW}R${RESET}${LTCYN}epeat ${BOLD}${LTYLLW}Y${RESET}${LTCYN}ourself) principle, which states that you
+     should never repeat the same piece of code more than once in your application${RESET}
+
+${YELLOW}${BOLD}    PEP8 Compliance Guidelines and suggested Resolution${LTYLLW}
+    PEP8 is technically for Python coding but we believe it is a good
+  standard for all coding.${YELLOW}
+  Find more at${CYAN}
+https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code
+ And Here-  https://www.python.org/dev/peps/pep-0008/${RESET}
+
+EOT
 }
 #
 function show_opts
@@ -104,7 +109,7 @@ $ULINE  Option\tShort Desc.\t  Description$LTCYN$NULINE
 \n"
 }
 #
-[[ ${MYOPT} ]] || { show_opts; echo -e "\tRequires at least 1 parameter\n"; exit 1; }
+[[ ${MYOPT} ]] || { show_opts; echo -e "\t${BOLD}${RED}Requires at least 1 parameter\n${RESET}"; exit 1; }
 #
 function set_chroot
 {
