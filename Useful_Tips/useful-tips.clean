@@ -125,58 +125,59 @@ EOT
 #
 [[ ${MYOPT} ]] || { show_opts; echo -e "\t${BOLD}${RED}Requires at least 1 parameter\n${RESET}"; exit 1; }
 #
-function set_chroot
-{
-    PASSP="`echo '/sftp/chroot/home/%' | sed -e 's/$/u/' `"
-echo -e "$LTCYN $BOLD
-\t Create a secure SFTP environment with chroot-jailed users.
-\t There are some things are required before this will function properly-$RESET$YELLOW
-  The base file structure must exist and be OWNED by root,\n  preferably on it's own partition [see lvmn option]
-    For this example we'll use /sftp/chroot/home/ as the 'root'\n    of the chroot environment.$LTCYN $BOLD
-  Requirements- $RESET $LTRED
-\t 1. Create the sftp group to be jailed [example below- 'sftponly' ]
-\t 2. Set the sftp directive in /etc/ssh/sshd_config [example below]
-\t 3. Set the Match group directive in /etc/ssh/sshd_config [example below]$LTRED $BOLD
-\t 4. The user's home directory MUST be owned by root!!!  [example below]$RESET $LTRED
-\t   Any and all sub-directories under that should be owned by the user and sftp-group.
-\t 5. Best-Practices- Limit who can login by Group or specific users [example below]
-\t 6. Best-Practices- Limit root login to ONLY use PRIVATE RSA-Keys [example below]$YELLOW
+set_chroot () {
+	cat <<EOT
 
-  EXAMPLE Home directory ownership-$LTCYN
+${LTCYN}${BOLD}    Create a secure SFTP environment with chroot-jailed users.
+    There are some things are required before this will function properly-${RESET}${YELLOW}
+  The base file structure must exist and${BOLD} MUST be OWNED by root${RESET}${YELLOW},
+  preferably on it's own partition [see lvmn option]
+    For this example we'll use /sftp/chroot/home/ as the 'root'
+    of the chroot environment.${LTCYN}${BOLD}
+  Requirements- ${RESET}${LTRED}
+    1. Create the sftp group to be jailed [example below- 'sftponly' ]
+    2. Set the sftp directive in /etc/ssh/sshd_config [example below]
+    3. Set the Match group directive in /etc/ssh/sshd_config [example below]${LTRED}${BOLD}
+    ${ULINE}4. The user's home directory MUST be owned by root!!!  [example below]${NULINE}${RESET}${LTRED}
+     Any and all sub-directories under that should be owned by the user and sftp-group.
+    5. Best-Practices- Limit who can login by Group or specific users [example below]
+    6. Best-Practices- Limit root login to ONLY use PRIVATE RSA-Keys [example below]${YELLOW}
+
+  EXAMPLE Home directory ownership-${LTCYN}
 # ls -l /sftp/chroot/home/
-drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser$YELLOW
+drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${YELLOW}
 
-  EXAMPLE /etc/ssh/sshd_config -$LTYLLW
-PermitRootLogin$CYAN without-password$YELLOW
-  #Replace 'Subsystem' line with$LTCYN$BOLD internal-sftp$YELLOW as below$LTYLLW
-Subsystem\tsftp$BOLD    internal-sftp$RESET $LTYLLW 
-AllowGroups\tLinuxAdmins crew colab sftponly root$LTYLLW
-Match$LTGRN group sftponly,!wheel,!users,!colab,!LinuxAdmins$YELLOW #The '!' means NOT this group$LTYLLW
-    ForceCommand$CYAN internal-sftp$LTYLLW
-    AllowTcpForwarding$CYAN no$LTYLLW
-    Chrootdirectory$RESET $PASSP
-\n
-"
+  EXAMPLE /etc/ssh/sshd_config -${LTYLLW}
+PermitRootLogin${CYAN} without-password${YELLOW}
+  #Replace 'Subsystem' line with${LTCYN}${BOLD} internal-sftp${YELLOW} as below${LTYLLW}
+Subsystem${GREEN}    sftp${CYAN}    internal-sftp${RESET}${LTYLLW}
+AllowGroups${GREEN}    LinuxAdmins crew colab sftponly root${LTYLLW}
+Match${GREEN} group sftponly,!wheel,!users,!colab,!LinuxAdmins${YELLOW} #The '!' means NOT this group${LTYLLW}
+    ForceCommand${CYAN} internal-sftp${LTYLLW}
+    AllowTcpForwarding${CYAN} no${LTYLLW}
+    Chrootdirectory${GREEN} /sftp/chroot/home/${LTCYN}%u${RESET}
+
+EOT
 make_users
 }
 #
-function make_users
-{
-printf "$LTCYN $BOLD
-\t Create a secure user and password with hashed pasword$RESET $YELLOW
-  Create the User Password and Hash-$CYAN
-# openssl rand -base64 15 > username.txt && cat username.txt | openssl passwd -1 -stdin >> username.txt && cat username.txt $YELLOW
-  Output-$LTCYN 
-5t5sYKAhwkY6sQ2URteuL$YELLOW  < Password $LTCYN
-\$1fJ4L4f9NEoNwFxUtRVsoTQ.TVLot/gJ/$YELLOW  < Password Hash
-  Create the user-$CYAN
-# useradd -s /bin/false -c \"SFTP User\" -m -d /sftp/chroot/home/username -g sftponly username$YELLOW
+make_users () {
+	cat <<EOT
+${LTCYN}${BOLD}    Create a secure user and password with hashed pasword${RESET}${YELLOW}
+  Create the User Password and Hash-${GREEN}
+# openssl rand -base64 15 > username.txt && cat username.txt | openssl passwd -1 -stdin >> username.txt && cat username.txt${YELLOW}
+  Output-${LTCYN}
+5t5sYKAhwkY6sQ2URteuL${YELLOW}  < Password${LTCYN}
+ \$1fJ4L4f9NEoNwFxUtRVsoTQ.TVLot/gJ/${YELLOW}  < Password Hash
+  Create the user-${GREEN}
+# useradd -s /bin/false -c "SFTP User" -m -d /sftp/chroot/home/username -g sftponly username${YELLOW}
   This will create the user 'username' and chroot-jail it to /sftp/chroot/home/username
   Now set the user's password with 'passwd username' and copy/paste the password generated
-  The Hash is used if you are managing users with Puppet... Discussed in Puppet SetUp.
-$RESET
-\n"
+  The Hash is used if you are managing users with Puppet... Discussed in Puppet SetUp.${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function vim_cmds
 {
