@@ -299,36 +299,37 @@ TOP T0004   69.26   37.68   31.58   lr402.x86_64${RESET}${LTYLLW}
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function def_expres
-{
-printf "$YELLOW $BOLD
-\n\t $CYAN You can find the expressions.txt at -$RESET
-$LTCYN # wget http://woodbeeco.com/scripts/expressions.txt$RESET
-$YELLOW or $RESET
-$LTCYN # https://github.com/SeaPhor/SeaPhor-Scripts\n
-$RESET"
+def_expres () {
+	cat <<EOT
+
+${YELLOW}${BOLD}    You can find the expressions.txt at -${RESET}${LTCYN}
+# wget http://woodbeeco.com/scripts/expressions.txt$YELLOW
+ or${RESET}${LTCYN}
+# https://github.com/SeaPhor/SeaPhor-Scripts${RESET}
+
+EOT
 }
 #
-function lvm_notes
-{
-printf "\n$YELLOW
-#LVM - Adding a new disk to a existing Volume Group (VG)
-#Add new disk with VMware tool.
+lvm_notes () {
+	cat <<EOT
 
-#Usually, the command fdisk -l will not detect the new disk. Execute this command to do rescan the bus: 
-#Command:$RESET$LTCYN echo \"- - -\" > /sys/class/scsi_host/host#/scan$RESET$LTYLLW where # is 0 or 1 or 2$RESET$LTCYN
-# fdisk -l$RESET$YELLOW
+${YELLOW}    #LVM - Adding a new disk to a existing Volume Group (VG) in a Virtual Machine (VM)
+  Add new disk with VMware tool.
+Usually, the command fdisk -l will not detect the new disk in a VM. Execute this command to do rescan the bus: 
+Command:${LTCYN}
+# echo "- - -" > /sys/class/scsi_host/host${RED}#${LTCYN}/scan${BOLD}${LTYLLW} ## where${RED} #${LTYLLW} is${RED} 0${LTYLLW} or${RED} 1${LTYLLW} or${RED} 2${RESET}${LTCYN}
+# fdisk -l${YELLOW}
 
-#Command:$RESET$LTCYN pvcreate /dev/sd<x>
-# pvdisplay$RESET$YELLOW
+Command:${LTCYN}
+# pvcreate /dev/sd<x>
+# pvdisplay${YELLOW}
 
-#Command: vgextend [VolumeGroupName] [PhysicalDevicePath]$RESET$LTCYN
-# vgextend system /dev/sd<x>$RESET$YELLOW
+Command: vgextend [VolumeGroupName] [PhysicalDevicePath]${LTCYN}
+# vgextend system /dev/sd<x>${YELLOW}
 
-#Executing pvdisplay again shows the /dev/sdb is now part of VG system:$RESET$LTCYN
-# pvdisplay$RESET$CYAN
+Executing pvdisplay again shows the /dev/sdb is now part of VG system:${LTCYN}
+# pvdisplay${CYAN}
 #--- Physical volume ---
 #PV Name        /dev/sdb
 #VG Name        system
@@ -336,23 +337,24 @@ printf "\n$YELLOW
 #Allocatable        yes
 #PE Size        4.00 MiB
 #Total PE       2047
-#Free PE        2047$RESET$YELLOW
+#Free PE        2047${YELLOW}
 
-#To add via Free PE$RESET$LTCYN
-# lvextend -l +2047 /dev/system/root$RESET$YELLOW
+#To add via Free PE${LTCYN}
+# lvextend -l +2047 /dev/system/root${YELLOW}
 
-#To Add via amount of GB to add$RESET$LTCYN
-# lvextend -L+1G /dev/system/root$RESET$YELLOW
+#To Add via amount of GB to add${LTCYN}
+# lvextend -L+1G /dev/system/root${YELLOW}
 
-#To Add via amount of GB to be total size$RESET$LTCYN
-# lvextend -L12G /dev/system/root$RESET$YELLOW
+#To Add via amount of GB to be total size${LTCYN}
+# lvextend -L12G /dev/system/root${YELLOW}
 
-#Command: resize2fs The last step is to resize the logical volume $RESET$LTCYN
+#Command: resize2fs - The last step is to resize the logical volume${LTCYN}
 # resize2fs /dev/system/root
-# df -hl $RESET
-\n
-"
+# df -hl${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function add_prefix
 {
