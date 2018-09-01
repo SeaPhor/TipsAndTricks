@@ -177,32 +177,32 @@ ${LTCYN}${BOLD}    Create a secure user and password with hashed pasword${RESET}
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function vim_cmds
-{
-echo -e "$LTCYN $BOLD
-\t Helpful vim shortcuts and tips$RESET $YELLOW
- Deleting-$RESET $LTYLLW
-\tx\t - delete current character
-\tdw\t - delete current word
-\t3dw\t - delete next 3 words from current word
-\tdd\t - delete current line
-\t5dd\t - delete five lines
-\td$\t - delete to end of line
-\td0\t - delete to beginning of line
-\t:1,.d\t - delete to beginning of file
-\t:.,\$d\t - delete to end of file$RESET $YELLOW
- Resource- vi/vim delete commands and examples$RESET$CYAN
-  https://alvinalexander.com/linux/vi-vim-delete-line-commands-to-end$RESET $YELLOW
+vim_cmds () {
+	cat <<EOT
+${LTCYN}${BOLD}    Helpful vim shortcuts and tips${RESET}${YELLOW}
+  Deleting -${RESET}${LTYLLW}
+    x      - delete current character
+    dw     - delete current word
+    3dw    - delete next 3 words from current word
+    dd     - delete current line
+    5dd    - delete five lines
+    d$     - delete to end of line
+    d0     - delete to beginning of line
+    :1,.d  - delete to beginning of file
+    :.,\$d  - delete to end of file${RESET}${YELLOW}
+  Resource- vi/vim delete commands and examples${RESET}${CYAN}
+  https://alvinalexander.com/linux/vi-vim-delete-line-commands-to-end${RESET}${YELLOW}
 
- Search and Replace-$RESET $LTYLLW
-\t:%s/search/replace/gc\t - Ask for confirmation before substitution.$RESET $YELLOW
-\n Resource- Vim tips: The basics of search and replace$RESET $CYAN
-  https://www.linux.com/learn/vim-tips-basics-search-and-replace$RESET
+ Search and Replace-${RESET}${LTYLLW}
+    :%s/search/replace/gc    - Ask for confirmation before substitution.${RESET}${YELLOW}
 
-"
+  Resource- Vim tips: The basics of search and replace${RESET}${CYAN}
+  https://www.linux.com/learn/vim-tips-basics-search-and-replace${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 function rem_emty
 {
