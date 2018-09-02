@@ -477,25 +477,30 @@ No Info for seds yet- In-Progress... coming soon
 
 EOT
 }
-###@COMPLETEDTESTED
 #
-function pep_eight
-{
-printf "\t$YELLOW$BOLD PEP8 Compliance Guidelines and suggested Resolution$RESET$YELLOW
-\t  Find more at $RESET$CYAN \nhttps://www.datacamp.com/community/tutorials/pep8-tutorial-python-code\n And Here-\nhttps://www.python.org/dev/peps/pep-0008/\n$RESET$LTYLLW
-\t PEP8 is technically for Python coding but we believe it is a good\n  standard for all coding. This is a living and growing  part of this\n script and we will be adding more...\n$RESET$LTCYN$BOLD
-\t Here is the list of Options as of this release-$RESET$LTCYN
-  [tabs]\t$RESET$LTYLLW Replace TABS\t Replacing all TABS with 4 SPACES for PEP8 Compliance$RESET$LTCYN
-  [quit]\t$RESET$LTYLLW Quit/Exit\t Exit this script\n$RESET"
+pep_eight () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    PEP8 Compliance Guidelines and suggested Resolution${RESET}${YELLOW}
+    Find more at${CYAN}
+https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code\n And Here-\nhttps://www.python.org/dev/peps/pep-0008/${LTYLLW}
+    PEP8 is technically for Python coding but we believe it is a good
+  standard for all coding. This is a living and growing  part of this
+  script and we will be adding more...${BOLD}${LTCYN}
+    Here is the list of Options as of this release-${RESET}${LTCYN}
+  [tabs]${LTYLLW}    Replace TABS    Replacing all TABS with 4 SPACES for PEP8 Compliance${LTCYN}
+  [quit]${LTYLLW}    Quit/Exit       Exit this script${RESET}
+EOT
 if $NOOPTS; then
     rep_tabs
     exit $?
 else
-    printf "$RESET$YELLOW
-\t Please choose from the following$RESET$LTCYN Options...
-  [1]\t$RESET$CYAN=>\ttabs$RESET$LTCYN
-  [q]\t$RESET$CYAN=>\tquit\n$RESET
- [1|q]...(q)"
+    cat <<EOT
+${YELLOW}    Please choose from the following${LTCYN} Options...
+  [1]${CYAN}    =>    tabs${LTCYN}
+  [q]${CYAN}    =>    quit${RESET}
+ [1|q]...(q)
+EOT
 read PEPEIGHT
 case $PEPEIGHT in
     "1")
@@ -511,94 +516,112 @@ case $PEPEIGHT in
 esac
 fi
 }
-function pep8_info
-{
-echo -e "\n\t No Info for pep8 yet- In-Progress... coming soon\n "
+#
+pep8_info () {
+	cat <<EOT
+    No Info for pep8 yet- In-Progress... coming soon
+EOT
 }
 #
-function irsi_logs
-{
-printf "\t$YELLOW$BOLD How-To setup Logging with IRSSI IRC$RESET$LTYLLW
-  Set the directory structure$RESET$LTCYN
-# sudo mkdir /var/log/irclogs
-# sudo chown wbc:LinuxAdmins /var/log/irclogs$RESET$LTYLLW
+irsi_logs () {
+	cat <<EOT
 
-  In IRC Irssi Console$RESET$YELLOW
+${BOLD}${YELLOW}    How-To setup Logging with IRSSI IRC${LTYLLW}
+  Set the directory structure${LTCYN}
+# sudo mkdir /var/log/irclogs
+# sudo chown wbc:LinuxAdmins /var/log/irclogs${LTYLLW}
+
+  In IRC Irssi Console${YELLOW}
 [#channel] /SET autolog ON
 [#channel] /SET autolog_path /var/log/irclogs/\$tag/\$0.log
-[#channel] /save #answer 'yes'$RESET$LTYLLW
+[#channel] /save #answer 'yes'${LTYLLW}
 
-  Create the logrotate config$RESET$LTCYN
-# sudo vi /etc/logrotate.d/irssi$RESET$LTMAG
+  Create the logrotate config${LTCYN}
+# sudo vi /etc/logrotate.d/irssi${LTMAG}
 /var/log/irclogs/*/*.log {
     copytruncate
     compress
     notifempty
     missingok
-}$RESET$LTYLLW
+}${LTYLLW}
 
-  Execute a manual logrotate$RESET$LTCYN
+  Execute a manual logrotate${LTCYN}
 # sudo /usr/sbin/logrotate -d /etc/logrotate.conf 
-# sudo /usr/sbin/logrotate -f /etc/logrotate.conf$RESET$LTYLLW
+# sudo /usr/sbin/logrotate -f /etc/logrotate.conf${LTYLLW}
 
-  Verify logs rotated$RESET$YELLOW
-    say something in one of your irssi irc channels$RESET$LTCYN
+  Verify logs rotated${YELLOW}
+    say something in one of your irssi irc channels${LTCYN}
 # ls -lart  /var/log/irclogs/
-# ls -lart  /var/log/irclogs/freenode/
+# ls -lart  /var/log/irclogs/freenode/${YELLOW}
 
-$RESET$YELLOW  Resource-$RESET$CYAN
-http://www.chovy.com/linux/logging-irssi-and-rotating-them-with-logrotate\n$RESET
-"
+  Resource-${CYAN}
+http://www.chovy.com/linux/logging-irssi-and-rotating-them-with-logrotate${RESET}
+
+EOT
 }
-function irsi_noob
-{
-printf "\n\t$YELLOW$BOLD New to IRSSI? Here is some tips to get started-$RESET$YELLOW
-\t Irssi is not that difficult once you get the basics down...\n$RESET$LTYLLW
-  Using screen [$ screen] to run your irssi client- This will allow\n  you to login from any source that has ssh\n  access to your irssi host [screen -x]\n
-  Connecting to the IRC Server...$RESET$CYAN
-  $ irssi -c irc.freenode.net -n [nick] -w [password]\n$RESET$LTYLLW
-  Joining a channel...$RESET$LTMAG
-  [(status)] /join #channel\n$RESET$LTYLLW
-  Getting help in the irssi console...$RESET$LTYLLW$BOLD
- NOTE- Messaging chanserv or nickserv is the same as a PM...\n You need to switch to that PM channel in your Console\n Use CTRL+n for NEXT channel, CTRL+p for PREVIOUS channel$RESET$LTMAG
+irsi_noob () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    New to IRSSI? Here is some tips to get started-${RESET}${YELLOW}
+    Irssi is not that difficult once you get the basics down...${LTYLLW}
+  Using screen [$ screen] to run your irssi client- This will allow
+  you to login from any source that has ssh
+  access to your irssi host [screen -x]
+  Connecting to the IRC Server...${CYAN}
+  $ irssi -c irc.freenode.net -n [nick] -w [password]${LTYLLW}
+  Joining a channel...${LTMAG}
+  [(status)] /join #channel${LTYLLW}
+  Getting help in the irssi console...${BOLD}${LTYLLW}
+ NOTE- Messaging chanserv or nickserv is the same as a PM...
+ You need to switch to that PM channel in your Console
+ Use CTRL+n for NEXT channel, CTRL+p for PREVIOUS channel${RESET}${LTMAG}
   [#channel] /msg chanserv help
   [#channel] /msg nickserv help
-  [#channel] /msg chanserv help <command>$RESET$LTYLLW
- EXAMPLE-$RESET$LTMAG
-  [#channel] /msg chanserv help REGISTER$RESET$CYAN
+  [#channel] /msg chanserv help <command>${LTYLLW}
+ EXAMPLE-${LTMAG}
+  [#channel] /msg chanserv help REGISTER${CYAN}
     REGISTER allows you to register a channel
     so that you have better control.
     allows you to maintain a channel access list
     Syntax: REGISTER <##channel>
-    /msg ChanServ REGISTER <##channel>\n$RESET$LTYLLW
-  Registering your nick...$RESET$LTMAG
-  [#channel] /msg nickserv help REGISTER $RESET$CYAN
+    /msg ChanServ REGISTER <##channel>${LTYLLW}
+  Registering your nick...${LTMAG}
+  [#channel] /msg nickserv help REGISTER${CYAN}
     This will register your current nickname with NickServ.
     The password is a case-sensitive password that you make
     You have to confirm the email address. To do this,
     follow the instructions in the message sent to the email
     address.
     Syntax: REGISTER <password> <email-address>
-    /msg NickServ REGISTER bar foo@bar.com\n$RESET"
+    /msg NickServ REGISTER bar foo@bar.com${RESET}
+
+EOT
 }
-function irsi_tips
-{
-echo -e "\t$YELLOW$BOLD IRSSI IRC Tips and shortcuts-$RESET$YELLOW
-\t Irssi is an IRC (Internet Relay Chat) client for use in\n\t the Command Line Interface\n  This is a living and growing  part of this script and we will be\n adding more Tips and Info...\n$RESET$LTCYN$BOLD
-\t Here is the list of Options as of this release-$RESET$LTCYN
-  [logs]\t$RESET$LTYLLW Log Capture\t Capture all logs from Your channels\n\t\t\t\t  and rotate them with logrotate$RESET$LTCYN
-  [inew]\t$RESET$LTYLLW New to Irssi\t Tips for users that are new to Irssi$RESET$LTCYN
-  [quit]\t$RESET$LTYLLW Quit/Exit\t Exit this script\n$RESET"
+#
+irsi_tips () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    IRSSI IRC Tips and shortcuts-${RESET}${YELLOW}
+  Irssi is an IRC (Internet Relay Chat) client for use in
+    the Command Line Interface
+  This is a living and growing  part of this script and we will be
+  adding more Tips and Info...${BOLD}${LTCYN}
+    Here is the list of Options as of this release-${RESET}${LTCYN}
+  [logs]${LTYLLW}    Log Capture    Capture all logs from Your channels
+                           and rotate them with logrotate${LTCYN}
+  [inew]${LTYLLW}    New to Irssi   Tips for users that are new to Irssi${LTCYN}
+  [quit]${LTYLLW}    Quit/Exit      Exit this script${RESET}
+EOT
 if $NOOPTS; then
     irsi_logs
     irsi_noob
     exit $?
 else
-    printf "\n$RESET$YELLOW
-\t Please choose from the following$RESET$LTCYN Options...
-  [1]\t$RESET$CYAN=>\tlogs$RESET$LTCYN
-  [2]\t$RESET$CYAN=>\tinew$RESET$LTCYN
-  [q]\t$RESET$CYAN=>\tquit\n$RESET
+    printf "\n${YELLOW}
+\t Please choose from the following${LTCYN} Options...
+  [1]\t${CYAN}=>\tlogs${LTCYN}
+  [2]\t${CYAN}=>\tinew${LTCYN}
+  [q]\t${CYAN}=>\tquit\n${RESET}
  [1|q]...(q)"
 read IRSSIOPT
 case $IRSSIOPT in
@@ -620,35 +643,49 @@ esac
 fi
 }
 #
-function cust_ltlid
-{
-printf "\n\t$YELLOW$BOLD Set the power settings for laptop lid to NOT sleep-\n$RESET$LTYLLW
-\t I run my web server in a VM on a laptop headlessly, so it\n  just sits in a closet on a shelf and I have no need to have \n  the lid open- By default the OS Laptop package sets it\n  to enter sleep on lid close.\n\t The better way maybe to not install that package, but-\n  I would not have this in the script! :P\n$RESET$LTCYN
-  Edit /etc/systemd/logind.conf-$RESET$CYAN
-  # vi /etc/systemd/logind.conf$RESET$LTCYN
-  Add/Edit to show the following Value ...$RESET$LTMAG
-  HandleLidSwitch=ignore$RESET$LTCYN
-  Reboot the system and test\n$RESET$YELLOW
-\t NOTE- I know there is a better way to reload the settings\n\t WITHOUT a reboot, butI did not have the time to research\n\t and will update with that and remove this line.\n$RESET
-"
+cust_ltlid () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    Set the power settings for laptop lid to NOT sleep-${RESET}${LTYLLW}
+    I run my web server in a VM on a laptop headlessly, so it
+  just sits in a closet on a shelf and I have no need to have
+  the lid open- By default the OS Laptop package sets it
+  to enter sleep on lid close.
+    The better way maybe to not install that package, but-
+  I would not have this in the script! :P${LTCYN}
+  Edit /etc/systemd/logind.conf-${CYAN}
+  # vi /etc/systemd/logind.conf${LTCYN}
+  Add/Edit to show the following Value ...${LTMAG}
+  HandleLidSwitch=ignore${LTCYN}
+  Reboot the system and test${YELLOW}
+    NOTE- I know there is a better way to reload the settings
+    WITHOUT a reboot, butI did not have the time to research
+    and will update with that and remove this line.${RESET}
+
+EOT
 }
-function cust_tips
-{
-echo -e "\n\t$YELLOW$BOLD Custom Configurations Tips and shortcuts-$RESET$YELLOW
-\t  This is a living and growing  part of this script and we will be\n adding more Tips and Info...\n$RESET$LTCYN$BOLD
-\t Here is the list of Options as of this release-$RESET$LTCYN
-  [ltpw]\t$RESET$LTYLLW Laptop Lid\t Configure a laptop to be a headless server\n\t\t\t\t and manage power settings for Lid Close$RESET$LTCYN
-  [quit]\t$RESET$LTYLLW Quit/Exit\t Exit this script\n$RESET"
+#
+cust_tips () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    Custom Configurations Tips and shortcuts-${RESET}${YELLOW}
+    This is a living and growing  part of this script and we will be
+  adding more Tips and Info...${BOLD}${LTCYN}
+    Here is the list of Options as of this release-${RESET}${LTCYN}
+  [ltpw]${LTYLLW}    Laptop Lid    Configure a laptop to be a headless server
+                          and manage power settings for Lid Close${LTCYN}
+  [quit]${LTYLLW}    Quit/Exit     Exit this script${RESET}
+EOT
 if $NOOPTS; then
     clear
     cust_ltlid
     exit $?
 else
-    printf "\n$YELLOW
-\t Please choose from the following$RESET$LTCYN Options...
-  [1]\t$RESET$CYAN=>\tltpw$RESET$LTCYN
-  [2]\t$RESET$CYAN=>\tnone$RESET$LTCYN
-  [q]\t$RESET$CYAN=>\tquit\n$RESET
+    printf "\n${YELLOW}
+\t Please choose from the following${LTCYN} Options...
+  [1]\t${CYAN}=>\tltpw${LTCYN}
+  [2]\t${CYAN}=>\tnone${LTCYN}
+  [q]\t${CYAN}=>\tquit\n${RESET}
  [1|q]...(q)"
 read IRSSIOPT
 case $IRSSIOPT in
@@ -671,86 +708,89 @@ esac
 fi
 }
 #
-function git_lab
-{
-printf "\n\t$YELLOW$BOLD GitLab Setup Beginning to end$RESET$LTYLLW
+git_lab () {
+	cat <<EOT
 
-  Get files =>$CYAN
-https://packages.gitlab.com/gitlab/gitlab-ce/packages/opensuse/42.2/gitlab-ce-10.3.1-ce.0.sles42.x86_64.rpm/download$YELLOW
-\t(Or whatever distro in parent of that link)$LTYLLW
-\tOR-
-  Add the repos for your distro - this example uses OpenSUSE$LTMAG
+${BOLD}${YELLOW}    GitLab Setup Beginning to end${RESET}${LTYLLW}
+
+  Get files =>${CYAN}
+https://packages.gitlab.com/gitlab/gitlab-ce/packages/opensuse/42.2/gitlab-ce-10.3.1-ce.0.sles42.x86_64.rpm/download${YELLOW}
+    (Or whatever distro in parent of that link)${LTYLLW}
+    OR-
+  Add the repos for your distro - this example uses OpenSUSE${LTMAG}
   zypper ar https://packages.gitlab.com/gitlab/gitlab-ce/opensuse/42.3/x86_64 gitlab-ce
   zypper ar https://packages.gitlab.com/gitlab/gitlab-ce/opensuse/42.3/SRPMS gitlab-ce-src
 
-  Install & Enable/Start Dependancies =>$LTCYN
-\tPostfix
-\tPostgresql$LTYLLW
+  Install & Enable/Start Dependancies =>${LTCYN}
+    Postfix
+    Postgresql${LTYLLW}
 
-  Open Firewall Port/s =>$LTMAG
-sudo yast2 firewall services add tcpport=80,443,22,25,465,587 udpport=80,443,22,25,465,587 zone=EXT$LTYLLW
+  Open Firewall Port/s =>${LTMAG}
+sudo yast2 firewall services add tcpport=80,443,22,25,465,587 udpport=80,443,22,25,465,587 zone=EXT${LTYLLW}
 
-  Set Hostname & Install =>$LTMAG
-EXTERNAL_URL=\"http://<FQDN>\" zypper install <rpm from above link>$LTYLLW
-  OR-$LTMAG
-EXTERNAL_URL=\"http://<FQDN>\" zypper install gitlab-ce$LTYLLW
-  If Importing a backed-up instance, ensure the Versions match$LTMAG
-EXTERNAL_URL=\"http://server.domain.com\" zypper install gitlab-ce=10.8.3-ce.0.sles42$LTYLLW
+  Set Hostname & Install =>${LTMAG}
+EXTERNAL_URL="http://<FQDN>" zypper install <rpm from above link>${LTYLLW}
+  OR-${LTMAG}
+EXTERNAL_URL="http://<FQDN>" zypper install gitlab-ce${LTYLLW}
+  If Importing a backed-up instance, ensure the Versions match${LTMAG}
+EXTERNAL_URL="http://server.domain.com" zypper install gitlab-ce=10.8.3-ce.0.sles42${LTYLLW}
 
-  Set Configuration =>$LTMAG
-gitlab-ctl reconfigure$LTYLLW
-\tVerify FQDN is in$LTCYN /etc/gitlab/gitlab.rb$LTYLLW
+  Set Configuration =>${LTMAG}
+gitlab-ctl reconfigure${LTYLLW}
+    Verify FQDN is in${LTCYN} /etc/gitlab/gitlab.rb${LTYLLW}
 
-  Restart GitLab =>$LTMAG
+  Restart GitLab =>${LTMAG}
 gitlab-ctl restart
-gitlab-ctl status$LTYLLW
+gitlab-ctl status${LTYLLW}
 
-  Initial UI Configuration in Browser =>$CYAN
-\thttp://<FQDN>$LTYLLW
-  On first opening of UI must reset Administrator (root) password$YELLOW
+  Initial UI Configuration in Browser =>${CYAN}
+    http://<FQDN>${LTYLLW}
+  On first opening of UI must reset Administrator (root) password${YELLOW}
     Setup Users as needed
-\tSetup Groups as needed
-\tSetup Roles as needed\n$LTYLLW
-  Importing github repos-$YELLOW
+    Setup Groups as needed
+    Setup Roles as needed${LTYLLW}
+  Importing github repos-${YELLOW}
   The hard way-
-    Follow instructions from$CYAN https://docs.gitlab.com/ee/user/project/import/github.html$LTYLLW
-  The easy way-$YELLOW
+    Follow instructions from${CYAN} https://docs.gitlab.com/ee/user/project/import/github.html${LTYLLW}
+  The easy way-${YELLOW}
     1. Login to your gitlab WebUI as YOUR User- NOT Admin/root
     2. Create a Group- assuming you dont have one already
-      a.$LTCYN Groups$YELLOW from top toolbar =>$LTCYN New Group$YELLOW
+      a.${LTCYN} Groups${YELLOW} from top toolbar =>${LTCYN} New Group${YELLOW}
     3. Click on the Group listed
-    4.$LTCYN New Project => Import project => Repo by URL$YELLOW
-      a. Copy/paste the url from your github repo into the$LTCYN Git repository URL$YELLOW field
-      b. Populate the remaining fields as desired, ensuring that the Group Name under$LTCYN Project Path$YELLOW is correct
-      c. Select$LTCYN Create Project$LTYLLW
+    4.${LTCYN} New Project => Import project => Repo by URL${YELLOW}
+      a. Copy/paste the url from your github repo into the${LTCYN} Git repository URL${YELLOW} field
+      b. Populate the remaining fields as desired, ensuring that the Group Name under${LTCYN} Project Path${YELLOW} is correct
+      c. Select${LTCYN} Create Project${LTYLLW}
     This will import your github repo along with the history from the commit logs.
     You cah now go into that repo in the WebUI and select either HTTP or SSH and copy that URL,
-      and on your PC- cd to where you want the repo, and$LTMAG git clone <Paste-URL>$LTYLLW
+      and on your PC- cd to where you want the repo, and${LTMAG} git clone <Paste-URL>${LTYLLW}
 
-Creating New Repos-$YELLOW
+Creating New Repos-${YELLOW}
   1. Login to your gitlab WebUI as YOUR User- NOT Admin/root
   2. Create a Group- assuming you dont have one already
-    a.$LTCYN Groups$YELLOW in top bar =>$LTCYN New Group$YELLOW
+    a.${LTCYN} Groups${YELLOW} in top bar =>${LTCYN} New Group${YELLOW}
   3. Click on the Group listed
-  4.$LTCYN New Project$YELLOW => Populate the fields as desired, ensuring that the Group Name under Project Path is correct
-  5. Select$LTCYN Create Project$YELLOW
-  6. Click the$LTCYN \"+\"$YELLOW drop-down in the upper toolbar, Select$LTCYN \"New file\"$YELLOW
+  4.${LTCYN} New Project${YELLOW} => Populate the fields as desired, ensuring that the Group Name under Project Path is correct
+  5. Select${LTCYN} Create Project${YELLOW}
+  6. Click the${LTCYN} "+"${YELLOW} drop-down in the upper toolbar, Select${LTCYN} "New file"${YELLOW}
   7. Name it what you want [README is good], and add some text, like a description...
   8. Save and commit the change
   You cah now go into that repo in the WebUI and select either HTTP or SSH and copy that URL,
-    and on your PC- cd to where you want the repo, and$LTMAG \'git clone <Paste-URL>\'\n$LTYLLW
-  Export gitlab-server from one server to another-\n$RESET
-"
+    and on your PC- cd to where you want the repo, and${LTMAG} 'git clone <Paste-URL>'${LTYLLW}
+  Export gitlab-server from one server to another-${RESET}
+
+EOT
 }
 #
-function git_branch
-{
-printf "\n\t$YELLOW$BOLD Working with branches in GIT$RESET$LTCYN
-  Static Rules$CYAN
+git_branch () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    Working with branches in GIT${RESET}${LTCYN}
+  Static Rules${CYAN}
     1. Always pull before any push
     2. Don\'t pull branches from master
-    3. If other branches, they each do same process$LTCYN
-  Steps$CYAN
+    3. If other branches, they each do same process${LTCYN}
+  Steps${CYAN}
     1. Create <branch1>
     2. Checkout new branch
     3. Make changes
@@ -761,176 +801,192 @@ printf "\n\t$YELLOW$BOLD Working with branches in GIT$RESET$LTCYN
     8. Test
     9. Add/commit/Pull/push
     10. Checkout master
-    11. Merge <branch1>
-\n$RESET"
+    11. Merge <branch1>${RESET}
+
+EOT
 }
 #
-function my_links
-{
-printf "\n$BOLD$LTYLLW    Links to other scripts, tutorials, etc. that are designed\n    to help, automate, or otherwise serve a purpose in daily life.$RESET$LTCYN
-  seaphor\t$RESET$CYAN  System Information gathering script, it gathers MB, BIOS, GFX-Card, WLAN, LAN, OS, RAM, CPU, Disk, Repos, and more...$RESET
-    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/sysinfo/seaphor-4.1-7$LTCYN
-  c4-bug-report\t$CYAN  Script created to generate a bug report to CSV format, and can be adjusted to fit any needs. there is also an alpha TUI version I am working on, I will post both here...$RESET
-    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/Bug-Report/Latest_Stable$RESET
-\n"
+my_links () {
+	cat <<EOT
+
+${BOLD}${LTYLLW}    Links to other scripts, tutorials, etc. that are designed
+    to help, automate, or otherwise serve a purpose in daily life.${RESET}${LTCYN}
+  seaphor${CYAN}    System Information gathering script, it gathers MB, BIOS, GFX-Card, WLAN, LAN, OS, RAM, CPU, Disk, Repos, and more...${RESET}
+    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/sysinfo/seaphor-4.1-7${LTCYN}
+  c4-bug-report${CYAN}    Script created to generate a bug report to CSV format, and can be adjusted to fit any needs. there is also an alpha TUI version I am working on, I will post both here...${RESET}
+    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/Bug-Report/Latest_Stable${RESET}
+
+EOT
 }
 #
-function user_input
-{
-    echo -e "\n$BOLD$YELLOW    To ask the user for input to be set in a variable,
-  EXAMPLE-$RESET$YELLOW Use the -p and the -s options for login credentials $RESET$LTCYN
+user_input () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    To ask the user for input to be set in a variable,
+  EXAMPLE-${RESET}${YELLOW} Use the -p and the -s options for login credentials${LTCYN}
     # Ask the user for login details
-    printf \"Please enter your login credentials when prompted...\"
+    printf "Please enter your login credentials when prompted..."
     read -p 'Username: ' uservar
     read -sp 'Password: ' passvar
     echo
-    printf \"Thank you \$uservar we now have your login details\" $RESET$YELLOW
-  Output in the Terminal-$RESET$BOLD$CYAN
+    printf "Thank you \$uservar we now have your login details"${YELLOW}
+  Output in the Terminal-${BOLD}${CYAN}
     ./login.sh
     Username: ryan
     Password:
-    Thank you ryan we now have your login details$RESET$LTYLLW
+    Thank you ryan we now have your login details${RESET}${LTYLLW}
 
-  Resource-$CYAN
-    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php\n$RESET$YELLOW
+  Resource-${CYAN}
+    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php${YELLOW}
   Now, there are 2 tnings you can do with these variables
     1. Use it within the script to execute other cammands passing
-       the variables instead of prompting once or multiple times.$RESET$LTYLLW
+       the variables instead of prompting once or multiple times.${LTYLLW}
   EXAMPLE- For the 1st Option, using the example above
       Say you wanted to pass a command to a/some different 
       box/es via ssh and didnt want to put that info in 
-      your script, the lines would look something like... $RESET$LTCYN
-    MYHOST=\"hostname -f\"
-    MYOS=\"cat /etc/*release\"
-    MYKERN=\"uname -r\"
+      your script, the lines would look something like...${LTCYN}
+    MYHOST="hostname -f"
+    MYOS="cat /etc/*release"
+    MYKERN="uname -r"
     for i in \`cat hostlist.txt\`
     do
       sshpass -p \$passvar ssh \$uservar@\$i \$MYHOST && \$MYOS && \$MYKERN >> myhosts-details.txt
       echo >> myhosts-details.txt
-    done$RESET$YELLOW
+    done${YELLOW}
        
     2. Set the variable values to a [Local]'source' file
-       to be used in subsequent runs of your script/s.$RESET$LTYLLW
-  EXAMPLE- For the 2nd Option, using the example above$RESET$LTCYN
+       to be used in subsequent runs of your script/s.${LTYLLW}
+  EXAMPLE- For the 2nd Option, using the example above${LTCYN}
     if [[ ! -a ~/.myusercreds ]]; then
         # Ask the user for login details
-        printf \"Please enter your login credentials when prompted...\"
+        printf "Please enter your login credentials when prompted..."
         echo
         read -p 'Username: ' uservar
         read -sp 'Password: ' passvar
         echo
-        printf \"Thank you \$uservar we now have your login details\"
+        printf "Thank you \$uservar we now have your login details"
         echo
-        echo \"MYUSER=\$uservar\" > ~/.myusercreds
-        echo \"MYPASS=\$passvar\" >> ~/.myusercreds
+        echo "MYUSER=\$uservar" > ~/.myusercreds
+        echo "MYPASS=\$passvar" >> ~/.myusercreds
         chmod +x ~/.myusercreds
         source ~/.myusercreds
     else
         source ~/.myusercreds
-    fi$RESET$LTYLLW
+    fi${LTYLLW}
 
-  Resource- Find out more about this and much more at...$RESET$CYAN
-    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/Sourcing$RESET
-"
+  Resource- Find out more about this and much more at...${CYAN}
+    https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/Sourcing${RESET}
+
+EOT
 }
 #
-function custom_date
-{
-    echo -e "\n$BOLD$YELLOW   Using custom date command in scripts and/or cli$RESET$YELLOW
-    In Scripts create Variables for date output/input$CYAN
+custom_date () {
+	cat <<EOT
+${BOLD}${YELLOW}    Using custom date command in scripts and/or cli${RESET}${YELLOW}
+    In Scripts create Variables for date output/input${CYAN}
 TDATE=\`date +%a\ %b\ %d\ %Y\`
 JDATE=\`date +%y%m%d-%H.%M.%S\`
-WDATE=\"\`date +%U\ %Y\`\"$LTYLLW
+WDATE=\`date +%U\ %Y\`${LTYLLW}
 
-Examples and outputs-$YELLOW
-Casual$CYAN
-$ date +%a\ %b\ %d\ %Y$LTCYN
-Mon Apr 30 2018$YELLOW
+Examples and outputs-${YELLOW}
+Casual${CYAN}
+$ date +%a\ %b\ %d\ %Y${LTCYN}
+Mon Apr 30 2018${YELLOW}
 
-International$CYAN
-$ date +%d\ %b\ %Y$LTCYN
-30 Apr 2018$YELLOW
+International${CYAN}
+$ date +%d\ %b\ %Y${LTCYN}
+30 Apr 2018${YELLOW}
 
-Tech- filename$CYAN
-$ date +%y%m%d-%H.%M.%S$LTCYN
-180430-09.47.48$YELLOW
+Tech- filename${CYAN}
+$ date +%y%m%d-%H.%M.%S${LTCYN}
+180430-09.47.48${YELLOW}
 
-Week & Year$CYAN
-$ date +%U\ %Y$LTCYN
-17 2018$YELLOW
+Week & Year${CYAN}
+$ date +%U\ %Y${LTCYN}
+17 2018${YELLOW}
 
-Year & Month Alpha$CYAN
-$ date +%Y\ %B$LTCYN
-2018 April$YELLOW
+Year & Month Alpha${CYAN}
+$ date +%Y\ %B${LTCYN}
+2018 April${YELLOW}
 
-Year & Month Numeric$CYAN
-$ date +%Y\ %m$LTCYN
-2018 04$YELLOW
+Year & Month Numeric${CYAN}
+$ date +%Y\ %m${LTCYN}
+2018 04${YELLOW}
 
-Year Month Day Numeric$CYAN
-$ date +%Y\ %m\ %d$LTCYN
-2018 04 30$YELLOW
+Year Month Day Numeric${CYAN}
+$ date +%Y\ %m\ %d${LTCYN}
+2018 04 30${YELLOW}
 
-Slashed$CYAN
-$ date +%D$LTCYN
-04/30/18$YELLOW
+Slashed${CYAN}
+$ date +%D${LTCYN}
+04/30/18${YELLOW}
 
-Casual-tech$CYAN
-$ date +%Y\ %m\ %d\ %A$LTCYN
-2018 04 30 Monday$YELLOW
+Casual-tech${CYAN}
+$ date +%Y\ %m\ %d\ %A${LTCYN}
+2018 04 30 Monday${YELLOW}
 
-Convert Epoc date/time into Human-Readable$CYAN
-$ date -d @1521415551$LTCYN
-Sun, Mar 18, 2018  6:25:51 PM$YELLOW
+Convert Epoc date/time into Human-Readable${CYAN}
+$ date -d @1521415551${LTCYN}
+Sun, Mar 18, 2018  6:25:51 PM${YELLOW}
 
-for log/output-filename$CYAN
-date +%Y-%m-%d_%H-M$LTCYN
-2018-04-30_09-53-27$YELLOW
+for log/output-filename${CYAN}
+date +%Y-%m-%d_%H-M${LTCYN}
+2018-04-30_09-53-27${YELLOW}
 
-for logging$CYAN
-$ date +%Y-%m-%d_%H:%M$LTCYN
-2018-04-30_09:53:27$YELLOW
+for logging${CYAN}
+$ date +%Y-%m-%d_%H:%M${LTCYN}
+2018-04-30_09:53:27${YELLOW}
 
-Add a date/time-stamp to your history,$CYAN
-add this to the end of your ~/.bash_profile or ~/.bashrc, then 'source' the one youe edited$LTCYN
-export HISTTIMEFORMAT=\${HISTTIMEFORMAT:-\"%F %H:%M:%S \"}$LTYLLW
- 1119  2018-08-03 16:33:23 vi Useful_Tips/useful-tips.sh\n$RESET"
+Add a date/time-stamp to your history,${CYAN}
+add this to the end of your ~/.bash_profile or ~/.bashrc, then 'source' the one youe edited${LTCYN}
+export HISTTIMEFORMAT=\${HISTTIMEFORMAT:-"%F %H:%M:%S "}${LTYLLW}
+ 1119  2018-08-03 16:33:23 vi Useful_Tips/useful-tips.sh${RESET}
+
+EOT
 }
 #
-function chk_cmd
-{
-    echo -e "\n$BOLD$YELLOW   Need to find out if a particular command is available?$RESET$LTYLLW
-        You can use the 'which' command, but, in scripting most\n times you just need a yes/no answer.\n    Thats where 'type' command comes in...\n
-       $YELLOW  Here's a script example...$LTCYN
+chk_cmd () {
+	cat <<EOT
+${BOLD}${YELLOW}    Need to find out if a particular command is available?${RESET}${LTYLLW}
+  You can use the 'which' command, but, in scripting most
+  times you just need a yes/no answer.
+    Thats where 'type' command comes in...${YELLOW}
+  Here's a script example...${LTCYN}
 type -P getent &>/dev/null && GETENT=true || GETENT=false
 if \$GETENT; then
-    USERPW=\"\`getent passwd \$1\`\"
+    USERPW="\`getent passwd \$1\` "
 else
-    USERPW=\"cnf - getent - command not found...\"
+    USERPW="cnf - getent - command not found..."
 fi
-echo \"Result of getent passwd \$1 is - \$USERPW\"\n$RESET"
+echo "Result of getent passwd \$1 is - \$USERPW"${RESET}
+
+EOT
 }
 #
-function for_cows
-{
-    echo -e "\n$BOLD$YELLOW   Silly little hack so you will have a fortune each time you log in\n$RESET$YELLOW
-        Add or Uncomment and modify this to your users ~/.profile
-	Or ad to /etc/skel/profile - Use any available ascii,
-       	I chose dragon here\n$LTYLLW
-	NOTE- You will need both fortune and cowsay installed$LTCYN
+for_cows () {
+	cat <<EOT
 
-    if [ -x /usr/bin/fortune ] ; then
-        echo
-        /usr/bin/fortune | cowsay -f dragon
-        echo
-    fi\n$LTYLLW
-        You can use$LTMAG $PROGNAME cows-info$LTYLLW to see a list of ascii 'cows' to use
-	  Or, do$LTMAG ls /usr/share/cows/
-    \n$RESET"
+${BOLD}${YELLOW}    Silly little hack so you will have a fortune each time you log in${RESET}${YELLOW}
+    Add or Uncomment and modify this to your users ~/.profile
+    Or ad to /etc/skel/profile - Use any available ascii,
+    I chose dragon here${LTYLLW}
+  NOTE- You will need both fortune and cowsay installed$LTCYN
+
+  if [ -x /usr/bin/fortune ] ; then
+      echo
+      /usr/bin/fortune | cowsay -f dragon
+      echo
+  fi${LTYLLW}
+    You can use${LTMAG} ${PROGNAME} cows-info${LTYLLW} to see a list of ascii 'cows' to use
+    Or, do${LTMAG} ls /usr/share/cows/${RESET}
+
+EOT
 }
-function cows_info
-{
-    echo -e "\n$BOLD$YELLOW   Here is a list of available 'cows' in my installation-\n$RESET$LTCYN
+#
+cows_info () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    Here is a list of available 'cows' in my installation-${RESET}${LTCYN}
     ls /usr/share/cows/
 beavis.zen.cow  dragon-and-cow.cow     hellokitty.cow  moofasa.cow    sodomized.cow    turtle.cow
 bong.cow        dragon.cow             kiss.cow        moose.cow      stegosaurus.cow  tux.cow
@@ -939,52 +995,60 @@ bunny.cow       elephant-in-snake.cow  koala.cow       ren.cow        supermilke
 cheese.cow      eyes.cow               kosh.cow        satanic.cow    surgery.cow      vader-koala.cow
 cower.cow       flaming-sheep.cow      luke-koala.cow  sheep.cow      telebears.cow    www.cow
 daemon.cow      ghostbusters.cow       meow.cow        skeleton.cow   three-eyes.cow
-default.cow     head-in.cow            milk.cow        small.cow      turkey.cow\n$LTYLLW
-    For a quick preview of available cows, run the following-$BOLD$LTYLLW
-    BUT- not all are appropriate for all audiences.\n$RESET$LTMAG
-    for i in \`ls -1 /usr/share/cows/\`; do cowsay -f \$i \"\$i\"; sleep 3;  done\n$RESET"
+default.cow     head-in.cow            milk.cow        small.cow      turkey.cow${LTYLLW}
+    For a quick preview of available cows, run the following-${BOLD}${LTYLLW}
+    BUT- not all are appropriate for all audiences.${RESET}${LTMAG}
+    for i in \`ls -1 /usr/share/cows/\`; do cowsay -f \$i "\$i"; sleep 3;  done${RESET}
+
+EOT
 }
 #
-function git_alias
-{
-    echo -e "\n$BOLD$YELLOW   You wont have a ~/.gitconfig until you do the following, and its a good idea anyway.\n$RESET$LTCYN
-  git config --global user.name \"Firstname Lastname\"
-  git config --global user.email email@domain.com\n$BOLD$YELLOW
-    Add these declarations to your users ~/.gitconfig for efficiency\n$RESET$YELLOW
-[alias]$LTCYN
+git_alias () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    You wont have a ~/.gitconfig until you do the following, and its a good idea anyway${RESET}${LTCYN}
+  git config --global user.name "Firstname Lastname"
+  git config --global user.email email@domain.com${BOLD}${YELLOW}
+    Add these declarations to your users ~/.gitconfig for efficiency${RESET}${YELLOW}
+[alias]${LTCYN}
   co = checkout
   ci = commit -a -m
   st = status
   br = branch
-  hist = log --pretty=format:\\\"%h %ad | %s%d [%an]\\\" --graph --date=short
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   type = cat-file -t
   dump = cat-file -p
-  last = log -1 HEAD\n
-    \n$RESET"
+  last = log -1 HEAD${RESET}
+
+EOT
 }
 #
-function add_color
-{
-    echo -e "\n$BOLD$YELLOW\t   Add these Colors and effects to the output of your scripts-\n$RESET
-    Output$RED
-    \tRed$LTRED
-    \tLight Red$GREEN
-    \tGreen$LTGRN
-    \tLight Green$CYAN
-    \tCyan$LTCYN
-    \tLight Cyan$BLUE
-    \tBlue$LTBLU
-    \tLight Blue$MAG
-    \tMagenta$LTMAG
-    \tLight Magenta$YELLOW
-    \tYellow$LTYLLW
-    \tLight Yellow$BOLD$CYAN
-    \tAdd BOLD to the text
-    $BGBLU$LTRED\tAdd Background Highlighting to the text$RESET
-    $LTYLLW$ULINE\tAdd Underlining to the text$NULINE$RESET\n
- $LTYLLW I will add a '-info' for this and display how I do this in the script
-  Or, you can just open this script and see for yourself$RED (_:^(|)$MAG [dead-Homer]\n$RESET"
+add_color () {
+	cat <<EOT
+
+${BOLD}${YELLOW}    Add these Colors and effects to the output of your scripts-${RESET}
+  Output${RED}
+    Red${LTRED}
+    Light Red${GREEN}
+    Green${LTGRN}
+    Light Green${CYAN}
+    Cyan${LTCYN}
+    Light Cyan${BLUE}
+    Blue${LTBLU}
+    Light Blue${MAG}
+    Magenta${LTMAG}
+    Light Magenta${YELLOW}
+    Yellow${LTYLLW}
+    Light Yellow${BOLD}${CYAN}
+    Add BOLD to the text
+    ${BGBLU}${LTRED}Add Background Highlighting to the text${RESET}${LTYLLW}${ULINE}
+    Add Underlining to the text${NULINE}${RESET}${LTYLLW}
+    I will add a '-info' for this and display how I do this in the script
+  Or, you can just open this script and see for yourself${RED} (_:^(|)${MAG} [dead-Homer]${RESET}
+
+EOT
 }
+###@COMPLETEDTESTED
 #
 ###    END OF DEFINE FUNCTIONS
 #
@@ -1048,7 +1112,7 @@ case $1 in
         exit $?
     ;;
     "vers")
-        printf "$LTCYN This Version/Revision of $PROGNAME is $PROGVERS released on $PROGDATE $RESET \n"
+        printf "${LTCYN} This Version/Revision of ${PROGNAME} is ${PROGVERS} released on ${PROGDATE} ${RESET}\n"
         exit $?
     ;;
     "tabs")
