@@ -5,8 +5,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-10"
-PROGDATE="01 Sep 2018"
+PROGVERS="0.0.2-02"
+PROGDATE="02 Sep 2018"
 MYOPT="$1"
 if [[ "`echo $2`" == "quiet" ]]; then
     NOOPTS=true
@@ -28,6 +28,8 @@ LTYLLW=`tput setaf 11`
 LTBLU=`tput setaf 12`
 LTMAG=`tput setaf 13`
 LTCYN=`tput setaf 14`
+#
+BLRED=${BOLD}${LTRED}
 #
 BGBLU=`tput setab 4`
 BGYLLW=`tput setab 3`
@@ -1056,7 +1058,7 @@ EOT
 ### Define Execution
 ###########################################
 #
-case $1 in
+case $MYOPT in
     "help")
         #show_objective
         #sleep 5
@@ -1226,5 +1228,13 @@ exit $?
 #
 #  Added config --global to gtal
 #
+#    Change- "0.0.2-01" 01 Sep 2018
+#      Total re-write of all functions to use 'cat <<EOT message EOT'
+#      removing the need to work-around fixes above
+#      added check for arg and error-exit
+#      All tested and working, quickly
+#    Change- "0.0.2-02" 02 Sep 2018
+#      Fixed typo in Version number
+#      Variablized the Arg
 #
 #
