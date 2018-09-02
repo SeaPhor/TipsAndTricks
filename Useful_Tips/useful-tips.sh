@@ -30,6 +30,10 @@ LTMAG=`tput setaf 13`
 LTCYN=`tput setaf 14`
 #
 BLRED=${BOLD}${LTRED}
+BLYLW=${BOLD}${LTYLLW}
+BYLW=${BOLD}${YELLOW}
+BLCYN=${BOLD}${LTCYN}
+BCYN=${BOLD}${CYAN}
 #
 BGBLU=`tput setab 4`
 BGYLLW=`tput setab 3`
@@ -302,6 +306,278 @@ TOP T0004   69.26   37.68   31.58   lr402.x86_64${RESET}${LTYLLW}
 EOT
 }
 #
+###    Conditionam and Regular Expressions
+#
+cond_expr () {
+    clear
+    cat <<EOT
+${BLYLW}    Bash Conditional Expressions${RESET}${LTYLLW}
+Conditional expressions are used by the [[ compound command and the test and [ builtin commands.${LTCYN}
+
+-a${YELLOW}|${LTCYN}e file${YELLOW}    True if file exists..${LTCYN} 
+-b file${YELLOW}      True if file exists and is a block special file..${LTCYN}
+-c file${YELLOW}      True if file exists and is a character special file..${LTCYN}
+-d file${YELLOW}      True if file exists and is a directory..${LTCYN}
+-f file${YELLOW}      True if file exists and is a regular file..${LTCYN}
+-g file${YELLOW}      True if file exists and its set-group-id bit is set..${LTCYN}
+-h${YELLOW}|${LTCYN}L file${YELLOW}    True if file exists and is a symbolic link..${LTCYN}
+-k file${YELLOW}      True if file exists and its "sticky" bit is set..${LTCYN}
+-p file${YELLOW}      True if file exists and is a named pipe (FIFO)..${LTCYN}
+-r file${YELLOW}      True if file exists and is readable..${LTCYN}
+-s file${YELLOW}      True if file exists and has a size greater than zero..${LTCYN}
+-t fd${YELLOW}        True if file descriptor fd is open and refers to a terminal..${LTCYN}
+-u file${YELLOW}      True if file exists and its set-user-id bit is set..${LTCYN}
+-w file${YELLOW}      True if file exists and is writable..${LTCYN}
+-x file${YELLOW}      True if file exists and is executable..${LTCYN}
+-G file${YELLOW}      True if file exists and is owned by the effective group id..${LTCYN}
+-N file${YELLOW}      True if file exists and has been modified since it was last read..${LTCYN}
+-O file${YELLOW}      True if file exists and is owned by the effective user id..${LTCYN}
+-S file${YELLOW}      True if file exists and is a socket..${RESET}
+
+EOT
+read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
+" mychoice
+[[ $mychoice = q ]] && exit 0 || read_expr
+}
+#
+conex_oper () {
+    clear
+    cat <<EOT
+
+    Extended Conditional Expression Operators
+file1 -ef file2
+    True if file1 and file2 refer to the same device and inode numbers.
+file1 -nt file2
+    True if file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not.
+file1 -ot file2
+    True if file1 is older than file2, or if file2 exists and file1 does not.
+-o optname
+    True if the shell option optname is enabled. The list of options appears in the description of the -o option to the set builtin (see The Set Builtin).
+-v varname
+    True if the shell variable varname is set (has been assigned a value).
+-R varname
+    True if the shell variable varname is set and is a name reference.
+-z string
+    True if the length of string is zero.
+-n string
+string
+    True if the length of string is non-zero.
+string1 == string2
+string1 = string2
+    True if the strings are equal. When used with the [[ command, this performs pattern matching as described above (see Conditional Constructs).
+    ‘=’ should be used with the test command for POSIX conformance.
+string1 != string2
+    True if the strings are not equal.
+string1 < string2
+    True if string1 sorts before string2 lexicographically.
+string1 > string2
+    True if string1 sorts after string2 lexicographically.
+
+EOT
+read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
+" mychoice
+[[ $mychoice = q ]] && exit 0 || read_expr
+}
+#
+arith_oper () {
+    clear
+    cat <<EOT
+
+    Arithmetic binary Operators
+arg1 OP arg2
+    OP is one of ‘-eq’, ‘-ne’, ‘-lt’, ‘-le’, ‘-gt’, or ‘-ge’.
+    These arithmetic binary operators return true if arg1 is equal to, not equal to, less than, less than or equal to, greater than, or greater than or equal to arg2, respectively. Arg1 and arg2 may be positive or negative integers. 
+
+EOT
+read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
+" mychoice
+[[ $mychoice = q ]] && exit 0 || read_expr
+}
+#
+regex_oper () {
+    clear
+    cat <<EOT
+    Regular expression operators
+Operator	Effect
+.	Matches any single character.
+?	The preceding item is optional and will be matched, at most, once.
+*	The preceding item will be matched zero or more times.
++	The preceding item will be matched one or more times.
+{N}	The preceding item is matched exactly N times.
+{N,}	The preceding item is matched N or more times.
+{N,M}	The preceding item is matched at least N times, but not more than M times.
+-	represents the range if it's not first or last in a list or the ending point of a range in a list.
+^	Matches the empty string at the beginning of a line; also represents the characters not in the range of a list.
+$	Matches the empty string at the end of a line.
+\b	Matches the empty string at the edge of a word.
+\B	Matches the empty string provided it's not at the edge of a word.
+\<	Match the empty string at the beginning of word.
+\>	Match the empty string at the end of word.
+
+Basic versus extended regular expressions
+In basic regular expressions the metacharacters "?", "+", "{", "|", "(", and ")" lose their special meaning; instead use the backslashed versions "\?", "\+", "\{", "\|", "\(", and "\)".
+
+EOT
+read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
+" mychoice
+[[ $mychoice = q ]] && exit 0 || read_expr
+}
+#
+grep_examp () {
+    clear
+    cat <<EOT
+
+    Examples With grep and Character Classes
+Line and word anchors
+From the previous example, we now exclusively want to display lines starting with the string "root":
+
+cathy ~> grep ^root /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+
+If we want to see which accounts have no shell assigned whatsoever, we search for lines ending in ":":
+
+cathy ~> grep :$ /etc/passwd
+news:x:9:13:news:/var/spool/news:
+
+To check that PATH is exported in ~/.bashrc, first select "export" lines and then search for lines starting with the string "PATH", so as not to display MANPATH and other possible paths:
+
+cathy ~> grep export ~/.bashrc | grep '\<PATH'
+  export PATH="/bin:/usr/lib/mh:/lib:/usr/bin:/usr/local/bin:/usr/ucb:/usr/dbin:$PATH"
+
+Similarly, \> matches the end of a word.
+
+If you want to find a string that is a separate word (enclosed by spaces), it is better use the -w, as in this example where we are displaying information for the root partition:
+
+cathy ~> grep -w / /etc/fstab
+LABEL=/                 /                       ext3    defaults        1 1
+If this option is not used, all the lines from the file system table will be displayed.
+
+Character classes
+
+A bracket expression is a list of characters enclosed by "[" and "]". It matches any single character in that list; if the first character of the list is the caret, "^", then it matches any character NOT in the list. For example, the regular expression "[0123456789]" matches any single digit.
+
+Within a bracket expression, a range expression consists of two characters separated by a hyphen. It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set. For example, in the default C locale, "[a-d]" is equivalent to "[abcd]". Many locales sort characters in dictionary order, and in these locales "[a-d]" is typically not equivalent to "[abcd]"; it might be equivalent to "[aBbCcDd]", for example. To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL environment variable to the value "C".
+
+cathy ~> grep [yf] /etc/group
+sys:x:3:root,bin,adm
+tty:x:5:
+mail:x:12:mail,postfix
+ftp:x:50:
+nobody:x:99:
+floppy:x:19:
+xfs:x:43:
+nfsnobody:x:65534:
+postfix:x:89:
+
+In the example, all the lines containing either a "y" or "f" character are displayed.
+4.2.2.3. Wildcards
+
+Use the "." for a single character match. If you want to get a list of all five-character English dictionary words starting with "c" and ending in "h" (handy for solving crosswords):
+
+cathy ~> grep '\<c...h\>' /usr/share/dict/words
+catch
+clash
+cloth
+coach
+couch
+cough
+crash
+crush
+
+If you want to display lines containing the literal dot character, use the -F option to grep.
+
+For matching multiple characters, use the asterisk. This example selects all words starting with "c" and ending in "h" from the system's dictionary:
+
+cathy ~> grep '\<c.*h\>' /usr/share/dict/words
+caliph
+cash
+catch
+cheesecloth
+cheetah
+
+If you want to find the literal asterisk character in a file or output, use single quotes. Cathy in the example below first tries finding the asterisk character in /etc/profile without using quotes, which does not return any lines. Using quotes, output is generated:
+
+cathy ~> grep * /etc/profile
+cathy ~> grep '*' /etc/profile
+for i in /etc/profile.d/*.sh ; do
+
+Pattern matching using Bash features
+ Character ranges
+
+cathy ~> touch "*"
+cathy ~> ls "*"
+
+But you can also use the square braces to match any enclosed character or range of characters, if pairs of characters are separated by a hyphen. An example:
+
+cathy ~> ls -ld [a-cx-z]*
+drwxr-xr-x    2 cathy	 cathy		4096 Jul 20  2002 app-defaults/
+drwxrwxr-x    4 cathy    cathy          4096 May 25  2002 arabic/
+drwxrwxr-x    2 cathy    cathy          4096 Mar  4 18:30 bin/
+drwxr-xr-x    7 cathy    cathy          4096 Sep  2  2001 crossover/
+drwxrwxr-x    3 cathy    cathy          4096 Mar 22  2002 xml/
+
+This lists all files in cathy's home directory, starting with "a", "b", "c", "x", "y" or "z".
+
+If the first character within the braces is "!" or "^", any character not enclosed will be matched. To match the dash ("-"), include it as the first or last character in the set. The sorting depends on the current locale and of the value of the LC_COLLATE variable, if it is set. Mind that other locales might interpret "[a-cx-z]" as "[aBbCcXxYyZz]" if sorting is done in dictionary order. If you want to be sure to have the traditional interpretation of ranges, force this behavior by setting LC_COLLATE or LC_ALL to "C".
+
+Character classes
+
+Character classes can be specified within the square braces, using the syntax [:CLASS:], where CLASS is defined in the POSIX standard and has one of the values
+
+"alnum", "alpha", "ascii", "blank", "cntrl", "digit", "graph", "lower", "print", "punct", "space", "upper", "word" or "xdigit".
+
+Some examples:
+
+cathy ~> ls -ld [[:digit:]]*
+drwxrwxr-x    2 cathy	cathy		4096 Apr 20 13:45 2/
+
+cathy ~> ls -ld [[:upper:]]*
+drwxrwxr--    3 cathy   cathy           4096 Sep 30  2001 Nautilus/
+drwxrwxr-x    4 cathy   cathy           4096 Jul 11  2002 OpenOffice.org1.0/
+-rw-rw-r--    1 cathy   cathy         997376 Apr 18 15:39 Schedule.sdc
+
+When the extglob shell option is enabled (using the shopt built-in), several extended pattern matching operators are recognized. Read more in the Bash info pages, section Basic shell features->Shell Expansions->Filename Expansion->Pattern Matching.
+
+EOT
+read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
+" mychoice
+[[ $mychoice = q ]] && exit 0 || read_expr
+}
+#
+read_expr () {
+    clear
+    echo -e "\n${BLYLW}    There are many sections in Conditional and Regular Expressions
+    we have divided this into sub-sections...${BLCYN}
+    Please select one of the following options for the section you wish-${BLYLW}
+  1 -${BLCYN}    Bash Conditional Expressions${BLYLW}
+  2 -${BLCYN}    Extended Conditional Expression Operators${BLYLW}
+  3 -${BLCYN}    Arithmetic binary Operators${BLYLW}
+  4 -${BLCYN}    Regular expression operators${BLYLW}
+  5 -${BLCYN}    Examples With grep and Character Classes${BLYLW}
+  q -${BLCYN}    Quit\n${RESET}"
+    read MYEXPR
+    case $MYEXPR in
+	    1)
+		    cond_expr
+		    ;;
+	    2)
+		    conex_oper
+		    ;;
+	    3)
+		    arith_oper
+		    ;;
+	    4)
+		    regex_oper
+		    ;;
+	    5)
+		    grep_examp
+		    ;;
+	    q)
+		    exit 0
+		    ;;
+    esac
+}
+#
 def_expres () {
 	cat <<EOT
 
@@ -311,6 +587,7 @@ ${YELLOW}${BOLD}    You can find the expressions.txt at -${RESET}${LTCYN}
 # https://github.com/SeaPhor/SeaPhor-Scripts${RESET}
 
 EOT
+read_expr
 }
 #
 lvm_notes () {
