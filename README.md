@@ -13,11 +13,11 @@ EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 1. Options-
 ####  Option	     Short Desc.	      Description
     []	         None	             Shows this menu and exits. same as help
--  [help]	     Help             Shows the entire menu and exits
--  [sobj]	     Objective        Show the Objective for this script and all coding,commands, and structure.
--  [vers]	     Version          Shows this revision's Verion and exits.
--  Options Below have an 'INFO' option-
--    [-info]	  Information      Add to the end of option the '-info' to get more details
+    [help]	     Help             Shows the entire menu and exits
+    [sobj]	     Objective        Show the Objective for this script and all coding,commands, and structure.
+    [vers]	     Version          Shows this revision's Verion and exits.
+#####  Options Below have an 'INFO' option-
+        [-info]	  Information      Add to the end of option the '-info' to get more details
 - EXAMPLE- useful-tips.sh meta-info
 -  [meta]	     Meta Chars       Shows ways to remove files with names that are meta-characters including by-inode number.
 -  [lvmn]	     LVM Notes        Shows LVM management for adding a disk.
