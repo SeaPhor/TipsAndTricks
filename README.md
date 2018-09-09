@@ -12,7 +12,7 @@ EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 
 1. Options-
 #####    Option	     Short Desc.	      Description
-    []	       None	          Shows this menu and exits. same as help
+    [    ]       None	          Shows this menu and exits. same as help
     [help]	     Help             Shows the entire menu and exits
     [sobj]	     Objective        Show the Objective for this script and all coding,commands, and structure.
     [vers]	     Version          Shows this revision's Verion and exits.
