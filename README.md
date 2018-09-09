@@ -5,7 +5,7 @@
 ### A "Living" script for Useful Linux commands, scripting, and configuring in an Enterprise environment
 
 1. Usage:
-    sh useful-tips.sh option | option-info - optional- quiet for non-interactive
+    [sh useful-tips.sh option | option-info - optional- quiet for non-interactive]
     EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 
 1. Options-
