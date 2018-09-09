@@ -4,13 +4,13 @@ UsefulTips-
 
 A "Living" script for Useful Linux commands, scripting, and configuring in an Enterprise environment
 
-Usage:
+1. Usage:
 sh useful-tips.sh option | option-info - optional- quiet for non-interactive
 
 
 EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 
--	Options-
+1. Options-
 -  Option	     Short Desc.	      Description
 -  []	         None	             Shows this menu and exits. same as help
 -  [help]	     Help             Shows the entire menu and exits
@@ -27,7 +27,7 @@ EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 -  [umnt]	     Monitor Tips     Tips for Monitoring and troubleshooting
 -  [vims]	     VIM Tips         Helpful vim shortcuts and tips.
 -  [pend]	     Prepend          Prepend the beginning of every line in a file 
-- -                                     Append Or, append to the end of every line in a file.
+-                               Append Or, append to the end of every line in a file.
 -  [seds]	     Sed Stuff        Helpful Replacement shortcuts and tips- sed, tr, etc.
 -  [sftp]	     SFTP Chroot      Create a secure SFTP environment using a 
 - -                                     chroot-jail file system structure.
@@ -43,8 +43,7 @@ EXAMPLE- useful-tips.sh pep8 or  useful-tips.sh pep8 quiet
 -  [gtbr]	     Git Branches     Working with Branches in GIT
 -  [gitl]	     GitLab Setup     Setup your own GitLab Server from Beginning to end.
 
-HowTos
-- HowTos/ApacheJoomlaWeb
-- - Apache Web Server using the Joomla CSM in a VM
-- - - Setup from beginning to end
+1. HowTos
+-    HowTos/ApacheJoomlaWeb
+- -    Apache Web Server using the Joomla CSM in a VM - Setup from beginning to end
 
