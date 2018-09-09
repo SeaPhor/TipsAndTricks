@@ -1,8 +1,8 @@
 # TipsAndTricks
 
-UsefulTips-
+## UsefulTips-
 
-A "Living" script for Useful Linux commands, scripting, and configuring in an Enterprise environment
+### A "Living" script for Useful Linux commands, scripting, and configuring in an Enterprise environment
 
 1. Usage:
 sh useful-tips.sh option | option-info - optional- quiet for non-interactive
