@@ -1,5 +1,9 @@
 #!/bin/bash
 #
+###########################################
+####    Define Variables
+###########################################
+#
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 YELLOW=`tput setaf 3`
@@ -19,6 +23,15 @@ ULINE=`tput smul`
 NULINE=`tput rmul`
 BOLD=`tput bold`
 RESET=`tput sgr0`
+#
+###########################################
+####    RPM-Build
+###########################################
+#
+#
+###########################################
+####    Define functions
+###########################################
 #
 content_run () {
     clear
@@ -47,50 +60,53 @@ EOT
 prep_run () {
     clear
     cat <<EOT
-1. Building rpms with 'rpmbuild'
-  a. Build an rpm from a script
+${BOLD}${YELLOW}
+1. Building rpms with 'rpmbuild'${LTYLLW}
+  a. Build an rpm from a script${RESET}${LTCYN}
 
     1. Preparation (This is the same for "Build an rpm from source)
        Before you begin building rpms you may need to prepare the environment.
-      a. Requirements
+      a. Requirements${CYAN}
         ####    Install the 'rpm-build' package/s
-        ####    -SUSE
-        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build
-        ####    -Redhat
-        $ sudo yum install rpm-build
+        ####    -SUSE${LTGRN}
+        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build${CYAN}
+        ####    -Redhat${LTGRN}
+        $ sudo yum install rpm-build${LTCYN}
       b. The rpm directory structure
         It is best to start with a standard rpmbuild directory structure in your
          user's \${HOME}/ directory, don't get in the habbit of building rpms as
-         root, there is potential for breaking things if you do.
-        ####    rpmbuild directory structure
+         root, there is potential for breaking things if you do.${CYAN}
+        ####    rpmbuild directory structure${LTGRN}
         $ mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
         $ cd ~/rpmbuild
-        $ tree -L 1 .
+        $ tree -L 1 .${LTCYN}
         .
         ├── BUILD
         ├── BUILDROOT
         ├── RPMS
         ├── SOURCES
         ├── SPECS
-        └── SRPMS
+        └── SRPMS${RESET}
 EOT
 }
 #
 srcdir_run () {
     clear
     cat <<EOT
-    2. The 'SOURCE' code Directory
+${BOLD}${LTYLLW}
+    2. The 'SOURCE' code Directory${RESET}${LTYLLW}
       The 'source' is the script itself, placed in the "SOURCES" directory under the 
-       rpmbuild directory structure.
-      ####    Get the script into the "SOURCES" directory- notice the re-name (my pref)
-      $ cp ~/repos/github/TipsAndTricks/Useful_Tips/useful-tips.sh ~/rpmbuild/SOURCES/usefultips
+       rpmbuild directory structure.${CYAN}
+      ####    Get the script into the "SOURCES" directory- notice the re-name (my pref)${LTGRN}
+      $ cp ~/repos/github/TipsAndTricks/Useful_Tips/useful-tips.sh ~/rpmbuild/SOURCES/usefultips${RESET}
 EOT
 }
 #
 spec_run () {
     clear
     cat <<EOT
-    3. The 'spec' file
+${BOLD}${LTYLLW}
+    3. The 'spec' file${RESET}${LTYLLW}
        Examples for this documentation- I will use my "usefultips.sh" script for the 
         "source", I will use my user's info for the Path, etc.
        The 'spec' filename suould match the name of the 'source', e.g. "usefultips.spec",
@@ -98,9 +114,9 @@ spec_run () {
         "SOURCES" directory, e.g. "usefultips".
        The spec file must be in the "SPECS" directory under the rpmbuild directory 
         structure.
-       Here's the spec file for the usefultips.sh script
-       $ cat SPECS/usefultips.spec
-       ####    Output
+       Here's the spec file for the usefultips.sh script${LTGRN}
+       $ cat SPECS/usefultips.spec${CYAN}
+       ####    Output${LTCYN}
 Name:           usefultips
 Version:        0.0.2
 Release:        03
@@ -109,7 +125,6 @@ Group:          Applications/Information
 License:        GPLv2
 URL:            https://github.com/SeaPhor/TipsAndTricks/blob/master/Useful_Tips/Latest_Stable/useful-tips.sh
 Source:		%{name}
-#Source0:        /home/c4/rpmbuilds/SOURCES/usefultips
 BuildRoot:      %{buildroot}
 Prefix:		/usr
 %description
@@ -127,10 +142,11 @@ rm -rf \$RPM_BUILD_ROOT
 %defattr(-,c4,users)
 /usr/local/bin/usefultips
 %doc
-%changelog
+%changelog${RESET}${YELLOW}
        After the spec file is in the "SPECS" directory, and the script is in the "SOURCES"
-        directory, your environment should look like so:
-       $ rpmbuild> tree -L 2 .
+        directory, your environment should look like so:${LTGRN}
+       $ rpmbuild> tree -L 2 .${CYAN}
+       ####    Output${LTCYN}
        .
        ├── BUILD
        ├── BUILDROOT
@@ -139,19 +155,20 @@ rm -rf \$RPM_BUILD_ROOT
        │   └── usefultips
        ├── SPECS
        │   └── usefultips.spec
-       └── SRPMS
+       └── SRPMS${RESET}
 EOT
 }
 #
 cmd_run () {
     clear
     cat <<EOT
-    4. The 'rpmbuild' command to build the rpm
+${BOLD}${LTYLLW}
+    4. The 'rpmbuild' command to build the rpm${RESET}${LTYLLW}
        Read the man page for the other options available, for this document I am 
-        only using what is needed.
-       ####    The rpmbuild command
-       $ rpmbuild -v -bb --clean SPECS/usefultips.spec
-       ####    Output
+        only using what is needed.${CYAN}
+       ####    The rpmbuild command${LTGRN}
+       $ rpmbuild -v -bb --clean SPECS/usefultips.spec${CYAN}
+       ####    Output${LTCYN}
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.aXzDRT
 + umask 022
 + cd /home/c4/rpmbuild/BUILD
@@ -183,65 +200,70 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.0bADvn
 Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.yr4HH7
 + umask 022
 + cd /home/c4/rpmbuild/BUILD
-+ exit 0
++ exit 0${RESET}
 EOT
 }
 #
 inst_run () {
     clear
     cat <<EOT
-    5. Verify, Install, and Test the rpm
-      In the output above you will see the full path to the newly created rpm:
-       "Wrote: /home/c4/rpmbuild/RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm"
-      ####    Verify the rpm
-      $ rpm -qpi RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm
+${BOLD}${LTYLLW}
+    5. Verify, Install, and Test the rpm${RESET}${LTYLLW}
+      In the output above you will see the full path to the newly created rpm:${BOLD}${CYAN}
+       "Wrote: /home/c4/rpmbuild/RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm"${RESET}${CYAN}
+      ####    Verify the rpm${LTGRN}
+      $ rpm -qpi RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYAN}
       ####    Output will be the contents of your spec file
-      ####    Install the rpm
-      $ sudo rpm -Uhv RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm # ALWAYS use "U"
-      ####    Output
+      ####    Install the rpm ${BOLD}(${ULINE}ALWAYS use "U"${NULINE})${RESET}${LTGRN}
+      $ sudo rpm -Uhv RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYAN}
+      ####    Output${LTCYN}
       Preparing...                          ################################# [100%]
       Updating / installing...
-         1:usefultips-0.0.2-04              ################################# [100%]
-      $ which usefultips
-      /usr/local/bin/usefultips
-      $ usefultips vers
-      This Version/Revision of usefultips is 0.0.2-04 released on 15 Sep 2018
+         1:usefultips-0.0.2-04              ################################# [100%]${LTGRN}
+      $ which usefultips${LTCYN}
+      /usr/local/bin/usefultips${LTGRN}
+      $ usefultips vers${LTCYN}
+      This Version/Revision of usefultips is 0.0.2-04 released on 15 Sep 2018${RESET}
 EOT
 }
 #
 srcode_run () {
     clear
     cat <<EOT
-  b. Build an rpm from source (src) code
-    Not available yet, see the "Resources" section for links
+${BOLD}${LTYLLW}
+  b. Build an rpm from source (src) code${RESET}${LTYLLW}
+    Not available yet, see the "Resources" section for links${RESET}
 EOT
 }
 #
 patch_run () {
     clear
     cat <<EOT
-  c. Creating Patch to update source code
-    Not available yet, see the "Resources" section for links
+${BOLD}${LTYLLW}
+  c. Creating Patch to update source code${RESET}${LTYLLW}
+    Not available yet, see the "Resources" section for links${RESET}
 EOT
 }
 #
 note_run () {
     clear
     cat <<EOT
-2. Notes on RPM, Versioning, and Structure
-  a. It recommended to ALWAYS use "U" instead of "i" when installing an rpm... 
+${BOLD}${LTYLLW}
+2. Notes on RPM, Versioning, and Structure${RESET}${LTYLLW}
+  a. It recommended to ALWAYS use "${BOLD}${LTCYN}U${RESET}${LTYLLW}" instead of "${BOLD}${LTCYN}i${RESET}${LTYLLW}" when installing an rpm... 
       Read the man page to find out why.
   b. Use a standardized versioning method and be consistant with its use.
   c. When building a newer rev of a previously built rpm, remember to copy the edited 
       script to the "SOURCES" directory, and update the "Release", and possible the 
-      "Version" section/s of the 'spec' file.
+      "Version" section/s of the 'spec' file.${RESET}
 EOT
 }
 #
 doc_run () {
     clear
     cat <<EOT
-3. Documentation
+${BOLD}${LTYLLW}
+3. Documentation${RESET}${LTYLLW}
   The commands, files, and executions in this document were performed on openSUSE Leap-15
   Whether SUSE-based distro or Redhat-based the structure and process is basically
    the same, but, SUSE has some built in and enhanced/expanded capabilities.
@@ -254,13 +276,18 @@ EOT
 ref_run () {
     clear
     cat <<EOT
-4. References
+${BOLD}${LTYLLW}
+4. References${RESET}${LTCYN}
   https://cromwell-intl.com/open-source/rpm-patch.html
   https://www.suse.com/documentation/suse-best-practices/pdfdoc/sbp-rpm-packaging/sbp-rpm-packaging.pdf
   https://access.redhat.com/sites/default/files/attachments/rpm_building_howto.pdf
   https://openbuildservice.org/
 EOT
 }
+#
+###########################################
+####    Show menu, receive imput, execute 
+###########################################
 #
 rpmdoc_run () {
     cat <<EOT
@@ -341,6 +368,10 @@ case $mychoice in
     ;;
 esac
 }
+#
+###########################################
+####    Run script & exit
+###########################################
 #
 rpmdoc_run
 exit $?
