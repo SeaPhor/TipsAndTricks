@@ -1,12 +1,49 @@
 #!/usr/bin/env bash
 #
+##    useful-tips
+##    Author       - Shawn Miller
+##    Date         - 2018 02 15
+##    Colaborators - 
+#
+#####################################################################
+#####                   GNU/GPL Info
+#####################################################################
+#
+gpl_info () {
+    cat <<EOT
+${LTCYN}
+####c4#############################################################################
+###                                                                             ###
+##                      GNU/GPL Info                                             ##
+##        useful-tips.sh ver-0.0.0-01 - Colaborative begun 15 February 2018	 ##
+##      Released under GPL v2.0, See www.gnu.org for full license info           ##
+##      Copyright (C) 2015  Shawn Miller, The Wood-Bee Company			 ##
+##              EMAIL- shawn@woodbeeco.com                                       ##
+##                   - seaphor@woodbeeco.com                                     ##
+##  This program is free software; you can redistribute it and/or modify         ##
+##    it under the terms of the GNU General Public License as published by       ##
+##    the Free Software Foundation; either version 2 of the License, or          ##
+##    (at your option) any later version.                                        ##
+##                                                                               ##
+##    This program is distributed in the hope that it will be useful,            ##
+##    but WITHOUT ANY WARRANTY; without even the implied warranty of             ##
+##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              ##
+##    GNU General Public License for more details.                               ##
+##                                                                               ##
+##    See this complete License at:                                              ##
+##    https://github.com/SeaPhor/SeaPhor-Scripts/blob/master/LICENSE		 ##
+###                                                                             ###
+####w#################################b######################################c#####${RESET}
+EOT
+}
+#
 ###########################################
 ### Define Variables
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-03"
-PROGDATE="02 Sep 2018"
+PROGVERS="0.0.2-04"
+PROGDATE="15 Sep 2018"
 MYOPT="$1"
 if [[ "`echo $2`" == "quiet" ]]; then
     NOOPTS=true
@@ -1516,5 +1553,7 @@ exit $?
 #      Fixed typo in Version number
 #      Variablized the Arg
 #    Change- '0.0.2-03' 02 Sep 2018- Added Color to ALL expr output
+#    Change- '0.0.2-04' 15 Sep 2018- 
+#      cleanup for rpmbuild
 #
 #

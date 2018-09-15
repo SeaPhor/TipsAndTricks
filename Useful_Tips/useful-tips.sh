@@ -42,8 +42,8 @@ EOT
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-03"
-PROGDATE="02 Sep 2018"
+PROGVERS="0.0.2-04"
+PROGDATE="15 Sep 2018"
 MYOPT="$1"
 if [[ "`echo $2`" == "quiet" ]]; then
     NOOPTS=true
@@ -1553,5 +1553,7 @@ exit $?
 #      Fixed typo in Version number
 #      Variablized the Arg
 #    Change- '0.0.2-03' 02 Sep 2018- Added Color to ALL expr output
+#    Change- '0.0.2-04' 15 Sep 2018- 
+#      cleanup for rpmbuild
 #
 #
