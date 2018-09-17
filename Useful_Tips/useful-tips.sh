@@ -115,22 +115,21 @@ EOT
 #
 show_opts () {
 	cat <<EOT
-
-${LTCYN}${BOLD}${BGYLLW}    Usage-${RESET}${LTMAG}
-  sh ${PROGNAME}${YELLOW} [${LTCYN} option | option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
-  EXAMPLE-${LTMAG}${PROGNAME} pep8${YELLOW} or ${LTMAG}${PROGNAME} pep8 quiet
-
-${LTCYN}${BOLD}${BGYLLW}    Options-${RESET}${YELLOW}${ULINE}
-  Option    Short Desc.    Description${LTCYN}${NULINE}
-  [    ]${BOLD}    None       ${RESET}${LTCYN}  Shows this menu and exits. same as help
-  [help]${BOLD}    Help       ${RESET}${LTCYN}  Shows the entire menu and exits
-  [sobj]${BOLD}    Objective  ${RESET}${LTCYN}  Show the Objective for this script and all coding,
+${LTCYN}${BOLD}
+${BGYLLW}Usage-${RESET}${LTMAG}
+  sh ${PROGNAME}${YELLOW} [${LTCYN} option${YELLOW} |${LTCYN} option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
+  Some options have an 'INFO' option- Add '${LTCYN}-info${YELLOW}' to the option to get more detailed description-
+  EXAMPLES-${LTMAG}
+    ${PROGNAME} pep8${LTMAG}
+    ${PROGNAME} pep8 quiet
+    ${PROGNAME} meta-info${LTCYN}${BOLD}
+${BGYLLW}Options-${RESET}${YELLOW}
+  ${ULINE}Option    Short Desc.   Description${LTCYN}${NULINE}
+  [    ]${BOLD}    None       ${RESET}${LTCYN}   Shows this menu and exits. same as help
+  [help]${BOLD}    Help       ${RESET}${LTCYN}   Shows the entire menu and exits
+  [sobj]${BOLD}    Objective  ${RESET}${LTCYN}   Show the Objective for this script and all coding,
                           commands, and structure.
-  [vers]${BOLD}    Version    ${RESET}${LTCYN}  Shows this revision's Verion and exits.${YELLOW}
-  Options Below have an 'INFO' option-
-    [-info]    Information     Add to the end of option the '-info' to get
-                               more detailed description-
-                            EXAMPLE-${LTMAG}${PROGNAME}meta-info${LTCYN}
+  [vers]${BOLD}    Version    ${RESET}${LTCYN}   Shows this revision's Verion and exits.
   [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are
                            meta-characters including by-inode number.
   [lvmn]${BOLD}    LVM Notes${RESET}${LTCYN}     Shows LVM management for adding a disk.
@@ -1921,5 +1920,6 @@ exit $?
 #      Added Note on spec-file in useful
 #      Fixed syntax mistake in the "Usage" output
 #      Fixed allignment mistake in the "Usage" output
+#      Cleaned up structure of entire "Usage"... MUCH cleaner output
 #
 #
