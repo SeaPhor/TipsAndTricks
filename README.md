@@ -23,17 +23,21 @@
     [vims]	  VIM Tips         Helpful vim shortcuts and tips.
     [pend]	  Prepend          Prepend the beginning of every line in a file, Or, Append to the end of every line in a file.
     [seds]	  Sed Stuff        Helpful Replacement shortcuts and tips- sed, tr, etc.
+    [emty]    Empty Lines      Remove Empty Lines in a file, including white-space, tabs, and commented lines.
     [sftp]	  SFTP Chroot      Create a secure SFTP environment using a chroot-jail file system structure.
     [expr]	  Expressions      Full list and explanation of Conditional and Regular Expressions.
     [pep8]	  PEP8 Tools       PEP8 Living Doc- Code compliane structure and tips.
     [irsi]	  IRSSI Tips       IRSSI Living Doc- Helpful Info and tips.
     [link]    My Links         Links to various helpful tools, tips, tutorials, etc.
     [read]    User Input       Request user input in bash script, supress the stdin/out
-    [date]    Custom Date      Using custom date command in scripts and/or cli
+    [date]    Custom Date      Using custom date command in scripts and/or cliwhite-space, tabs, and commented lines.
     [type]    type command     Using the type command to find other command in scripting.
+    [colr]    Add Colors       Add colors and effects to the output of your scripts and commands.
     [cows]    Login Profile    Silly little hack so you will have a fortune each time you log in. -See Also cows-info
+    [gtal]    Git Aliases      Add Aliases to short-cuts to git commands in ~/.gitconfig
     [gtbr]	  Git Branches     Working with Branches in GIT
     [gitl]	  GitLab Setup     Setup your own GitLab Server from Beginning to end.
+    [rpmb]    RPM Build        How to Build your own rpms, a script or source code.
 
 1. HowTos
     1. HowTos/ApacheJoomlaWeb
