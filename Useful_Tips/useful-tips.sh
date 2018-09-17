@@ -122,7 +122,7 @@ ${LTCYN}${BOLD}${BGYLLW}    Usage-${RESET}${LTMAG}
 
 ${LTCYN}${BOLD}${BGYLLW}    Options-${RESET}${YELLOW}${ULINE}
   Option    Short Desc.    Description${LTCYN}${NULINE}
-  []${BOLD}    None           ${RESET}${LTCYN}  Shows this menu and exits. same as help
+  [    ]${BOLD}    None       ${RESET}${LTCYN}  Shows this menu and exits. same as help
   [help]${BOLD}    Help       ${RESET}${LTCYN}  Shows the entire menu and exits
   [sobj]${BOLD}    Objective  ${RESET}${LTCYN}  Show the Objective for this script and all coding,
                           commands, and structure.
@@ -1920,5 +1920,6 @@ exit $?
 #    Change- '0.0.2-06' 17 Sep 2018- 
 #      Added Note on spec-file in useful
 #      Fixed syntax mistake in the "Usage" output
+#      Fixed allignment mistake in the "Usage" output
 #
 #
