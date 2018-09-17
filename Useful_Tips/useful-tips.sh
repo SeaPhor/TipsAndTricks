@@ -42,8 +42,8 @@ EOT
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-05"
-PROGDATE="15 Sep 2018"
+PROGVERS="0.0.2-06"
+PROGDATE="17 Sep 2018"
 MYOPT="$1"
 if [[ "`echo $2`" == "quiet" ]]; then
     NOOPTS=true
@@ -1499,7 +1499,11 @@ rm -rf \$RPM_BUILD_ROOT
        │   └── usefultips
        ├── SPECS
        │   └── usefultips.spec
-       └── SRPMS${RESET}
+       └── SRPMS${BOLD}${YELLOW}
+  Note:${RESET}${YELLOW}
+    You can create your spec file by simply copying an existing spec file and modifying it.
+    As an alternative, you can use the vim or emacs command to open any new file that ends in .spec. The editor will automatically create a template within the new file for writing an RPM spec file.${RESET}
+
 EOT
 }
 #
@@ -1913,6 +1917,8 @@ exit $?
 #      cleanup for rpmbuild
 #    Change- '0.0.2-05' 15 Sep 2018- 
 #      Added RPM-Build
+#    Change- '0.0.2-06' 17 Sep 2018- 
+#      Added Note on spec-file in useful
 #
 #
 #

@@ -155,7 +155,11 @@ rm -rf \$RPM_BUILD_ROOT
        │   └── usefultips
        ├── SPECS
        │   └── usefultips.spec
-       └── SRPMS${RESET}
+       └── SRPMS${BOLD}${YELLOW}
+  Note:${RESET}${YELLOW}
+    You can create your spec file by simply copying an existing spec file and modifying it.
+    As an alternative, you can use the vim or emacs command to open any new file that ends in .spec. The editor will automatically create a template within the new file for writing an RPM spec file.${RESET}
+
 EOT
 }
 #
