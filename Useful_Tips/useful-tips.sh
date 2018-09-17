@@ -117,7 +117,7 @@ show_opts () {
 	cat <<EOT
 
 ${LTCYN}${BOLD}${BGYLLW}    Usage-${RESET}${LTMAG}
-  sh${PROGNAME}${YELLOW} [${LTCYN} option | option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
+  sh ${PROGNAME}${YELLOW} [${LTCYN} option | option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
   EXAMPLE-${LTMAG}${PROGNAME} pep8${YELLOW} or ${LTMAG}${PROGNAME} pep8 quiet
 
 ${LTCYN}${BOLD}${BGYLLW}    Options-${RESET}${YELLOW}${ULINE}
@@ -1919,6 +1919,6 @@ exit $?
 #      Added RPM-Build
 #    Change- '0.0.2-06' 17 Sep 2018- 
 #      Added Note on spec-file in useful
-#
+#      Fixed syntax mistake in the "Usage" output
 #
 #
