@@ -10,8 +10,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-07"
-PROGDATE="18 Sep 2018"
+PROGVERS="0.0.2-08"
+PROGDATE="19 Sep 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -1398,8 +1398,11 @@ RESET="\$(tput sgr0)"
 ${BOLD}${YELLOW}
   Example-${RESET}${LTYLLW}(For command line, use above for scripts)${GREEN}
     Try it, copy/paste the following line in your terminal-
-echo -e "\n\$(tput bold)\$(tput setaf 1)This is a example,\n\t\$(tput sgr0)\$(tput setaf 14)for adding colors to commands and scripts.\$(tput sgr0)\n"${RESET}
-
+echo -e "\n\$(tput bold)\$(tput setaf 1)This is a example,\n\t\$(tput sgr0)\$(tput setaf 14)for adding colors to commands and scripts.\$(tput sgr0)\n"${YELLOW}
+  References-${LTCYAN}
+https://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x405.html
+http://mewbies.com/motd_console_codes_color_chart_in_color_black_background.htm
+${RESET}
 EOT
 }
 #
@@ -1762,11 +1765,32 @@ cmmd_tar () {
     cat <<EOT
 ${BOLD}${YELLOW}
     The tar command, example answers to common questions${RESET}${YELLOW}
-  The most common question I know is the use of -C to remove the trailing path-
+  The most common question I know is the use of -C to remove the trailing path-${BOLD}${YELLOW}
+
+Backing Up - Archiving${RESET}${YELLOW}
   In this example I will archive MyApp config to my user home directory.${GREEN}
 $ tar -czvf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz -C /opt/myapp/ conf.d
 $ tar -tf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz${LTCYN}
-conf.d
+conf.d${BOLD}${YELLOW}
+
+Relieving full Disk/Partition space${RESET}${YELLOW}
+    In this example we've been alerted that the '${CYAN}/var/log${YELLOW}' partition is at ${RED}95%${YELLOW} full
+  and growing, our team-mate is working on the cause and we are to relieve the space
+  to avoid any outages due to the system being unable to log.
+    With a quick check we see that the rotated '${CYAN}secure${YELLOW}' logs are the culpret and the 
+  active log is growing. We see that the logs are set to ${ULINE}daily${NULINE} and not by ${ULINE}size${NULINE}, and
+  that ${ULINE}compression${NULINE} is not being used.${BOLD}${CYAN}
+  ${ULINE}FIRST${NULINE}${RESET}${CYAN} Stop the bleeding${GREEN}
+# cd /opt
+# tar -czvf secure_2018-09-14.tar.gz -C /var/log/ secure-2018* --remove-files
+# logrotate /etc/logrotate.d/syslog${YELLOW} ##Compress this file too, team-mate review${GREEN}
+# tar -czvf secure_2018-09-14_15-21.tar.gz -C /var/log/ secure-2018* --remove-files
+# df -h /var/log${YELLOW} ##verify free space${GREEN}
+# mv secure_2018-09-14.tar.gz /var/log/.${YELLOW}
+    We used the /opt partition in this case for Free Space available.${BOLD}${CYAN}
+  ${ULINE}SECOND${NULINE}${RESET}${CYAN} Prevent future occurances${YELLOW}
+    Notify the puppet team to modify the syslog/logrotate module to include
+  compress, dateext, and size, ${BOLD}${SOMODE}NOT${NSOMODE}${RESET}${YELLOW} daily.
 ${RESET}
 EOT
 }
@@ -2027,5 +2051,5 @@ exit $?
 #      Added Enter/Exit standout mode
 #      Added tars and math
 #      Added colr-info
-#
+#  Next- add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #
