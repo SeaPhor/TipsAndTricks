@@ -5,6 +5,15 @@
 ##    Date         - 2018 02 15
 ##    Colaborators - 
 #
+###########################################
+####    Global Variables
+###########################################
+#
+PROGNAME=$(basename $0)
+PROGVERS="0.0.2-07"
+PROGDATE="18 Sep 2018"
+MYOPT="$1"
+#
 #####################################################################
 #####                   GNU/GPL Info
 #####################################################################
@@ -38,13 +47,9 @@ EOT
 }
 #
 ###########################################
-### Define Variables
+####    Declare Variables
 ###########################################
 #
-PROGNAME=$(basename $0)
-PROGVERS="0.0.2-06"
-PROGDATE="17 Sep 2018"
-MYOPT="$1"
 if [[ "`echo $2`" == "quiet" ]]; then
     NOOPTS=true
 else
@@ -53,18 +58,18 @@ fi
 #
 ### Color Variables [Delete unused variables when done]
 #
-RED=`tput setaf 1`
-GREEN=`tput setaf 2`
-YELLOW=`tput setaf 3`
-BLUE=`tput setaf 4`
-MAG=`tput setaf 5`
-CYAN=`tput setaf 6`
-LTRED=`tput setaf 9`
-LTGRN=`tput setaf 10`
-LTYLLW=`tput setaf 11`
-LTBLU=`tput setaf 12`
-LTMAG=`tput setaf 13`
-LTCYN=`tput setaf 14`
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+MAG="$(tput setaf 5)"
+CYAN="$(tput setaf 6)"
+LTRED="$(tput setaf 9)"
+LTGRN="$(tput setaf 10)"
+LTYLLW="$(tput setaf 11)"
+LTBLU="$(tput setaf 12)"
+LTMAG="$(tput setaf 13)"
+LTCYN="$(tput setaf 14)"
 #
 BLRED=${BOLD}${LTRED}
 BLYLW=${BOLD}${LTYLLW}
@@ -72,14 +77,16 @@ BYLW=${BOLD}${YELLOW}
 BLCYN=${BOLD}${LTCYN}
 BCYN=${BOLD}${CYAN}
 #
-BGBLU=`tput setab 4`
-BGYLLW=`tput setab 3`
-BGLYLLW=`tput setab 11`
+BGBLU="$(tput setab 4)"
+BGYLLW="$(tput setab 3)"
+BGLYLLW="$(tput setab 11)"
 #
-ULINE=`tput smul`
-NULINE=`tput rmul`
-BOLD=`tput bold`
-RESET=`tput sgr0`
+ULINE="$(tput smul)"
+NULINE="$(tput rmul)"
+SOMODE="$(tput smso)"
+NSOMODE="$(tput rmso)"
+BOLD="$(tput bold)"
+RESET="$(tput sgr0)"
 #
 ###########################################
 ### Define Functions
@@ -87,6 +94,7 @@ RESET=`tput sgr0`
 #
 ### Sticky- Keep at top
 show_objective () {
+    clear
     cat <<EOT
 
 ${LTYLLW}${BOLD}    Objective- Effective Code Writing and Execution${RESET}${LTCYN}
@@ -114,54 +122,47 @@ EOT
 }
 #
 show_opts () {
-	cat <<EOT
+    clear
+    cat <<EOT
 ${LTCYN}${BOLD}
-${BGYLLW}Usage-${RESET}${LTMAG}
-  sh ${PROGNAME}${YELLOW} [${LTCYN} option${YELLOW} |${LTCYN} option-info${YELLOW} ] optional-${LTCYN} quiet${YELLOW} for non-interactive
-  Some options have an 'INFO' option- Add '${LTCYN}-info${YELLOW}' to the option to get more detailed description-
-  EXAMPLES-${LTMAG}
-    ${PROGNAME} pep8${LTMAG}
+${SOMODE}Usage-${NSOMODE}${RESET}${GREEN}
+  sh ${PROGNAME}${YELLOW} [${LTCYN}option${YELLOW}|${LTCYN}option${GREEN}-info${YELLOW}] optional 2nd arg- [${GREEN}quiet${YELLOW}] for non-interactive
+  Some options have an 'INFO' option- Add '${GREEN}-info${YELLOW}' to the option to get more detailed description-
+  EXAMPLES-${GREEN}
+    ${PROGNAME} pep8
     ${PROGNAME} pep8 quiet
     ${PROGNAME} meta-info${LTCYN}${BOLD}
-${BGYLLW}Options-${RESET}${YELLOW}
+${SOMODE}Options-${NSOMODE}${RESET}${YELLOW}
   ${ULINE}Option    Short Desc.   Description${LTCYN}${NULINE}
   [    ]${BOLD}    None       ${RESET}${LTCYN}   Shows this menu and exits. same as help
   [help]${BOLD}    Help       ${RESET}${LTCYN}   Shows the entire menu and exits
-  [sobj]${BOLD}    Objective  ${RESET}${LTCYN}   Show the Objective for this script and all coding,
-                          commands, and structure.
+  [sobj]${BOLD}    Objective  ${RESET}${LTCYN}   Show the Objective for this script and all coding, commands, and structure.
   [vers]${BOLD}    Version    ${RESET}${LTCYN}   Shows this revision's Verion and exits.
-  [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are
-                           meta-characters including by-inode number.
+  [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are meta-characters including by-inode number.
   [lvmn]${BOLD}    LVM Notes${RESET}${LTCYN}     Shows LVM management for adding a disk.
   [tool]${BOLD}    Useful Tools${RESET}${LTCYN}  Tools- Security, Monitoring, and troubleshooting
   [umnt]${BOLD}    Monitor Tips${RESET}${LTCYN}  Tips for Monitoring and troubleshooting
   [vims]${BOLD}    VIM Tips${RESET}${LTCYN}      Helpful vim shortcuts and tips.
-  [pend]${BOLD}    Prepend${RESET}${LTCYN}       Prepend the beginning of every line in a file
-${BOLD}            Append${RESET}${LTCYN}        Or, append to the end of every line in a file.
+  [pend]${BOLD}    Prepend${RESET}${LTCYN}       Prepend the beginning of every line in a file OR ${BOLD}Append${RESET}${LTCYN} to the end of every line in a file.
   [seds]${BOLD}    Sed Stuff${RESET}${LTCYN}     Helpful Replacement shortcuts and tips- sed, tr, etc.
-  [emty]${BOLD}    Empty Lines${RESET}${LTCYN}   Remove Empty Lines in a file, including
-                           white-space, tabs, and commented lines.
-  [sftp]${BOLD}    SFTP Chroot${RESET}${LTCYN}   Create a secure SFTP environment using
-                           a chroot-jail file system structure.
-  [susr]${BOLD}    UserAdd SFTP${RESET}${LTCYN}  Create a secure SFTP user and password with hash,
-                           in a chroot-jail environment.
-  [expr]${BOLD}    Expressions${RESET}${LTCYN}   Full list and explanation of Conditional
-                           and Regular Expressions.
+  [emty]${BOLD}    Empty Lines${RESET}${LTCYN}   Remove Empty Lines in a file, including white-space, tabs, and commented lines.
+  [sftp]${BOLD}    SFTP Chroot${RESET}${LTCYN}   Create a secure SFTP environment using a chroot-jail file system structure.
+  [susr]${BOLD}    UserAdd SFTP${RESET}${LTCYN}  Create a secure SFTP user and password with hash, in a chroot-jail environment.
+  [expr]${BOLD}    Expressions${RESET}${LTCYN}   Full list and explanation of Conditional and Regular Expressions.
   [pep8]${BOLD}    PEP8 Tools${RESET}${LTCYN}    PEP8 Living Doc- Code compliane structure and tips.
   [irsi]${BOLD}    IRSSI Tips${RESET}${LTCYN}    IRSSI Living Doc- Helpful Info and tips.
   [link]${BOLD}    My Links${RESET}${LTCYN}      Links to various helpful tools, tips, tutorials, etc.
-  [read]${BOLD}    User Input${RESET}${LTCYN}    Request user input in bash script, supress
-                           the stdin/out
+  [read]${BOLD}    User Input${RESET}${LTCYN}    Request user input in bash script, supress the stdin/out
   [date]${BOLD}    Custom Date${RESET}${LTCYN}   Using custom date command in scripts and/or cli
   [type]${BOLD}    Type Command${RESET}${LTCYN}  Using the type command to find other command in scripting.
-  [colr]${BOLD}    Add Colors${RESET}${LTCYN}    Add colors and effects to the output of your
-                           scripts and commands.
-  [cows]${BOLD}    Login Profile${RESET}${LTCYN} Silly little hack so you will have a fortune
-                           each time you log in. -Also has cows-info
+  [colr]${BOLD}    Add Colors${RESET}${LTCYN}    Add colors and effects to the output of your scripts and commands.
+  [cows]${BOLD}    Login Profile${RESET}${LTCYN} Silly little hack so you will have a fortune each time you log in. -Also has cows-info
   [gtal]${BOLD}    Git Aliases${RESET}${LTCYN}   Add Aliases to short-cuts to git commands in ~/.gitconfig
   [gtbr]${BOLD}    Git Branches${RESET}${LTCYN}  Working with Branches in GIT
   [gitl]${BOLD}    GitLab Setup${RESET}${LTCYN}  Setup your own GitLab Server from Beginning to end.
   [rpmb]${BOLD}    RPM Build${RESET}${LTCYN}     How to Build your own rpms, a script or source code.
+  [tars]${BOLD}    Tar Command${RESET}${LTCYN}   Common uses of the tar command
+  [math]${BOLD}    Simple Math${RESET}${LTCYN}   Performing simple math in the command line and scripting
 ${RESET}
 EOT
 }
@@ -1359,10 +1360,45 @@ ${BOLD}${YELLOW}    Add these Colors and effects to the output of your scripts-$
     Yellow${LTYLLW}
     Light Yellow${BOLD}${CYAN}
     Add BOLD to the text
-    ${BGBLU}${LTRED}Add Background Highlighting to the text${RESET}${LTYLLW}${ULINE}
-    Add Underlining to the text${NULINE}${RESET}${LTYLLW}
-    I will add a '-info' for this and display how I do this in the script
+    ${SOMODE}Add Standout mode${NSOMODE}${BOLD}${CYAN}
+    ${BGBLU}${LTRED}Add Background Highlighting to the text${RESET}${LTYLLW}
+    ${ULINE}Add Underlining to the text${NULINE}${RESET}${LTYLLW}
+    I added a '-info' for this and display how I do this in the script
   Or, you can just open this script and see for yourself${RED} (_:^(|)${MAG} [dead-Homer]${RESET}
+
+EOT
+}
+colr_info () {
+    cat <<EOT
+${BOLD}${YELLOW}
+    Using Color to enhance the output of your scripts${RESET}${YELLOW}
+  Use 'tput' in a variablized way and declare those in the head of scripts${LTCYN}
+  Here are the ones in this script ($PROGNAME),${BOLD}${LTYLLW} Turning off colors for this...${RESET}
+RED="\$(tput setaf 1)"
+GREEN="\$(tput setaf 2)"
+YELLOW="\$(tput setaf 3)"
+BLUE="\$(tput setaf 4)"
+MAG="\$(tput setaf 5)"
+CYAN="\$(tput setaf 6)"
+LTRED="\$(tput setaf 9)"
+LTGRN="\$(tput setaf 10)"
+LTYLLW="\$(tput setaf 11)"
+LTBLU="\$(tput setaf 12)"
+LTMAG="\$(tput setaf 13)"
+LTCYN="\$(tput setaf 14)"
+BGBLU="\$(tput setab 4)"
+BGYLLW="\$(tput setab 3)"
+BGLYLLW="\$(tput setab 11)"
+ULINE="\$(tput smul)"
+NULINE="\$(tput rmul)"
+SOMODE="\$(tput smso)"
+NSOMODE="\$(tput rmso)"
+BOLD="\$(tput bold)"
+RESET="\$(tput sgr0)"
+${BOLD}${YELLOW}
+  Example-${RESET}${LTYLLW}(For command line, use above for scripts)${GREEN}
+    Try it, copy/paste the following line in your terminal-
+echo -e "\n\$(tput bold)\$(tput setaf 1)This is a example,\n\t\$(tput sgr0)\$(tput setaf 14)for adding colors to commands and scripts.\$(tput sgr0)\n"${RESET}
 
 EOT
 }
@@ -1718,10 +1754,60 @@ esac
 }
 #
 ###########################################
-####    Run script & exit
+####    TAR Command
 ###########################################
 #
-###@COMPLETEDTESTED
+cmmd_tar () {
+    clear
+    cat <<EOT
+${BOLD}${YELLOW}
+    The tar command, example answers to common questions${RESET}${YELLOW}
+  The most common question I know is the use of -C to remove the trailing path-
+  In this example I will archive MyApp config to my user home directory.${GREEN}
+$ tar -czvf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz -C /opt/myapp/ conf.d
+$ tar -tf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz${LTCYN}
+conf.d
+${RESET}
+EOT
+}
+#
+###########################################
+####    Simple MATH
+###########################################
+#
+smpl_math () {
+    clear
+    cat <<EOT
+${BOLD}${YELLOW}
+    Performing Simple Math calculations in command line and scripting${RESET}${YELLOW}
+  Using cal and expr to find number of days between 2 dates, in this
+  example using employment start date to current date.${GREEN}
+> cal -j 2 4 2018${LTCYN}
+         April 2018        
+Sun Mon Tue Wed Thu Fri Sat
+ 91  ${SOMODE}92${NSOMODE}  93  94  95  96  97 
+ 98  99 100 101 102 103 104 
+105 106 107 108 109 110 111 
+112 113 114 115 116 117 118 
+119 120${GREEN}
+> cal -j 18 9 2018${LTCYN}
+       September 2018      
+Sun Mon Tue Wed Thu Fri Sat
+                        244 
+245 246 247 248 249 250 251 
+252 253 254 255 256 257 258 
+259 260 ${SOMODE}261${NSOMODE} 262 263 264 265 
+266 267 268 269 270 271 272 
+273${GREEN}                         
+> expr 261 - 92${LTCYN}
+${SOMODE}169${NSOMODE}
+${RESET}
+EOT
+}
+#
+###########################################
+####    Run script & exit
+###########################################
 #
 ###    END OF DEFINE FUNCTIONS
 #
@@ -1733,12 +1819,14 @@ case $MYOPT in
     "help")
         #show_objective
         #sleep 5
-        show_opts
-        exit $?
+        clear
+	show_opts
+        exit $0
     ;;
     "sobj")
-        show_objective
-        exit $?
+        clear
+	show_objective
+        exit $0
     ;;
     "meta")
         rem_meta
@@ -1874,12 +1962,26 @@ case $MYOPT in
         add_color
         exit $?
     ;;
+    "colr-info")
+        clear
+        colr_info
+        exit $?
+    ;;
     "rpmb")
         clear
         rpmdoc_run
     ;;
+    "tars")
+        clear
+        cmmd_tar
+    ;;
+    "math")
+        clear
+        smpl_math
+    ;;
     *)
-        show_objective
+        clear
+	show_objective
         show_opts
         exit $?
         ;;
@@ -1921,5 +2023,9 @@ exit $?
 #      Fixed syntax mistake in the "Usage" output
 #      Fixed allignment mistake in the "Usage" output
 #      Cleaned up structure of entire "Usage"... MUCH cleaner output
+#    Change- '0.0.2-07' 18 Sep 2018- 
+#      Added Enter/Exit standout mode
+#      Added tars and math
+#      Added colr-info
 #
 #
