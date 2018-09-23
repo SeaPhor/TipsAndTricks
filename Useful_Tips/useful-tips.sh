@@ -1845,12 +1845,12 @@ case $MYOPT in
         #sleep 5
         clear
 	show_opts
-        exit $0
+        exit 0
     ;;
     "sobj")
         clear
 	show_objective
-        exit $0
+        exit 0
     ;;
     "meta")
         rem_meta
