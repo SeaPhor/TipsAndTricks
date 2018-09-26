@@ -10,8 +10,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-08"
-PROGDATE="19 Sep 2018"
+PROGVERS="0.0.2-09"
+PROGDATE="26 Sep 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -1675,6 +1675,11 @@ EOT
 ####    Show menu, receive imput, execute
 ###########################################
 #
+contd_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || rpmdoc_run
+}
 rpmdoc_run () {
     cat <<EOT
 ${BOLD}${YELLOW}
@@ -1698,59 +1703,59 @@ case $mychoice in
     1)
         clear
 	content_run
-        rpmdoc_run
+        contd_run
     ;;
     2)
         clear
         prep_run
-        rpmdoc_run
+        contd_run
     ;;
     3)
         clear
         srcdir_run
-        rpmdoc_run
+        contd_run
     ;;
     4)
         clear
         spec_run
-        rpmdoc_run
+        contd_run
     ;;
     5)
         clear
         cmd_run
-        rpmdoc_run
+        contd_run
     ;;
     6)
         clear
         inst_run
-        rpmdoc_run
+        contd_run
     ;;
     7)
         clear
         srcode_run
-        rpmdoc_run
+        contd_run
     ;;
     8)
         clear
         note_run
-        rpmdoc_run
+        contd_run
     ;;
     9)
         clear
         doc_run
-        rpmdoc_run
+        contd_run
     ;;
     r)
         clear
         ref_run
-        rpmdoc_run
+        contd_run
     ;;
     q)
         exit 0
     ;;
     *)
         clear
-        rpmdoc_run
+        contd_run
         exit $?
     ;;
 esac
@@ -1845,12 +1850,12 @@ case $MYOPT in
         #sleep 5
         clear
 	show_opts
-        exit $0
+        exit 0
     ;;
     "sobj")
         clear
 	show_objective
-        exit $0
+        exit 0
     ;;
     "meta")
         rem_meta
