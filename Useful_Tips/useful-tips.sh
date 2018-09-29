@@ -10,8 +10,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-09"
-PROGDATE="26 Sep 2018"
+PROGVERS="0.0.2-10"
+PROGDATE="29 Sep 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -50,14 +50,17 @@ EOT
 ####    Declare Variables
 ###########################################
 #
-if [[ "`echo $2`" == "quiet" ]]; then
-    NOOPTS=true
-else
-    NOOPTS=false
-fi
+[[ $2 == "quiet" ]] && NOOPTS=true || NOOPTS=false
+[[ $2 == "nocolor" ]] && NOCOLR=true || NOCOLR=false
+#if [[ "`echo $2`" == "quiet" ]]; then
+#    NOOPTS=true
+#else
+#    NOOPTS=false
+#fi
 #
 ### Color Variables [Delete unused variables when done]
 #
+if ! $NOCOLR; then
 RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
 YELLOW="$(tput setaf 3)"
@@ -87,6 +90,7 @@ SOMODE="$(tput smso)"
 NSOMODE="$(tput rmso)"
 BOLD="$(tput bold)"
 RESET="$(tput sgr0)"
+fi
 #
 ###########################################
 ### Define Functions
@@ -126,10 +130,15 @@ show_opts () {
     cat <<EOT
 ${LTCYN}${BOLD}
 ${SOMODE}Usage-${NSOMODE}${RESET}${GREEN}
-  sh ${PROGNAME}${YELLOW} [${LTCYN}option${YELLOW}|${LTCYN}option${GREEN}-info${YELLOW}] optional 2nd arg- [${GREEN}quiet${YELLOW}] for non-interactive
-  Some options have an 'INFO' option- Add '${GREEN}-info${YELLOW}' to the option to get more detailed description-
+  sh ${PROGNAME}${YELLOW} [${LTCYN}option${YELLOW}|${LTCYN}option${GREEN}-info${YELLOW}] 
+    Optional= 2nd arg- 
+      [${GREEN}quiet${YELLOW}] for non-interactive (not needed for most)
+      [${GREEN}nocolor${YELLOW}] To print the output without enhanced colors
+  Some options have an 'INFO' option- Add '${GREEN}-info${YELLOW}' to the option to get 
+    more detailed description-
   EXAMPLES-${GREEN}
-    ${PROGNAME} pep8
+    ${PROGNAME} rpmb
+    ${PROGNAME} rpmb nocolor
     ${PROGNAME} pep8 quiet
     ${PROGNAME} meta-info${LTCYN}${BOLD}
 ${SOMODE}Options-${NSOMODE}${RESET}${YELLOW}
@@ -2052,9 +2061,12 @@ exit $?
 #      Fixed syntax mistake in the "Usage" output
 #      Fixed allignment mistake in the "Usage" output
 #      Cleaned up structure of entire "Usage"... MUCH cleaner output
-#    Change- '0.0.2-07' 18 Sep 2018- 
+#    Change- '0.0.2-07' to '0.0.2-09' 18 Sep 2018 - 26 Sep 2018
 #      Added Enter/Exit standout mode
 #      Added tars and math
 #      Added colr-info
-#  Next- add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
+#    Change- '0.0.2-10' 29 Sep 2018- 
+#      Added 'nocolor' 2nd arg
+#  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
+#  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
 #
