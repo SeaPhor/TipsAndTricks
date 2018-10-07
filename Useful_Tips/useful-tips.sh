@@ -52,11 +52,6 @@ EOT
 #
 [[ $2 == "quiet" ]] && NOOPTS=true || NOOPTS=false
 [[ $2 == "nocolor" ]] && NOCOLR=true || NOCOLR=false
-#if [[ "`echo $2`" == "quiet" ]]; then
-#    NOOPTS=true
-#else
-#    NOOPTS=false
-#fi
 #
 ### Color Variables [Delete unused variables when done]
 #
@@ -172,6 +167,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YELLOW}
   [rpmb]${BOLD}    RPM Build${RESET}${LTCYN}     How to Build your own rpms, a script or source code.
   [tars]${BOLD}    Tar Command${RESET}${LTCYN}   Common uses of the tar command
   [math]${BOLD}    Simple Math${RESET}${LTCYN}   Performing simple math in the command line and scripting
+  [snip]${BOLD}    Snippet & Map${RESET}${LTCYN} Using Snippets and Mapping in VI/M
 ${RESET}
 EOT
 }
@@ -1218,15 +1214,15 @@ WDATE=\`date +%U\ %Y\`${LTYLLW}
 
 Examples and outputs-${YELLOW}
 Casual${CYAN}
-$ date +%a\ %b\ %d\ %Y${LTCYN}
+CASDATE="\$(date +%a\ %b\ %d\ %Y)"${LTCYN}
 Mon Apr 30 2018${YELLOW}
 
 International${CYAN}
-$ date +%d\ %b\ %Y${LTCYN}
+INTNDATE="\$(date +%d\ %b\ %Y)"${LTCYN}
 30 Apr 2018${YELLOW}
 
 Tech- filename${CYAN}
-$ date +%y%m%d-%H.%M.%S${LTCYN}
+FILNMDATE="\$(date +%y%m%d-%H.%M.%S)"${LTCYN}
 180430-09.47.48${YELLOW}
 
 Week & Year${CYAN}
@@ -1258,11 +1254,11 @@ $ date -d @1521415551${LTCYN}
 Sun, Mar 18, 2018  6:25:51 PM${YELLOW}
 
 for log/output-filename${CYAN}
-date +%Y-%m-%d_%H-M${LTCYN}
+LOGFILDATE="\$(date +%Y-%m-%d_%H-M)"${LTCYN}
 2018-04-30_09-53-27${YELLOW}
 
 for logging${CYAN}
-$ date +%Y-%m-%d_%H:%M${LTCYN}
+LOGDATE="\$(date +%Y-%m-%d_%H:%M)"${LTCYN}
 2018-04-30_09:53:27${YELLOW}
 
 Add a date/time-stamp to your history,${CYAN}
@@ -1843,6 +1839,188 @@ ${RESET}
 EOT
 }
 #
+#
+###########################################################
+##    Snippets and Mapping
+###########################################################
+#
+examp_date () {
+    cat <<EOT
+${LTCYN}
+#
+###########################################################
+##    Date Variables
+###########################################################
+#
+CASDATE="\$(date +%a\ %b\ %d\ %Y)"
+INTNDATE="\$(date +%d\ %b\ %Y)"
+FILNMDATE="\$(date +%y%m%d-%H.%M.%S)"
+LOGFILDATE="\$(date +%Y-%m-%d_%H-M)"
+LOGDATE="\$(date +%Y-%m-%d_%H:%M)"${RESET}
+EOT
+}
+examp_globvar () {
+    cat <<EOT
+${LTCYN}
+###########################################################
+##    Global Variables and Information Gathering
+###########################################################
+#
+PROGNAME=\$(basename \$0)
+PROGVERS="0.0.0-01"
+PROGDATE="\$INTNDATE"${RESET}
+EOT
+}
+###########################################
+####    Declare Color Variables
+###########################################
+#
+[[ $@ =~ "nocolor" ]] && NOCOLR=true || NOCOLR=false
+#
+### Color Variables [Delete unused variables when done]
+#
+if ! $NOCOLR; then
+RED="$(tput setaf 1)"
+GRN="$(tput setaf 2)"
+YLLW="$(tput setaf 3)"
+BLU="$(tput setaf 4)"
+MAG="$(tput setaf 5)"
+CYN="$(tput setaf 6)"
+LTRED="$(tput setaf 9)"
+LTGRN="$(tput setaf 10)"
+LTYLLW="$(tput setaf 11)"
+LTBLU="$(tput setaf 12)"
+LTMAG="$(tput setaf 13)"
+LTCYN="$(tput setaf 14)"
+BGBLU="$(tput setab 4)"
+BGYLLW="$(tput setab 3)"
+BGLYLLW="$(tput setab 11)"
+ULINE="$(tput smul)"
+NULINE="$(tput rmul)"
+SOMODE="$(tput smso)"
+NSOMODE="$(tput rmso)"
+BOLD="$(tput bold)"
+RESET="$(tput sgr0)"
+fi
+
+examp_usage () {
+    cat <<EOF
+${LTCYN}#
+###########################################################
+##    Script Options/Usage
+###########################################################
+#
+usage () {
+    cat <<EOT
+\${BOLD}\${YLLW}
+Description-\${RESET}\${YLLW}
+    Begin Description\${BOLD}
+Options-\${RESET}\${YLLW}
+    Begin Options\${BOLD}
+Usage-\${RESET}\${YLLW}
+    Begin Usage
+\${RESET}
+EOT
+}${RESET}
+EOF
+}
+examp_args () {
+    cat <<EOT
+${LTCYN}#
+###########################################
+####    Declare Arg Checks
+###########################################
+#
+[[ \$1 ]] || { usage; echo -e "\t\${BOLD}\${RED}Requires at least 1 parameter\n\${RESET}"; exit 1; }
+[[ \$# -ne 2 ]] && { usage; echo -e "\t\${BOLD}\${RED}Requires exactly 2 arguementss\n\${RESET}"; exit 1; }
+[[ \$@ =~ "help" ]] && { usage; exit 0; }
+[[ \$@ =~ "nocolor" ]] && NOCOLR=true || NOCOLR=false${RESET}
+EOT
+}
+my_vimrc () {
+    cat <<EOT
+${BOLD}${GRN}
+$ ls ~/snippets${RESET}${LTCYN}
+argchks  colors  dates  globvars  optsusage${BOLD}${GRN}
+$ cat ~/.vimrc${RESET}${LTCYN}
+map <F2> <ESC>:r ~/VI/snippets/argchks <ESC>:r ~/VI/snippets/optsusage <ESC>:r ~/VI/snippets/colors <ESC>:r ~/VI/snippets/globvars <ESC>:r ~/VI/snippets/dates <ESC>:r ~/VI/snippets/shebangplus <ESC>k:1,.d <ESC>:w
+${RESET}
+EOT
+}
+vism () {
+    clear
+    cat <<EOT
+${BOLD}${YLLW}
+Description-${RESET}${LTYLLW}
+  Using VIM Snippets and Mapping${LTCYN}
+    VIM has so many built-in functions and abilities that we all should take advantage of.
+    Just a few of those that I have found most useful is the use of ${BOLD}${ULINE}Snippets${NULINE}${RESET}${LTCYN} and ${BOLD}${ULINE}Mapping${NULINE}${RESET}${LTCYN},
+    and making some of those permanent by adding them to your ~/.vimrc file.${BOLD}${YLLW}
+Snippets-${RESET}${LTYLLW}
+    Create a directory to hold your 'snippets', in this example I will use ~/snippets
+    Create a separate file for each snippet, I have ones for "globalvariables", 
+      "colorvars", while, until, & for loops, casestatements, etc.${BOLD}${GRN}
+  $ vi ~/snippets/usage${RESET}${LTCYN}
+  #
+  ###########################################################
+  ##    Script Options/Usage
+  ###########################################################
+  #
+  usage () {
+      cat <<EOT
+  \${BOLD}\${YLLW}
+  Description-\${RESET}\${YLLW}
+      Begin Description\${BOLD}
+  Options-\${RESET}\${YLLW}
+      Begin Options\${BOLD}
+  Usage-\${RESET}\${YLLW}
+      Begin Usage
+  \${RESET}
+  EOT
+  }${LTYLLW}
+    Save and quit with "${LTCYN}:wq"${LTYLLW}.
+    Now, when you create or edit a script, and want to add a Usage function you 
+    can do the following:${BOLD}${GRN}
+  $ vi newscript.sh${RESET}${LTYLLW}
+    Move the cursor to the line above where you want to inster the "Usage"
+    snippet and do the following:${LTCYN}
+  :r ~/snippets/usage${LTYLLW}
+    And hit ENTER, your 'snippet' will appear and you can begin editing.${BOLD}${YLLW}
+Mapping-${RESET}${LTYLLW}
+    Now, you can 'map' this in the vi session, but that wont be permanent, I'll 
+    put both examples here.
+  Inside vi-${LTCYN}
+  :map ${LTMAG}<F2> <ESC>${LTCYN}:r ~/snippets/usage${LTYLLW}
+    Then, inside vi, you can just hit the "${SOMODE}F2${NSOMODE}" key and insert it.
+    To make this permanent, edit/create your ${LTCYN}~/.vimrc${LTYLLW} with vi and add the same-${BOLD}${GRN}
+  $ vi ~/.vimrc${RESET}${LTCYN}
+  map ${LTMAG}<F2> <ESC>${LTCYN}:r ~/snippets/usage${LTYLLW}
+    Save and quit with <ESC>${LTCYN} :wq${LTYLLW}
+    You can just hit the "${SOMODE}F2${NSOMODE}" key at any time and insert it.
+${BOLD}${YLLW}
+Resource-${RESET}${LTCYN}
+  The Urban Penguin
+  https://www.youtube.com/watch?time_continue=1&v=mZXO0iPLaB8
+${RESET}
+EOT
+echo -e "\tYou can see all my snippets, and my ~/.vimrc by pressing 's'\n\tPress any other key to exit...\n"
+read -r -n 1 -s anykey
+if [[ $anykey == "s" ]]; then
+    examp_date
+    examp_globvar
+    examp_usage
+    examp_args
+    my_vimrc
+    exit 0
+else
+    exit 0
+fi
+}
+#
+###########################################################
+##    END OF Snippets and Mapping
+###########################################################
+#
 ###########################################
 ####    Run script & exit
 ###########################################
@@ -2016,6 +2194,10 @@ case $MYOPT in
     "math")
         clear
         smpl_math
+    ;;
+    "snip")
+        clear
+        vism
     ;;
     *)
         clear
