@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
 ##    useful-tips
-##    Author       - Shawn Miller
-##    Date         - 2018 02 15
-##    Colaborators - 
+##    Author/Founder    - Shawn Miller
+##    Date              - 2017 02 15
+##    Colaborators      - 
 #
 ###########################################
 ####    Global Variables
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-09"
-PROGDATE="26 Sep 2018"
+PROGVERS="0.0.2-10"
+PROGDATE="27 Oct 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -24,7 +24,7 @@ ${LTCYN}
 ####c4#############################################################################
 ###                                                                             ###
 ##                      GNU/GPL Info                                             ##
-##        useful-tips.sh ver-0.0.0-01 - Colaborative begun 15 February 2018	 ##
+##        useful-tips.sh ver-0.0.0-01 - Colaborative begun 15 February 2017	 ##
 ##      Released under GPL v2.0, See www.gnu.org for full license info           ##
 ##      Copyright (C) 2015  Shawn Miller, The Wood-Bee Company			 ##
 ##              EMAIL- shawn@woodbeeco.com                                       ##
@@ -50,20 +50,18 @@ EOT
 ####    Declare Variables
 ###########################################
 #
-if [[ "`echo $2`" == "quiet" ]]; then
-    NOOPTS=true
-else
-    NOOPTS=false
-fi
+[[ $2 == "quiet" ]] && NOOPTS=true || NOOPTS=false
+[[ $2 == "nocolor" ]] && NOCOLR=true || NOCOLR=false
 #
 ### Color Variables [Delete unused variables when done]
 #
+if ! $NOCOLR; then
 RED="$(tput setaf 1)"
-GREEN="$(tput setaf 2)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
+GRN="$(tput setaf 2)"
+YLLW="$(tput setaf 3)"
+BLU="$(tput setaf 4)"
 MAG="$(tput setaf 5)"
-CYAN="$(tput setaf 6)"
+CYN="$(tput setaf 6)"
 LTRED="$(tput setaf 9)"
 LTGRN="$(tput setaf 10)"
 LTYLLW="$(tput setaf 11)"
@@ -73,9 +71,9 @@ LTCYN="$(tput setaf 14)"
 #
 BLRED=${BOLD}${LTRED}
 BLYLW=${BOLD}${LTYLLW}
-BYLW=${BOLD}${YELLOW}
+BYLW=${BOLD}${YLLW}
 BLCYN=${BOLD}${LTCYN}
-BCYN=${BOLD}${CYAN}
+BCYN=${BOLD}${CYN}
 #
 BGBLU="$(tput setab 4)"
 BGYLLW="$(tput setab 3)"
@@ -87,6 +85,7 @@ SOMODE="$(tput smso)"
 NSOMODE="$(tput rmso)"
 BOLD="$(tput bold)"
 RESET="$(tput sgr0)"
+fi
 #
 ###########################################
 ### Define Functions
@@ -111,10 +110,10 @@ ${LTYLLW}${BOLD}    Objective- Effective Code Writing and Execution${RESET}${LTC
   6. Must use The${BOLD}${LTYLLW} DRY${RESET}${LTCYN} (${BOLD}${LTYLLW}D${RESET}${LTCYN}on't ${BOLD}${LTYLLW}R${RESET}${LTCYN}epeat ${BOLD}${LTYLLW}Y${RESET}${LTCYN}ourself) principle, which states that you
      should never repeat the same piece of code more than once in your application${RESET}
 
-${YELLOW}${BOLD}    PEP8 Compliance Guidelines and suggested Resolution${LTYLLW}
+${YLLW}${BOLD}    PEP8 Compliance Guidelines and suggested Resolution${LTYLLW}
     PEP8 is technically for Python coding but we believe it is a good
-  standard for all coding.${YELLOW}
-  Find more at${CYAN}
+  standard for all coding.${YLLW}
+  Find more at${CYN}
 https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code
  And Here-  https://www.python.org/dev/peps/pep-0008/${RESET}
 
@@ -125,14 +124,19 @@ show_opts () {
     clear
     cat <<EOT
 ${LTCYN}${BOLD}
-${SOMODE}Usage-${NSOMODE}${RESET}${GREEN}
-  sh ${PROGNAME}${YELLOW} [${LTCYN}option${YELLOW}|${LTCYN}option${GREEN}-info${YELLOW}] optional 2nd arg- [${GREEN}quiet${YELLOW}] for non-interactive
-  Some options have an 'INFO' option- Add '${GREEN}-info${YELLOW}' to the option to get more detailed description-
-  EXAMPLES-${GREEN}
-    ${PROGNAME} pep8
+${SOMODE}Usage-${NSOMODE}${RESET}${GRN}
+  sh ${PROGNAME}${YLLW} [${LTCYN}option${YLLW}|${LTCYN}option${GRN}-info${YLLW}] 
+    Optional= 2nd arg- 
+      [${GRN}quiet${YLLW}] for non-interactive (not needed for most)
+      [${GRN}nocolor${YLLW}] To print the output without enhanced colors
+  Some options have an 'INFO' option- Add '${GRN}-info${YLLW}' to the option to get 
+    more detailed description-
+  EXAMPLES-${GRN}
+    ${PROGNAME} rpmb
+    ${PROGNAME} rpmb nocolor
     ${PROGNAME} pep8 quiet
     ${PROGNAME} meta-info${LTCYN}${BOLD}
-${SOMODE}Options-${NSOMODE}${RESET}${YELLOW}
+${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   ${ULINE}Option    Short Desc.   Description${LTCYN}${NULINE}
   [    ]${BOLD}    None       ${RESET}${LTCYN}   Shows this menu and exits. same as help
   [help]${BOLD}    Help       ${RESET}${LTCYN}   Shows the entire menu and exits
@@ -163,6 +167,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YELLOW}
   [rpmb]${BOLD}    RPM Build${RESET}${LTCYN}     How to Build your own rpms, a script or source code.
   [tars]${BOLD}    Tar Command${RESET}${LTCYN}   Common uses of the tar command
   [math]${BOLD}    Simple Math${RESET}${LTCYN}   Performing simple math in the command line and scripting
+  [snip]${BOLD}    Snippet & Map${RESET}${LTCYN} Using Snippets and Mapping in VI/M
 ${RESET}
 EOT
 }
@@ -173,8 +178,8 @@ set_chroot () {
 	cat <<EOT
 
 ${LTCYN}${BOLD}    Create a secure SFTP environment with chroot-jailed users.
-    There are some things are required before this will function properly-${RESET}${YELLOW}
-  The base file structure must exist and${BOLD} MUST be OWNED by root${RESET}${YELLOW},
+    There are some things are required before this will function properly-${RESET}${YLLW}
+  The base file structure must exist and${BOLD} MUST be OWNED by root${RESET}${YLLW},
   preferably on it's own partition [see lvmn option]
     For this example we'll use /sftp/chroot/home/ as the 'root'
     of the chroot environment.${LTCYN}${BOLD}
@@ -185,21 +190,21 @@ ${LTCYN}${BOLD}    Create a secure SFTP environment with chroot-jailed users.
     ${ULINE}4. The user's home directory MUST be owned by root!!!  [example below]${NULINE}${RESET}${LTRED}
      Any and all sub-directories under that should be owned by the user and sftp-group.
     5. Best-Practices- Limit who can login by Group or specific users [example below]
-    6. Best-Practices- Limit root login to ONLY use PRIVATE RSA-Keys [example below]${YELLOW}
+    6. Best-Practices- Limit root login to ONLY use PRIVATE RSA-Keys [example below]${YLLW}
 
   EXAMPLE Home directory ownership-${LTCYN}
 # ls -l /sftp/chroot/home/
-drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${YELLOW}
+drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${YLLW}
 
   EXAMPLE /etc/ssh/sshd_config -${LTYLLW}
-PermitRootLogin${CYAN} without-password${YELLOW}
-  #Replace 'Subsystem' line with${LTCYN}${BOLD} internal-sftp${YELLOW} as below${LTYLLW}
-Subsystem${GREEN}    sftp${CYAN}    internal-sftp${RESET}${LTYLLW}
-AllowGroups${GREEN}    LinuxAdmins crew colab sftponly root${LTYLLW}
-Match${GREEN} group sftponly,!wheel,!users,!colab,!LinuxAdmins${YELLOW} #The '!' means NOT this group${LTYLLW}
-    ForceCommand${CYAN} internal-sftp${LTYLLW}
-    AllowTcpForwarding${CYAN} no${LTYLLW}
-    Chrootdirectory${GREEN} /sftp/chroot/home/${LTCYN}%u${RESET}
+PermitRootLogin${CYN} without-password${YLLW}
+  #Replace 'Subsystem' line with${LTCYN}${BOLD} internal-sftp${YLLW} as below${LTYLLW}
+Subsystem${GRN}    sftp${CYN}    internal-sftp${RESET}${LTYLLW}
+AllowGroups${GRN}    LinuxAdmins crew colab sftponly root${LTYLLW}
+Match${GRN} group sftponly,!wheel,!users,!colab,!LinuxAdmins${YLLW} #The '!' means NOT this group${LTYLLW}
+    ForceCommand${CYN} internal-sftp${LTYLLW}
+    AllowTcpForwarding${CYN} no${LTYLLW}
+    Chrootdirectory${GRN} /sftp/chroot/home/${LTCYN}%u${RESET}
 
 EOT
 make_users
@@ -207,14 +212,14 @@ make_users
 #
 make_users () {
 	cat <<EOT
-${LTCYN}${BOLD}    Create a secure user and password with hashed pasword${RESET}${YELLOW}
-  Create the User Password and Hash-${GREEN}
-# openssl rand -base64 15 > username.txt && cat username.txt | openssl passwd -1 -stdin >> username.txt && cat username.txt${YELLOW}
+${LTCYN}${BOLD}    Create a secure user and password with hashed pasword${RESET}${YLLW}
+  Create the User Password and Hash-${GRN}
+# openssl rand -base64 15 > username.txt && cat username.txt | openssl passwd -1 -stdin >> username.txt && cat username.txt${YLLW}
   Output-${LTCYN}
-5t5sYKAhwkY6sQ2URteuL${YELLOW}  < Password${LTCYN}
- \$1fJ4L4f9NEoNwFxUtRVsoTQ.TVLot/gJ/${YELLOW}  < Password Hash
-  Create the user-${GREEN}
-# useradd -s /bin/false -c "SFTP User" -m -d /sftp/chroot/home/username -g sftponly username${YELLOW}
+5t5sYKAhwkY6sQ2URteuL${YLLW}  < Password${LTCYN}
+ \$1fJ4L4f9NEoNwFxUtRVsoTQ.TVLot/gJ/${YLLW}  < Password Hash
+  Create the user-${GRN}
+# useradd -s /bin/false -c "SFTP User" -m -d /sftp/chroot/home/username -g sftponly username${YLLW}
   This will create the user 'username' and chroot-jail it to /sftp/chroot/home/username
   Now set the user's password with 'passwd username' and copy/paste the password generated
   The Hash is used if you are managing users with Puppet... Discussed in Puppet SetUp.${RESET}
@@ -224,7 +229,7 @@ EOT
 #
 vim_cmds () {
 	cat <<EOT
-${LTCYN}${BOLD}    Helpful vim shortcuts and tips${RESET}${YELLOW}
+${LTCYN}${BOLD}    Helpful vim shortcuts and tips${RESET}${YLLW}
   Deleting -${RESET}${LTYLLW}
     x      - delete current character
     dw     - delete current word
@@ -234,14 +239,14 @@ ${LTCYN}${BOLD}    Helpful vim shortcuts and tips${RESET}${YELLOW}
     d$     - delete to end of line
     d0     - delete to beginning of line
     :1,.d  - delete to beginning of file
-    :.,\$d  - delete to end of file${RESET}${YELLOW}
-  Resource- vi/vim delete commands and examples${RESET}${CYAN}
-  https://alvinalexander.com/linux/vi-vim-delete-line-commands-to-end${RESET}${YELLOW}
+    :.,\$d  - delete to end of file${RESET}${YLLW}
+  Resource- vi/vim delete commands and examples${RESET}${CYN}
+  https://alvinalexander.com/linux/vi-vim-delete-line-commands-to-end${RESET}${YLLW}
 
  Search and Replace-${RESET}${LTYLLW}
-    :%s/search/replace/gc    - Ask for confirmation before substitution.${RESET}${YELLOW}
+    :%s/search/replace/gc    - Ask for confirmation before substitution.${RESET}${YLLW}
 
-  Resource- Vim tips: The basics of search and replace${RESET}${CYAN}
+  Resource- Vim tips: The basics of search and replace${RESET}${CYN}
   https://www.linux.com/learn/vim-tips-basics-search-and-replace${RESET}
 
 EOT
@@ -249,12 +254,12 @@ EOT
 #
 rem_emty () {
 	cat <<EOT
-${LTCYN}${BOLD}    Remove Empty Lines in a file, including white-space and tabs...${RESET}${YELLOW}
-Using sed example-${RESET}${CYAN}
-# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}${YELLOW}
+${LTCYN}${BOLD}    Remove Empty Lines in a file, including white-space and tabs...${RESET}${YLLW}
+Using sed example-${RESET}${CYN}
+# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}${YLLW}
 Using tr and awk to parse a file with 4 digit strings within brackets,
  and then have the output linier rather than vertical,
- and then remove the leading bracket-${RESET}${CYAN}
+ and then remove the leading bracket-${RESET}${CYN}
 
 # cat myfile.txt | grep "\[....\]" | awk -F] '{print \$1}' | tr -d '\n' | tr -d '['${RESET}
 
@@ -264,18 +269,18 @@ EOT
 rem_meta () {
 	cat <<EOT
 
-${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYAN}
+${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYN}
 https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such${RESET}${LTMAG}
 Tip #1: Put filenames in quotes
 Tip #3: Try a ./ at the beginning of the filename or absolute path
-Tip #4: Try a -- at the beginning of the filename${RESET}${YELLOW}
+Tip #4: Try a -- at the beginning of the filename${RESET}${YLLW}
 Tip #5: Remove file by an inode number
-# ls -li${RESET}${LTYLLW} #Find the inode <nnnnnnn> of the file${RESET}${YELLOW}
+# ls -li${RESET}${LTYLLW} #Find the inode <nnnnnnn> of the file${RESET}${YLLW}
 # find . -inum <nnnnnnn> -delete
 # find . -inum <nnnnnnn> -exec rm -i {} \;${RESET}${LTYLLW}
-If you just typo'd and want to keep the file-${RESET}${YELLOW}
+If you just typo'd and want to keep the file-${RESET}${YLLW}
 # find . -inum <nnnnnnn> -exec cp {} <goodname> \;${RESET}${LTYLLW}
-  OR ${RESET}${YELLOW}
+  OR ${RESET}${YLLW}
 # find . -inum <nnnnnnn> -exec cp -a {} <goodname> \;${RESET}
 
 EOT
@@ -284,7 +289,7 @@ EOT
 meta_info () {
 	cat <<EOT
 
-${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYAN}
+${LTCYN}${BOLD}    Removing files with special characters and by inode-${RESET}${CYN}
 https://www.linux.com/blog/linux-shell-tip-remove-files-names-contains-spaces-and-special-characters-such${RESET}${LTYLLW}
     Sometimes we find, or create a file with special characters, a '-' prepending the filename, or other special characters in the filename that prevents us from being able to move, copy, or delete them, and outputs an error- [${RESET}${LTRED} <partial-filename> No such file...${RESET}${LTYLLW} ].
     This Option gives a few ways to accomplish what we need to do.${RESET}
@@ -298,7 +303,7 @@ mon_troub () {
 
     SWTCHBLU=$RESET$LTBLU'F2'$RESET$LTMAG
     SWTCHBLUG=$RESET$LTBLU'G2:G10'$RESET$LTMAG
-${YELLOW}${BOLD}    Useful Monitoring and Troubleshooting Information${RESET}${LTYLLW}
+${YLLW}${BOLD}    Useful Monitoring and Troubleshooting Information${RESET}${LTYLLW}
   NMON-${RESET}${LTCYN}
     Testing an issue with a known method to reproduce...
   in this case CPU & Top processes for a specific
@@ -310,14 +315,14 @@ ${YELLOW}${BOLD}    Useful Monitoring and Troubleshooting Information${RESET}${L
   # nmon -ft -s 20 -c 15 -- 'c'${RESET}${LTCYN}
     This will create a '.csv'-type file with an 'nmon' extension
   in your Present Working Direcory[PWD].${RESET}${LTYLLW}
-    Optional-${RESET}${YELLOW} Parsing the generated PWD/file.nmon for just the data
+    Optional-${RESET}${YLLW} Parsing the generated PWD/file.nmon for just the data
   and format that I want...${RESET}${LTMAG}
   # cat hostname_date_time.nmon | grep "^[C,Z]" >> hostname_date_time.nmon.csv
   # cat hostname_date_time.nmon | grep ^T >> hostname_date_time.nmon.csv${RESET}${LTYLLW}
- EXAMPLE-${RESET}${YELLOW} My edited version, and only showing 1 instance-${RESET}${LTBLU}
+ EXAMPLE-${RESET}${YLLW} My edited version, and only showing 1 instance-${RESET}${LTBLU}
 Row     |Col-A  |Col-B  |Col-C  |Col-D  |Col-E  |Col-F  |Col-G  |
 --------|-------|-------|-------|-------|-------|-------|-------|${RESET}${LTCYN}
-00      |CPUs   |time   |usr    |sys    |inuse  |Idle   |Status |${RESET}${CYAN}
+00      |CPUs   |time   |usr    |sys    |inuse  |Idle   |Status |${RESET}${CYN}
 01      |ZZZZ   |T0004  |10:21:31 19-MAR-2018   |       |ALERT  |
 02      |CPU001 |T0004  |5.9    |8.5    |6.5    |79.1   |TRUE   |
 03      |CPU002 |T0004  |2.4    |4.2    |0.9    |92.6   |FALSE  |
@@ -336,9 +341,9 @@ Row     |Col-A  |Col-B  |Col-C  |Col-D  |Col-E  |Col-F  |Col-G  |
   generated by the SUM of the T|F values${RESET}${LTMAG}
   fn[=IF(SUM(${RESET}${LTBLU}'G2:G10'${RESET}${LTMAG})>0,"ALERT","OK")]${RESET}${LTYLLW}
     The 'TOP' process for that time [T0004] is what we're
-  interested in finding what is happening at the time...-${RESET}${CYAN}
+  interested in finding what is happening at the time...-${RESET}${CYN}
 TOP T0004   69.26   37.68   31.58   lr402.x86_64${RESET}${LTYLLW}
-    So the${RESET}${CYAN} 'lr402.x86_64'${RESET}${LTYLLW} is the main culpret, we can
+    So the${RESET}${CYN} 'lr402.x86_64'${RESET}${LTYLLW} is the main culpret, we can
   look at next-higest, but I knew what I was looking for.${RESET}
 
 EOT
@@ -352,25 +357,25 @@ cond_expr () {
 ${BLYLW}    Bash Conditional Expressions${RESET}${LTYLLW}
 Conditional expressions are used by the [[ compound command and the test and [ builtin commands.${LTCYN}
 
--a${YELLOW}|${LTCYN}e file${YELLOW}    True if file exists..${LTCYN} 
--b file${YELLOW}      True if file exists and is a block special file..${LTCYN}
--c file${YELLOW}      True if file exists and is a character special file..${LTCYN}
--d file${YELLOW}      True if file exists and is a directory..${LTCYN}
--f file${YELLOW}      True if file exists and is a regular file..${LTCYN}
--g file${YELLOW}      True if file exists and its set-group-id bit is set..${LTCYN}
--h${YELLOW}|${LTCYN}L file${YELLOW}    True if file exists and is a symbolic link..${LTCYN}
--k file${YELLOW}      True if file exists and its "sticky" bit is set..${LTCYN}
--p file${YELLOW}      True if file exists and is a named pipe (FIFO)..${LTCYN}
--r file${YELLOW}      True if file exists and is readable..${LTCYN}
--s file${YELLOW}      True if file exists and has a size greater than zero..${LTCYN}
--t fd${YELLOW}        True if file descriptor fd is open and refers to a terminal..${LTCYN}
--u file${YELLOW}      True if file exists and its set-user-id bit is set..${LTCYN}
--w file${YELLOW}      True if file exists and is writable..${LTCYN}
--x file${YELLOW}      True if file exists and is executable..${LTCYN}
--G file${YELLOW}      True if file exists and is owned by the effective group id..${LTCYN}
--N file${YELLOW}      True if file exists and has been modified since it was last read..${LTCYN}
--O file${YELLOW}      True if file exists and is owned by the effective user id..${LTCYN}
--S file${YELLOW}      True if file exists and is a socket..${RESET}
+-a${YLLW}|${LTCYN}e file${YLLW}    True if file exists..${LTCYN} 
+-b file${YLLW}      True if file exists and is a block special file..${LTCYN}
+-c file${YLLW}      True if file exists and is a character special file..${LTCYN}
+-d file${YLLW}      True if file exists and is a directory..${LTCYN}
+-f file${YLLW}      True if file exists and is a regular file..${LTCYN}
+-g file${YLLW}      True if file exists and its set-group-id bit is set..${LTCYN}
+-h${YLLW}|${LTCYN}L file${YLLW}    True if file exists and is a symbolic link..${LTCYN}
+-k file${YLLW}      True if file exists and its "sticky" bit is set..${LTCYN}
+-p file${YLLW}      True if file exists and is a named pipe (FIFO)..${LTCYN}
+-r file${YLLW}      True if file exists and is readable..${LTCYN}
+-s file${YLLW}      True if file exists and has a size greater than zero..${LTCYN}
+-t fd${YLLW}        True if file descriptor fd is open and refers to a terminal..${LTCYN}
+-u file${YLLW}      True if file exists and its set-user-id bit is set..${LTCYN}
+-w file${YLLW}      True if file exists and is writable..${LTCYN}
+-x file${YLLW}      True if file exists and is executable..${LTCYN}
+-G file${YLLW}      True if file exists and is owned by the effective group id..${LTCYN}
+-N file${YLLW}      True if file exists and has been modified since it was last read..${LTCYN}
+-O file${YLLW}      True if file exists and is owned by the effective user id..${LTCYN}
+-S file${YLLW}      True if file exists and is a socket..${RESET}
 
 EOT
 read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press '${BLCYN}q${BLYLW}' to Quit...${RESET}
@@ -437,7 +442,7 @@ read -p "${BLYLW}Press${BLCYN} [ENTER]${BLYLW} or any key to cotinnue, or press 
 regex_oper () {
     clear
     cat <<EOT
-${BOLD}${LTYLLW}    Regular expression operators${YELLOW}${ULINE}
+${BOLD}${LTYLLW}    Regular expression operators${YLLW}${ULINE}
 Operator	Effect${NULINE}${RESET}${LTCYN}
 .${LTYLLW}	Matches any single character.${LTCYN}
 ?${LTYLLW}	The preceding item is optional and will be matched, at most, once.${LTCYN}
@@ -469,24 +474,24 @@ grep_examp () {
 
 ${BOLD}${LTYLLW}    Examples With grep and Character Classes${RESET}${LTYLLW}
 Line and word anchors
-From the previous example, we now exclusively want to display lines starting with the string "root":${GREEN}
+From the previous example, we now exclusively want to display lines starting with the string "root":${GRN}
 
 cathy ~> grep ^root /etc/passwd${LTCYN}
 root:x:0:0:root:/root:/bin/bash${LTYLLW}
 
-If we want to see which accounts have no shell assigned whatsoever, we search for lines ending in ":":${GREEN}
+If we want to see which accounts have no shell assigned whatsoever, we search for lines ending in ":":${GRN}
 
 cathy ~> grep :$ /etc/passwd${LTCYN}
 news:x:9:13:news:/var/spool/news:${LTYLLW}
 
-To check that PATH is exported in ~/.bashrc, first select "export" lines and then search for lines starting with the string "PATH", so as not to display MANPATH and other possible paths:${GREEN}
+To check that PATH is exported in ~/.bashrc, first select "export" lines and then search for lines starting with the string "PATH", so as not to display MANPATH and other possible paths:${GRN}
 
 cathy ~> grep export ~/.bashrc | grep '\<PATH'${LTCYN}
   export PATH="/bin:/usr/lib/mh:/lib:/usr/bin:/usr/local/bin:/usr/ucb:/usr/dbin:\$PATH"${LTYLLW}
 
 Similarly, \> matches the end of a word.
 
-If you want to find a string that is a separate word (enclosed by spaces), it is better use the -w, as in this example where we are displaying information for the root partition:${GREEN}
+If you want to find a string that is a separate word (enclosed by spaces), it is better use the -w, as in this example where we are displaying information for the root partition:${GRN}
 
 cathy ~> grep -w / /etc/fstab${LTCYN}
 LABEL=/                 /                       ext3    defaults        1 1${LTYLLW}
@@ -496,7 +501,7 @@ Character classes
 
 A bracket expression is a list of characters enclosed by "[" and "]". It matches any single character in that list; if the first character of the list is the caret, "^", then it matches any character NOT in the list. For example, the regular expression "[0123456789]" matches any single digit.
 
-Within a bracket expression, a range expression consists of two characters separated by a hyphen. It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set. For example, in the default C locale, "[a-d]" is equivalent to "[abcd]". Many locales sort characters in dictionary order, and in these locales "[a-d]" is typically not equivalent to "[abcd]"; it might be equivalent to "[aBbCcDd]", for example. To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL environment variable to the value "C".${GREEN}
+Within a bracket expression, a range expression consists of two characters separated by a hyphen. It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set. For example, in the default C locale, "[a-d]" is equivalent to "[abcd]". Many locales sort characters in dictionary order, and in these locales "[a-d]" is typically not equivalent to "[abcd]"; it might be equivalent to "[aBbCcDd]", for example. To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL environment variable to the value "C".${GRN}
 
 cathy ~> grep [yf] /etc/group${LTCYN}
 sys:x:3:root,bin,adm
@@ -512,7 +517,7 @@ postfix:x:89:${LTYLLW}
 In the example, all the lines containing either a "y" or "f" character are displayed.
 4.2.2.3. Wildcards
 
-Use the "." for a single character match. If you want to get a list of all five-character English dictionary words starting with "c" and ending in "h" (handy for solving crosswords):${GREEN}
+Use the "." for a single character match. If you want to get a list of all five-character English dictionary words starting with "c" and ending in "h" (handy for solving crosswords):${GRN}
 
 cathy ~> grep '\<c...h\>' /usr/share/dict/words${LTCYN}
 catch
@@ -526,7 +531,7 @@ crush${LTYLLW}
 
 If you want to display lines containing the literal dot character, use the -F option to grep.
 
-For matching multiple characters, use the asterisk. This example selects all words starting with "c" and ending in "h" from the system's dictionary:${GREEN}
+For matching multiple characters, use the asterisk. This example selects all words starting with "c" and ending in "h" from the system's dictionary:${GRN}
 
 cathy ~> grep '\<c.*h\>' /usr/share/dict/words${LTCYN}
 caliph
@@ -535,19 +540,19 @@ catch
 cheesecloth
 cheetah${LTYLLW}
 
-If you want to find the literal asterisk character in a file or output, use single quotes. Cathy in the example below first tries finding the asterisk character in /etc/profile without using quotes, which does not return any lines. Using quotes, output is generated:${GREEN}
+If you want to find the literal asterisk character in a file or output, use single quotes. Cathy in the example below first tries finding the asterisk character in /etc/profile without using quotes, which does not return any lines. Using quotes, output is generated:${GRN}
 
 cathy ~> grep * /etc/profile
 cathy ~> grep '*' /etc/profile${LTCYN}
 for i in /etc/profile.d/*.sh ; do${LTYLLW}
 
 Pattern matching using Bash features
- Character ranges${GREEN}
+ Character ranges${GRN}
 
 cathy ~> touch "*"
 cathy ~> ls "*"${LTYLLW}
 
-But you can also use the square braces to match any enclosed character or range of characters, if pairs of characters are separated by a hyphen. An example:${GREEN}
+But you can also use the square braces to match any enclosed character or range of characters, if pairs of characters are separated by a hyphen. An example:${GRN}
 
 cathy ~> ls -ld [a-cx-z]*${LTCYN}
 drwxr-xr-x    2 cathy	 cathy		4096 Jul 20  2002 app-defaults/
@@ -566,10 +571,10 @@ Character classes can be specified within the square braces, using the syntax [:
 
 "alnum", "alpha", "ascii", "blank", "cntrl", "digit", "graph", "lower", "print", "punct", "space", "upper", "word" or "xdigit".${LTYLLW}
 
-Some examples:${GREEN}
+Some examples:${GRN}
 
 cathy ~> ls -ld [[:digit:]]*${LTCYN}
-drwxrwxr-x    2 cathy	cathy		4096 Apr 20 13:45 2/${GREEN}
+drwxrwxr-x    2 cathy	cathy		4096 Apr 20 13:45 2/${GRN}
 
 cathy ~> ls -ld [[:upper:]]*${LTCYN}
 drwxrwxr--    3 cathy   cathy           4096 Sep 30  2001 Nautilus/
@@ -621,8 +626,8 @@ read_expr () {
 def_expres () {
 	cat <<EOT
 
-${YELLOW}${BOLD}    You can find the expressions.txt at -${RESET}${LTCYN}
-# wget http://woodbeeco.com/scripts/expressions.txt$YELLOW
+${YLLW}${BOLD}    You can find the expressions.txt at -${RESET}${LTCYN}
+# wget http://woodbeeco.com/scripts/expressions.txt$YLLW
  or${RESET}${LTCYN}
 # https://github.com/SeaPhor/SeaPhor-Scripts${RESET}
 
@@ -633,22 +638,22 @@ read_expr
 lvm_notes () {
 	cat <<EOT
 
-${YELLOW}    #LVM - Adding a new disk to a existing Volume Group (VG) in a Virtual Machine (VM)
+${YLLW}    #LVM - Adding a new disk to a existing Volume Group (VG) in a Virtual Machine (VM)
   Add new disk with VMware tool.
 Usually, the command fdisk -l will not detect the new disk in a VM. Execute this command to do rescan the bus: 
 Command:${LTCYN}
 # echo "- - -" > /sys/class/scsi_host/host${RED}#${LTCYN}/scan${BOLD}${LTYLLW} ## where${RED} #${LTYLLW} is${RED} 0${LTYLLW} or${RED} 1${LTYLLW} or${RED} 2${RESET}${LTCYN}
-# fdisk -l${YELLOW}
+# fdisk -l${YLLW}
 
 Command:${LTCYN}
 # pvcreate /dev/sd<x>
-# pvdisplay${YELLOW}
+# pvdisplay${YLLW}
 
 Command: vgextend [VolumeGroupName] [PhysicalDevicePath]${LTCYN}
-# vgextend system /dev/sd<x>${YELLOW}
+# vgextend system /dev/sd<x>${YLLW}
 
 Executing pvdisplay again shows the /dev/sdb is now part of VG system:${LTCYN}
-# pvdisplay${CYAN}
+# pvdisplay${CYN}
 #--- Physical volume ---
 #PV Name        /dev/sdb
 #VG Name        system
@@ -656,16 +661,16 @@ Executing pvdisplay again shows the /dev/sdb is now part of VG system:${LTCYN}
 #Allocatable        yes
 #PE Size        4.00 MiB
 #Total PE       2047
-#Free PE        2047${YELLOW}
+#Free PE        2047${YLLW}
 
 #To add via Free PE${LTCYN}
-# lvextend -l +2047 /dev/system/root${YELLOW}
+# lvextend -l +2047 /dev/system/root${YLLW}
 
 #To Add via amount of GB to add${LTCYN}
-# lvextend -L+1G /dev/system/root${YELLOW}
+# lvextend -L+1G /dev/system/root${YLLW}
 
 #To Add via amount of GB to be total size${LTCYN}
-# lvextend -L12G /dev/system/root${YELLOW}
+# lvextend -L12G /dev/system/root${YLLW}
 
 #Command: resize2fs - The last step is to resize the logical volume${LTCYN}
 # resize2fs /dev/system/root
@@ -677,10 +682,10 @@ EOT
 add_prefix () {
 	cat <<EOT
 
-${YELLOW}    To add a character to the beginning of every line in myfile.txt${RESET}${LTMAG}
-# sed 's/^/#/' myfile.txt >> myfile-commented.txt${RESET}${YELLOW}
+${YLLW}    To add a character to the beginning of every line in myfile.txt${RESET}${LTMAG}
+# sed 's/^/#/' myfile.txt >> myfile-commented.txt${RESET}${YLLW}
  Or${RESET}${LTMAG}
-# sed -i 's/^/#/' myfile.txt${RESET}${YELLOW}
+# sed -i 's/^/#/' myfile.txt${RESET}${YLLW}
 
     Also, add a space & character to the end of every line in myfile.txt${RESET}${LTMAG}
 # sed -i 's/$/\ #/' myfile.txt${RESET}
@@ -691,23 +696,23 @@ EOT
 use_tools () {
 	cat <<EOT
 
-${LTMAG}${BOLD}  Tools for Security, Monitoring, and troubleshooting${RESET}${YELLOW}
+${LTMAG}${BOLD}  Tools for Security, Monitoring, and troubleshooting${RESET}${YLLW}
     Monitoring & troubleshooting${LTCYN}
-  nmon${CYAN} - In most distributions repositories${LTCYN}
-  sysstat${CYAN} - In most distributions repositories${LTCYN}
-  htop${CYAN} - In most distributions${LTCYN}
-  Nagios${CYAN} - Availabale at https://www.nagios.org/projects/nagios-core/${YELLOW}
+  nmon${CYN} - In most distributions repositories${LTCYN}
+  sysstat${CYN} - In most distributions repositories${LTCYN}
+  htop${CYN} - In most distributions${LTCYN}
+  Nagios${CYN} - Availabale at https://www.nagios.org/projects/nagios-core/${YLLW}
     Security Settings${LTYLLW}
-  PermitRootLogin${LTCYN} without-password${YELLOW} or${LTCYN} no${CYAN} - In /etc/ssh/sshd_config${LTYLLW}
-  AllowGroups${LTMAG} OR${LTYLLW}  AllowUsers${CYAN} - In /etc/ssh/sshd_config${LTYLLW} to limit who can even login${YELLOW}
+  PermitRootLogin${LTCYN} without-password${YLLW} or${LTCYN} no${CYN} - In /etc/ssh/sshd_config${LTYLLW}
+  AllowGroups${LTMAG} OR${LTYLLW}  AllowUsers${CYN} - In /etc/ssh/sshd_config${LTYLLW} to limit who can even login${YLLW}
     System Mangement${LTCYN}
-  Puppet${CYAN} - In SUSE repos, or from puppelabs.org, manages all OSs${LTCYN}
-  Git${CYAN} - In most distributions repositories${LTCYN}
-  GitLab Server${CYAN} - See http://woodbeeco.com/docs/GitLab_Setup.pdf${LTCYN}
-  PXE-Boot Server${CYAN} - Doc. Coming soon at http://woodbeeco.com${YELLOW}
+  Puppet${CYN} - In SUSE repos, or from puppelabs.org, manages all OSs${LTCYN}
+  Git${CYN} - In most distributions repositories${LTCYN}
+  GitLab Server${CYN} - See http://woodbeeco.com/docs/GitLab_Setup.pdf${LTCYN}
+  PXE-Boot Server${CYN} - Doc. Coming soon at http://woodbeeco.com${YLLW}
     Enterprise Level tools${LTCYN}
-  SUSE Manager Server${CYAN} - Manages SLES & RHEL, PXE-Boot AutoInstall, has Salt Built-In for management and provisioning.${LTCYN}
-  SaltStack${CYAN} - Manages All OSs, Config Management, provisioning, deploying- on-prem & Cloud${LTRED}
+  SUSE Manager Server${CYN} - Manages SLES & RHEL, PXE-Boot AutoInstall, has Salt Built-In for management and provisioning.${LTCYN}
+  SaltStack${CYN} - Manages All OSs, Config Management, provisioning, deploying- on-prem & Cloud${LTRED}
     NOTE: I will not add any items here that are not OS-Agnostic, Support ALL/Most or stay HOME!${RESET}
 
 EOT
@@ -725,22 +730,22 @@ EOT
 rep_tabs () {
 	cat <<EOT
 
-${BOLD}${LTCYN}    Replacing all TABS with 4 SPACES for PEP8 Compliance$RESET$CYAN
-  I prefer the expand command over sed because that is what it is for-${BOLD}${YELLOW}
+${BOLD}${LTCYN}    Replacing all TABS with 4 SPACES for PEP8 Compliance$RESET$CYN
+  I prefer the expand command over sed because that is what it is for-${BOLD}${YLLW}
   expand command, In lines that begin with a TAB-${RESET}${LTYLLW}
-#  expand -i -t 4 input | sponge output${YELLOW}
+#  expand -i -t 4 input | sponge output${YLLW}
     where
     -i is used to expand only leading tabs on each line;
     -t 4 means that each tab will be converted to 4 whitespace chars (8 by default).
     sponge is from the moreutils package, and avoids clearing the input file.${LTYLLW}
-#  expand -i -t 4 input | sponge tstoutput && mv tstoutput input${BOLD}${YELLOW}
+#  expand -i -t 4 input | sponge tstoutput && mv tstoutput input${BOLD}${YLLW}
 
-  sed command, In ALL lines-${RESET}${YELLOW}
+  sed command, In ALL lines-${RESET}${YLLW}
     Use backslash-escaped sed.
   Replace all tabs with 1 hyphen inplace, in all *.txt files:${LTYLLW}
-# sed -i 's/\t/-/g' *.txt${YELLOW}
+# sed -i 's/\t/-/g' *.txt${YLLW}
   Replace all tabs with 1 space inplace, in all *.txt files:${LTYLLW}
-# sed -i 's/\t/ /g' *.txt${YELLOW}
+# sed -i 's/\t/ /g' *.txt${YLLW}
   Replace all tabs with 4 spaces inplace, in all *.txt files:${LTYLLW}
 # sed -i 's/\t/    /g' *.txt${RESET}
 
@@ -767,8 +772,8 @@ ${BOLD}${LTCYN}    Helpful Replacement shortcuts and tips- sed, tr, etc.${RESET}
  Delete a range of lines, [2nd line till 4th line]${LTMAG}
  $ sed '2,4d' file${LTYLLW}
  Delete the lines starting from the 3rd line till encountering the pattern 'Linux'${LTMAG}
- $ sed '3,/Linux/d' file${YELLOW}
-    Resource-${CYAN}
+ $ sed '3,/Linux/d' file${YLLW}
+    Resource-${CYN}
 http://www.theunixschool.com/2012/06/sed-25-examples-to-delete-line-or.html${LTCYN}
 
     Remove Spaces in filenames and replace with underscore-${LTYLLW}
@@ -778,11 +783,11 @@ http://www.theunixschool.com/2012/06/sed-25-examples-to-delete-line-or.html${LTC
 for f in *\ *
 do
     mv "\$f" "\${f// /_}"
-done${YELLOW}
-    Resource-${CYAN}
+done${YLLW}
+    Resource-${CYN}
  https://stackoverflow.com/questions/2709458/how-to-replace-spaces-in-file-names-using-a-bash-script${BOLD}${LTCYN}
-    Remove Empty Lines in a file, including white-space and tabs...${YELLOW}
-Using sed example-${CYAN}
+    Remove Empty Lines in a file, including white-space and tabs...${YLLW}
+Using sed example-${CYN}
 # cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}
 EOT
 rep_tabs
@@ -800,8 +805,8 @@ EOT
 pep_eight () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    PEP8 Compliance Guidelines and suggested Resolution${RESET}${YELLOW}
-    Find more at${CYAN}
+${BOLD}${YLLW}    PEP8 Compliance Guidelines and suggested Resolution${RESET}${YLLW}
+    Find more at${CYN}
 https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code\n And Here-\nhttps://www.python.org/dev/peps/pep-0008/${LTYLLW}
     PEP8 is technically for Python coding but we believe it is a good
   standard for all coding. This is a living and growing  part of this
@@ -815,9 +820,9 @@ if $NOOPTS; then
     exit $?
 else
     cat <<EOT
-${YELLOW}    Please choose from the following${LTCYN} Options...
-  [1]${CYAN}    =>    tabs${LTCYN}
-  [q]${CYAN}    =>    quit${RESET}
+${YLLW}    Please choose from the following${LTCYN} Options...
+  [1]${CYN}    =>    tabs${LTCYN}
+  [q]${CYN}    =>    quit${RESET}
  [1|q]...(q)
 EOT
 read PEPEIGHT
@@ -845,12 +850,12 @@ EOT
 irsi_logs () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    How-To setup Logging with IRSSI IRC${LTYLLW}
+${BOLD}${YLLW}    How-To setup Logging with IRSSI IRC${LTYLLW}
   Set the directory structure${LTCYN}
 # sudo mkdir /var/log/irclogs
 # sudo chown wbc:LinuxAdmins /var/log/irclogs${LTYLLW}
 
-  In IRC Irssi Console${YELLOW}
+  In IRC Irssi Console${YLLW}
 [#channel] /SET autolog ON
 [#channel] /SET autolog_path /var/log/irclogs/\$tag/\$0.log
 [#channel] /save #answer 'yes'${LTYLLW}
@@ -868,12 +873,12 @@ ${BOLD}${YELLOW}    How-To setup Logging with IRSSI IRC${LTYLLW}
 # sudo /usr/sbin/logrotate -d /etc/logrotate.conf 
 # sudo /usr/sbin/logrotate -f /etc/logrotate.conf${LTYLLW}
 
-  Verify logs rotated${YELLOW}
+  Verify logs rotated${YLLW}
     say something in one of your irssi irc channels${LTCYN}
 # ls -lart  /var/log/irclogs/
-# ls -lart  /var/log/irclogs/freenode/${YELLOW}
+# ls -lart  /var/log/irclogs/freenode/${YLLW}
 
-  Resource-${CYAN}
+  Resource-${CYN}
 http://www.chovy.com/linux/logging-irssi-and-rotating-them-with-logrotate${RESET}
 
 EOT
@@ -881,12 +886,12 @@ EOT
 irsi_noob () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    New to IRSSI? Here is some tips to get started-${RESET}${YELLOW}
+${BOLD}${YLLW}    New to IRSSI? Here is some tips to get started-${RESET}${YLLW}
     Irssi is not that difficult once you get the basics down...${LTYLLW}
   Using screen [$ screen] to run your irssi client- This will allow
   you to login from any source that has ssh
   access to your irssi host [screen -x]
-  Connecting to the IRC Server...${CYAN}
+  Connecting to the IRC Server...${CYN}
   $ irssi -c irc.freenode.net -n [nick] -w [password]${LTYLLW}
   Joining a channel...${LTMAG}
   [(status)] /join #channel${LTYLLW}
@@ -898,14 +903,14 @@ ${BOLD}${YELLOW}    New to IRSSI? Here is some tips to get started-${RESET}${YEL
   [#channel] /msg nickserv help
   [#channel] /msg chanserv help <command>${LTYLLW}
  EXAMPLE-${LTMAG}
-  [#channel] /msg chanserv help REGISTER${CYAN}
+  [#channel] /msg chanserv help REGISTER${CYN}
     REGISTER allows you to register a channel
     so that you have better control.
     allows you to maintain a channel access list
     Syntax: REGISTER <##channel>
     /msg ChanServ REGISTER <##channel>${LTYLLW}
   Registering your nick...${LTMAG}
-  [#channel] /msg nickserv help REGISTER${CYAN}
+  [#channel] /msg nickserv help REGISTER${CYN}
     This will register your current nickname with NickServ.
     The password is a case-sensitive password that you make
     You have to confirm the email address. To do this,
@@ -920,7 +925,7 @@ EOT
 irsi_tips () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    IRSSI IRC Tips and shortcuts-${RESET}${YELLOW}
+${BOLD}${YLLW}    IRSSI IRC Tips and shortcuts-${RESET}${YLLW}
   Irssi is an IRC (Internet Relay Chat) client for use in
     the Command Line Interface
   This is a living and growing  part of this script and we will be
@@ -936,11 +941,11 @@ if $NOOPTS; then
     irsi_noob
     exit $?
 else
-    printf "\n${YELLOW}
+    printf "\n${YLLW}
 \t Please choose from the following${LTCYN} Options...
-  [1]\t${CYAN}=>\tlogs${LTCYN}
-  [2]\t${CYAN}=>\tinew${LTCYN}
-  [q]\t${CYAN}=>\tquit\n${RESET}
+  [1]\t${CYN}=>\tlogs${LTCYN}
+  [2]\t${CYN}=>\tinew${LTCYN}
+  [q]\t${CYN}=>\tquit\n${RESET}
  [1|q]...(q)"
 read IRSSIOPT
 case $IRSSIOPT in
@@ -965,18 +970,18 @@ fi
 cust_ltlid () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Set the power settings for laptop lid to NOT sleep-${RESET}${LTYLLW}
+${BOLD}${YLLW}    Set the power settings for laptop lid to NOT sleep-${RESET}${LTYLLW}
     I run my web server in a VM on a laptop headlessly, so it
   just sits in a closet on a shelf and I have no need to have
   the lid open- By default the OS Laptop package sets it
   to enter sleep on lid close.
     The better way maybe to not install that package, but-
   I would not have this in the script! :P${LTCYN}
-  Edit /etc/systemd/logind.conf-${CYAN}
+  Edit /etc/systemd/logind.conf-${CYN}
   # vi /etc/systemd/logind.conf${LTCYN}
   Add/Edit to show the following Value ...${LTMAG}
   HandleLidSwitch=ignore${LTCYN}
-  Reboot the system and test${YELLOW}
+  Reboot the system and test${YLLW}
     NOTE- I know there is a better way to reload the settings
     WITHOUT a reboot, butI did not have the time to research
     and will update with that and remove this line.${RESET}
@@ -987,7 +992,7 @@ EOT
 cust_tips () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Custom Configurations Tips and shortcuts-${RESET}${YELLOW}
+${BOLD}${YLLW}    Custom Configurations Tips and shortcuts-${RESET}${YLLW}
     This is a living and growing  part of this script and we will be
   adding more Tips and Info...${BOLD}${LTCYN}
     Here is the list of Options as of this release-${RESET}${LTCYN}
@@ -1000,11 +1005,11 @@ if $NOOPTS; then
     cust_ltlid
     exit $?
 else
-    printf "\n${YELLOW}
+    printf "\n${YLLW}
 \t Please choose from the following${LTCYN} Options...
-  [1]\t${CYAN}=>\tltpw${LTCYN}
-  [2]\t${CYAN}=>\tnone${LTCYN}
-  [q]\t${CYAN}=>\tquit\n${RESET}
+  [1]\t${CYN}=>\tltpw${LTCYN}
+  [2]\t${CYN}=>\tnone${LTCYN}
+  [q]\t${CYN}=>\tquit\n${RESET}
  [1|q]...(q)"
 read IRSSIOPT
 case $IRSSIOPT in
@@ -1030,10 +1035,10 @@ fi
 git_lab () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    GitLab Setup Beginning to end${RESET}${LTYLLW}
+${BOLD}${YLLW}    GitLab Setup Beginning to end${RESET}${LTYLLW}
 
-  Get files =>${CYAN}
-https://packages.gitlab.com/gitlab/gitlab-ce/packages/opensuse/42.2/gitlab-ce-10.3.1-ce.0.sles42.x86_64.rpm/download${YELLOW}
+  Get files =>${CYN}
+https://packages.gitlab.com/gitlab/gitlab-ce/packages/opensuse/42.2/gitlab-ce-10.3.1-ce.0.sles42.x86_64.rpm/download${YLLW}
     (Or whatever distro in parent of that link)${LTYLLW}
     OR-
   Add the repos for your distro - this example uses OpenSUSE${LTMAG}
@@ -1062,36 +1067,36 @@ gitlab-ctl reconfigure${LTYLLW}
 gitlab-ctl restart
 gitlab-ctl status${LTYLLW}
 
-  Initial UI Configuration in Browser =>${CYAN}
+  Initial UI Configuration in Browser =>${CYN}
     http://<FQDN>${LTYLLW}
-  On first opening of UI must reset Administrator (root) password${YELLOW}
+  On first opening of UI must reset Administrator (root) password${YLLW}
     Setup Users as needed
     Setup Groups as needed
     Setup Roles as needed${LTYLLW}
-  Importing github repos-${YELLOW}
+  Importing github repos-${YLLW}
   The hard way-
-    Follow instructions from${CYAN} https://docs.gitlab.com/ee/user/project/import/github.html${LTYLLW}
-  The easy way-${YELLOW}
+    Follow instructions from${CYN} https://docs.gitlab.com/ee/user/project/import/github.html${LTYLLW}
+  The easy way-${YLLW}
     1. Login to your gitlab WebUI as YOUR User- NOT Admin/root
     2. Create a Group- assuming you dont have one already
-      a.${LTCYN} Groups${YELLOW} from top toolbar =>${LTCYN} New Group${YELLOW}
+      a.${LTCYN} Groups${YLLW} from top toolbar =>${LTCYN} New Group${YLLW}
     3. Click on the Group listed
-    4.${LTCYN} New Project => Import project => Repo by URL${YELLOW}
-      a. Copy/paste the url from your github repo into the${LTCYN} Git repository URL${YELLOW} field
-      b. Populate the remaining fields as desired, ensuring that the Group Name under${LTCYN} Project Path${YELLOW} is correct
+    4.${LTCYN} New Project => Import project => Repo by URL${YLLW}
+      a. Copy/paste the url from your github repo into the${LTCYN} Git repository URL${YLLW} field
+      b. Populate the remaining fields as desired, ensuring that the Group Name under${LTCYN} Project Path${YLLW} is correct
       c. Select${LTCYN} Create Project${LTYLLW}
     This will import your github repo along with the history from the commit logs.
     You cah now go into that repo in the WebUI and select either HTTP or SSH and copy that URL,
       and on your PC- cd to where you want the repo, and${LTMAG} git clone <Paste-URL>${LTYLLW}
 
-Creating New Repos-${YELLOW}
+Creating New Repos-${YLLW}
   1. Login to your gitlab WebUI as YOUR User- NOT Admin/root
   2. Create a Group- assuming you dont have one already
-    a.${LTCYN} Groups${YELLOW} in top bar =>${LTCYN} New Group${YELLOW}
+    a.${LTCYN} Groups${YLLW} in top bar =>${LTCYN} New Group${YLLW}
   3. Click on the Group listed
-  4.${LTCYN} New Project${YELLOW} => Populate the fields as desired, ensuring that the Group Name under Project Path is correct
-  5. Select${LTCYN} Create Project${YELLOW}
-  6. Click the${LTCYN} "+"${YELLOW} drop-down in the upper toolbar, Select${LTCYN} "New file"${YELLOW}
+  4.${LTCYN} New Project${YLLW} => Populate the fields as desired, ensuring that the Group Name under Project Path is correct
+  5. Select${LTCYN} Create Project${YLLW}
+  6. Click the${LTCYN} "+"${YLLW} drop-down in the upper toolbar, Select${LTCYN} "New file"${YLLW}
   7. Name it what you want [README is good], and add some text, like a description...
   8. Save and commit the change
   You cah now go into that repo in the WebUI and select either HTTP or SSH and copy that URL,
@@ -1104,12 +1109,12 @@ EOT
 git_branch () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Working with branches in GIT${RESET}${LTCYN}
-  Static Rules${CYAN}
+${BOLD}${YLLW}    Working with branches in GIT${RESET}${LTCYN}
+  Static Rules${CYN}
     1. Always pull before any push
     2. Don\'t pull branches from master
     3. If other branches, they each do same process${LTCYN}
-  Steps${CYAN}
+  Steps${CYN}
     1. Create <branch1>
     2. Checkout new branch
     3. Make changes
@@ -1130,9 +1135,9 @@ my_links () {
 
 ${BOLD}${LTYLLW}    Links to other scripts, tutorials, etc. that are designed
     to help, automate, or otherwise serve a purpose in daily life.${RESET}${LTCYN}
-  seaphor${CYAN}    System Information gathering script, it gathers MB, BIOS, GFX-Card, WLAN, LAN, OS, RAM, CPU, Disk, Repos, and more...${RESET}
+  seaphor${CYN}    System Information gathering script, it gathers MB, BIOS, GFX-Card, WLAN, LAN, OS, RAM, CPU, Disk, Repos, and more...${RESET}
     https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/sysinfo/seaphor-4.1-7${LTCYN}
-  c4-bug-report${CYAN}    Script created to generate a bug report to CSV format, and can be adjusted to fit any needs. there is also an alpha TUI version I am working on, I will post both here...${RESET}
+  c4-bug-report${CYN}    Script created to generate a bug report to CSV format, and can be adjusted to fit any needs. there is also an alpha TUI version I am working on, I will post both here...${RESET}
     https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/reports/Bug-Report/Latest_Stable${RESET}
 
 EOT
@@ -1141,22 +1146,22 @@ EOT
 user_input () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    To ask the user for input to be set in a variable,
-  EXAMPLE-${RESET}${YELLOW} Use the -p and the -s options for login credentials${LTCYN}
+${BOLD}${YLLW}    To ask the user for input to be set in a variable,
+  EXAMPLE-${RESET}${YLLW} Use the -p and the -s options for login credentials${LTCYN}
     # Ask the user for login details
     printf "Please enter your login credentials when prompted..."
     read -p 'Username: ' uservar
     read -sp 'Password: ' passvar
     echo
-    printf "Thank you \$uservar we now have your login details"${YELLOW}
-  Output in the Terminal-${BOLD}${CYAN}
+    printf "Thank you \$uservar we now have your login details"${YLLW}
+  Output in the Terminal-${BOLD}${CYN}
     ./login.sh
     Username: ryan
     Password:
     Thank you ryan we now have your login details${RESET}${LTYLLW}
 
-  Resource-${CYAN}
-    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php${YELLOW}
+  Resource-${CYN}
+    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php${YLLW}
   Now, there are 2 tnings you can do with these variables
     1. Use it within the script to execute other cammands passing
        the variables instead of prompting once or multiple times.${LTYLLW}
@@ -1171,7 +1176,7 @@ ${BOLD}${YELLOW}    To ask the user for input to be set in a variable,
     do
       sshpass -p \$passvar ssh \$uservar@\$i \$MYHOST && \$MYOS && \$MYKERN >> myhosts-details.txt
       echo >> myhosts-details.txt
-    done${YELLOW}
+    done${YLLW}
        
     2. Set the variable values to a [Local]'source' file
        to be used in subsequent runs of your script/s.${LTYLLW}
@@ -1193,7 +1198,7 @@ ${BOLD}${YELLOW}    To ask the user for input to be set in a variable,
         source ~/.myusercreds
     fi${LTYLLW}
 
-  Resource- Find out more about this and much more at...${CYAN}
+  Resource- Find out more about this and much more at...${CYN}
     https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/Sourcing${RESET}
 
 EOT
@@ -1201,62 +1206,62 @@ EOT
 #
 custom_date () {
 	cat <<EOT
-${BOLD}${YELLOW}    Using custom date command in scripts and/or cli${RESET}${YELLOW}
-    In Scripts create Variables for date output/input${CYAN}
+${BOLD}${YLLW}    Using custom date command in scripts and/or cli${RESET}${YLLW}
+    In Scripts create Variables for date output/input${CYN}
 TDATE=\`date +%a\ %b\ %d\ %Y\`
 JDATE=\`date +%y%m%d-%H.%M.%S\`
 WDATE=\`date +%U\ %Y\`${LTYLLW}
 
-Examples and outputs-${YELLOW}
-Casual${CYAN}
-$ date +%a\ %b\ %d\ %Y${LTCYN}
-Mon Apr 30 2018${YELLOW}
+Examples and outputs-${YLLW}
+Casual${CYN}
+CASDATE="\$(date +%a\ %b\ %d\ %Y)"${LTCYN}
+Mon Apr 30 2018${YLLW}
 
-International${CYAN}
-$ date +%d\ %b\ %Y${LTCYN}
-30 Apr 2018${YELLOW}
+International${CYN}
+INTNDATE="\$(date +%d\ %b\ %Y)"${LTCYN}
+30 Apr 2018${YLLW}
 
-Tech- filename${CYAN}
-$ date +%y%m%d-%H.%M.%S${LTCYN}
-180430-09.47.48${YELLOW}
+Tech- filename${CYN}
+FILNMDATE="\$(date +%y%m%d-%H.%M.%S)"${LTCYN}
+180430-09.47.48${YLLW}
 
-Week & Year${CYAN}
+Week & Year${CYN}
 $ date +%U\ %Y${LTCYN}
-17 2018${YELLOW}
+17 2018${YLLW}
 
-Year & Month Alpha${CYAN}
+Year & Month Alpha${CYN}
 $ date +%Y\ %B${LTCYN}
-2018 April${YELLOW}
+2018 April${YLLW}
 
-Year & Month Numeric${CYAN}
+Year & Month Numeric${CYN}
 $ date +%Y\ %m${LTCYN}
-2018 04${YELLOW}
+2018 04${YLLW}
 
-Year Month Day Numeric${CYAN}
+Year Month Day Numeric${CYN}
 $ date +%Y\ %m\ %d${LTCYN}
-2018 04 30${YELLOW}
+2018 04 30${YLLW}
 
-Slashed${CYAN}
+Slashed${CYN}
 $ date +%D${LTCYN}
-04/30/18${YELLOW}
+04/30/18${YLLW}
 
-Casual-tech${CYAN}
+Casual-tech${CYN}
 $ date +%Y\ %m\ %d\ %A${LTCYN}
-2018 04 30 Monday${YELLOW}
+2018 04 30 Monday${YLLW}
 
-Convert Epoc date/time into Human-Readable${CYAN}
+Convert Epoc date/time into Human-Readable${CYN}
 $ date -d @1521415551${LTCYN}
-Sun, Mar 18, 2018  6:25:51 PM${YELLOW}
+Sun, Mar 18, 2018  6:25:51 PM${YLLW}
 
-for log/output-filename${CYAN}
-date +%Y-%m-%d_%H-M${LTCYN}
-2018-04-30_09-53-27${YELLOW}
+for log/output-filename${CYN}
+LOGFILDATE="\$(date +%Y-%m-%d_%H-M)"${LTCYN}
+2018-04-30_09-53-27${YLLW}
 
-for logging${CYAN}
-$ date +%Y-%m-%d_%H:%M${LTCYN}
-2018-04-30_09:53:27${YELLOW}
+for logging${CYN}
+LOGDATE="\$(date +%Y-%m-%d_%H:%M)"${LTCYN}
+2018-04-30_09:53:27${YLLW}
 
-Add a date/time-stamp to your history,${CYAN}
+Add a date/time-stamp to your history,${CYN}
 add this to the end of your ~/.bash_profile or ~/.bashrc, then 'source' the one youe edited${LTCYN}
 export HISTTIMEFORMAT=\${HISTTIMEFORMAT:-"%F %H:%M:%S "}${LTYLLW}
  1119  2018-08-03 16:33:23 vi Useful_Tips/useful-tips.sh${RESET}
@@ -1266,10 +1271,10 @@ EOT
 #
 chk_cmd () {
 	cat <<EOT
-${BOLD}${YELLOW}    Need to find out if a particular command is available?${RESET}${LTYLLW}
+${BOLD}${YLLW}    Need to find out if a particular command is available?${RESET}${LTYLLW}
   You can use the 'which' command, but, in scripting most
   times you just need a yes/no answer.
-    Thats where 'type' command comes in...${YELLOW}
+    Thats where 'type' command comes in...${YLLW}
   Here's a script example...${LTCYN}
 type -P getent &>/dev/null && GETENT=true || GETENT=false
 if \$GETENT; then
@@ -1285,7 +1290,7 @@ EOT
 for_cows () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Silly little hack so you will have a fortune each time you log in${RESET}${YELLOW}
+${BOLD}${YLLW}    Silly little hack so you will have a fortune each time you log in${RESET}${YLLW}
     Add or Uncomment and modify this to your users ~/.profile
     Or ad to /etc/skel/profile - Use any available ascii,
     I chose dragon here${LTYLLW}
@@ -1305,7 +1310,7 @@ EOT
 cows_info () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Here is a list of available 'cows' in my installation-${RESET}${LTCYN}
+${BOLD}${YLLW}    Here is a list of available 'cows' in my installation-${RESET}${LTCYN}
     ls /usr/share/cows/
 beavis.zen.cow  dragon-and-cow.cow     hellokitty.cow  moofasa.cow    sodomized.cow    turtle.cow
 bong.cow        dragon.cow             kiss.cow        moose.cow      stegosaurus.cow  tux.cow
@@ -1325,10 +1330,10 @@ EOT
 git_alias () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    You wont have a ~/.gitconfig until you do the following, and its a good idea anyway${RESET}${LTCYN}
+${BOLD}${YLLW}    You wont have a ~/.gitconfig until you do the following, and its a good idea anyway${RESET}${LTCYN}
   git config --global user.name "Firstname Lastname"
-  git config --global user.email email@domain.com${BOLD}${YELLOW}
-    Add these declarations to your users ~/.gitconfig for efficiency${RESET}${YELLOW}
+  git config --global user.email email@domain.com${BOLD}${YLLW}
+    Add these declarations to your users ~/.gitconfig for efficiency${RESET}${YLLW}
 [alias]${LTCYN}
   co = checkout
   ci = commit -a -m
@@ -1345,22 +1350,22 @@ EOT
 add_color () {
 	cat <<EOT
 
-${BOLD}${YELLOW}    Add these Colors and effects to the output of your scripts-${RESET}
+${BOLD}${YLLW}    Add these Colors and effects to the output of your scripts-${RESET}
   Output${RED}
     Red${LTRED}
-    Light Red${GREEN}
+    Light Red${GRN}
     Green${LTGRN}
-    Light Green${CYAN}
+    Light Green${CYN}
     Cyan${LTCYN}
-    Light Cyan${BLUE}
+    Light Cyan${BLU}
     Blue${LTBLU}
     Light Blue${MAG}
     Magenta${LTMAG}
-    Light Magenta${YELLOW}
+    Light Magenta${YLLW}
     Yellow${LTYLLW}
-    Light Yellow${BOLD}${CYAN}
+    Light Yellow${BOLD}${CYN}
     Add BOLD to the text
-    ${SOMODE}Add Standout mode${NSOMODE}${BOLD}${CYAN}
+    ${SOMODE}Add Standout mode${NSOMODE}${BOLD}${CYN}
     ${BGBLU}${LTRED}Add Background Highlighting to the text${RESET}${LTYLLW}
     ${ULINE}Add Underlining to the text${NULINE}${RESET}${LTYLLW}
     I added a '-info' for this and display how I do this in the script
@@ -1370,16 +1375,16 @@ EOT
 }
 colr_info () {
     cat <<EOT
-${BOLD}${YELLOW}
-    Using Color to enhance the output of your scripts${RESET}${YELLOW}
+${BOLD}${YLLW}
+    Using Color to enhance the output of your scripts${RESET}${YLLW}
   Use 'tput' in a variablized way and declare those in the head of scripts${LTCYN}
   Here are the ones in this script ($PROGNAME),${BOLD}${LTYLLW} Turning off colors for this...${RESET}
 RED="\$(tput setaf 1)"
-GREEN="\$(tput setaf 2)"
-YELLOW="\$(tput setaf 3)"
-BLUE="\$(tput setaf 4)"
+GRN="\$(tput setaf 2)"
+YLLW="\$(tput setaf 3)"
+BLU="\$(tput setaf 4)"
 MAG="\$(tput setaf 5)"
-CYAN="\$(tput setaf 6)"
+CYN="\$(tput setaf 6)"
 LTRED="\$(tput setaf 9)"
 LTGRN="\$(tput setaf 10)"
 LTYLLW="\$(tput setaf 11)"
@@ -1395,11 +1400,11 @@ SOMODE="\$(tput smso)"
 NSOMODE="\$(tput rmso)"
 BOLD="\$(tput bold)"
 RESET="\$(tput sgr0)"
-${BOLD}${YELLOW}
-  Example-${RESET}${LTYLLW}(For command line, use above for scripts)${GREEN}
+${BOLD}${YLLW}
+  Example-${RESET}${LTYLLW}(For command line, use above for scripts)${GRN}
     Try it, copy/paste the following line in your terminal-
-echo -e "\n\$(tput bold)\$(tput setaf 1)This is a example,\n\t\$(tput sgr0)\$(tput setaf 14)for adding colors to commands and scripts.\$(tput sgr0)\n"${YELLOW}
-  References-${LTCYAN}
+echo -e "\n\$(tput bold)\$(tput setaf 1)This is a example,\n\t\$(tput sgr0)\$(tput setaf 14)for adding colors to commands and scripts.\$(tput sgr0)\n"${YLLW}
+  References-${LTCYN}
 https://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x405.html
 http://mewbies.com/motd_console_codes_color_chart_in_color_black_background.htm
 ${RESET}
@@ -1418,9 +1423,9 @@ EOT
 content_run () {
     clear
     cat <<EOT
-${BOLD}${YELLOW}
+${BOLD}${YLLW}
 RPM-Build${LTYLLW}
-    How To Build RPM Packages.${RESET}${CYAN}
+    How To Build RPM Packages.${RESET}${CYN}
 Contents${LTCYN}
   Building rpms with 'rpmbuild'
     Build an rpm from a script
@@ -1442,22 +1447,22 @@ EOT
 prep_run () {
     clear
     cat <<EOT
-${BOLD}${YELLOW}
+${BOLD}${YLLW}
 1. Building rpms with 'rpmbuild'${LTYLLW}
   a. Build an rpm from a script${RESET}${LTCYN}
 
     1. Preparation (This is the same for "Build an rpm from source)
        Before you begin building rpms you may need to prepare the environment.
-      a. Requirements${CYAN}
+      a. Requirements${CYN}
         ####    Install the 'rpm-build' package/s
         ####    -SUSE${LTGRN}
-        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build${CYAN}
+        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build${CYN}
         ####    -Redhat${LTGRN}
         $ sudo yum install rpm-build${LTCYN}
       b. The rpm directory structure
         It is best to start with a standard rpmbuild directory structure in your
          user's \${HOME}/ directory, don't get in the habbit of building rpms as
-         root, there is potential for breaking things if you do.${CYAN}
+         root, there is potential for breaking things if you do.${CYN}
         ####    rpmbuild directory structure${LTGRN}
         $ mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
         $ cd ~/rpmbuild
@@ -1478,7 +1483,7 @@ srcdir_run () {
 ${BOLD}${LTYLLW}
     2. The 'SOURCE' code Directory${RESET}${LTYLLW}
       The 'source' is the script itself, placed in the "SOURCES" directory under the
-       rpmbuild directory structure.${CYAN}
+       rpmbuild directory structure.${CYN}
       ####    Get the script into the "SOURCES" directory- notice the re-name (my pref)${LTGRN}
       $ cp ~/repos/github/TipsAndTricks/Useful_Tips/useful-tips.sh ~/rpmbuild/SOURCES/usefultips${RESET}
 EOT
@@ -1497,7 +1502,7 @@ ${BOLD}${LTYLLW}
        The spec file must be in the "SPECS" directory under the rpmbuild directory
         structure.
        Here's the spec file for the usefultips.sh script${LTGRN}
-       $ cat SPECS/usefultips.spec${CYAN}
+       $ cat SPECS/usefultips.spec${CYN}
        ####    Output${LTCYN}
 Name:           usefultips
 Version:        0.0.2
@@ -1524,10 +1529,10 @@ rm -rf \$RPM_BUILD_ROOT
 %defattr(-,c4,users)
 /usr/local/bin/usefultips
 %doc
-%changelog${RESET}${YELLOW}
+%changelog${RESET}${YLLW}
        After the spec file is in the "SPECS" directory, and the script is in the "SOURCES"
         directory, your environment should look like so:${LTGRN}
-       $ rpmbuild> tree -L 2 .${CYAN}
+       $ rpmbuild> tree -L 2 .${CYN}
        ####    Output${LTCYN}
        .
        ├── BUILD
@@ -1537,8 +1542,8 @@ rm -rf \$RPM_BUILD_ROOT
        │   └── usefultips
        ├── SPECS
        │   └── usefultips.spec
-       └── SRPMS${BOLD}${YELLOW}
-  Note:${RESET}${YELLOW}
+       └── SRPMS${BOLD}${YLLW}
+  Note:${RESET}${YLLW}
     You can create your spec file by simply copying an existing spec file and modifying it.
     As an alternative, you can use the vim or emacs command to open any new file that ends in .spec. The editor will automatically create a template within the new file for writing an RPM spec file.${RESET}
 
@@ -1551,9 +1556,9 @@ cmd_run () {
 ${BOLD}${LTYLLW}
     4. The 'rpmbuild' command to build the rpm${RESET}${LTYLLW}
        Read the man page for the other options available, for this document I am
-        only using what is needed.${CYAN}
+        only using what is needed.${CYN}
        ####    The rpmbuild command${LTGRN}
-       $ rpmbuild -v -bb --clean SPECS/usefultips.spec${CYAN}
+       $ rpmbuild -v -bb --clean SPECS/usefultips.spec${CYN}
        ####    Output${LTCYN}
 Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.aXzDRT
 + umask 022
@@ -1595,13 +1600,13 @@ inst_run () {
     cat <<EOT
 ${BOLD}${LTYLLW}
     5. Verify, Install, and Test the rpm${RESET}${LTYLLW}
-      In the output above you will see the full path to the newly created rpm:${BOLD}${CYAN}
-       "Wrote: /home/c4/rpmbuild/RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm"${RESET}${CYAN}
+      In the output above you will see the full path to the newly created rpm:${BOLD}${CYN}
+       "Wrote: /home/c4/rpmbuild/RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm"${RESET}${CYN}
       ####    Verify the rpm${LTGRN}
-      $ rpm -qpi RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYAN}
+      $ rpm -qpi RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYN}
       ####    Output will be the contents of your spec file
       ####    Install the rpm ${BOLD}(${ULINE}ALWAYS use "U"${NULINE})${RESET}${LTGRN}
-      $ sudo rpm -Uhv RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYAN}
+      $ sudo rpm -Uhv RPMS/x86_64/usefultips-0.0.2-04.x86_64.rpm${CYN}
       ####    Output${LTCYN}
       Preparing...                          ################################# [100%]
       Updating / installing...
@@ -1682,20 +1687,20 @@ contd_run () {
 }
 rpmdoc_run () {
     cat <<EOT
-${BOLD}${YELLOW}
-This is a long document so it is broken into sections...${RESET}${YELLOW}
+${BOLD}${YLLW}
+This is a long document so it is broken into sections...${RESET}${YLLW}
 ${ULINE}Option   Section${NULINE}${LTCYN}
-  [1]${YELLOW}    Contents${LTCYN}
-  [2]${YELLOW}     Preparation${LTCYN}
-  [3]${YELLOW}      The 'SOURCE' code Directory${LTCYN}
-  [4]${YELLOW}      The 'spec' file${LTCYN}
-  [5]${YELLOW}      The 'rpmbuild' command to build the rpm${LTCYN}
-  [6]${YELLOW}      Verify, Install, and Test the rpm${LTCYN}
-  [7]${YELLOW}    Build an rpm from source (src) code${LTCYN}
-  [8]${YELLOW}    Notes on RPM, Versioning, and Structure${LTCYN}
-  [9]${YELLOW}    Documentation${LTCYN}
-  [r]${YELLOW}    References${LTCYN}
-  [q]${YELLOW}    Quit/Exit${RESET}
+  [1]${YLLW}    Contents${LTCYN}
+  [2]${YLLW}     Preparation${LTCYN}
+  [3]${YLLW}      The 'SOURCE' code Directory${LTCYN}
+  [4]${YLLW}      The 'spec' file${LTCYN}
+  [5]${YLLW}      The 'rpmbuild' command to build the rpm${LTCYN}
+  [6]${YLLW}      Verify, Install, and Test the rpm${LTCYN}
+  [7]${YLLW}    Build an rpm from source (src) code${LTCYN}
+  [8]${YLLW}    Notes on RPM, Versioning, and Structure${LTCYN}
+  [9]${YLLW}    Documentation${LTCYN}
+  [r]${YLLW}    References${LTCYN}
+  [q]${YLLW}    Quit/Exit${RESET}
 EOT
 read -p "${BOLD}${LTCYN}Please select an Option from above....${RESET}
 " mychoice
@@ -1768,34 +1773,34 @@ esac
 cmmd_tar () {
     clear
     cat <<EOT
-${BOLD}${YELLOW}
-    The tar command, example answers to common questions${RESET}${YELLOW}
-  The most common question I know is the use of -C to remove the trailing path-${BOLD}${YELLOW}
+${BOLD}${YLLW}
+    The tar command, example answers to common questions${RESET}${YLLW}
+  The most common question I know is the use of -C to remove the trailing path-${BOLD}${YLLW}
 
-Backing Up - Archiving${RESET}${YELLOW}
-  In this example I will archive MyApp config to my user home directory.${GREEN}
+Backing Up - Archiving${RESET}${YLLW}
+  In this example I will archive MyApp config to my user home directory.${GRN}
 $ tar -czvf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz -C /opt/myapp/ conf.d
 $ tar -tf \${HOME}/myuser/bakups/MyAppConf_\$MYDATE.tar.gz${LTCYN}
-conf.d${BOLD}${YELLOW}
+conf.d${BOLD}${YLLW}
 
-Relieving full Disk/Partition space${RESET}${YELLOW}
-    In this example we've been alerted that the '${CYAN}/var/log${YELLOW}' partition is at ${RED}95%${YELLOW} full
+Relieving full Disk/Partition space${RESET}${YLLW}
+    In this example we've been alerted that the '${CYN}/var/log${YLLW}' partition is at ${RED}95%${YLLW} full
   and growing, our team-mate is working on the cause and we are to relieve the space
   to avoid any outages due to the system being unable to log.
-    With a quick check we see that the rotated '${CYAN}secure${YELLOW}' logs are the culpret and the 
+    With a quick check we see that the rotated '${CYN}secure${YLLW}' logs are the culpret and the 
   active log is growing. We see that the logs are set to ${ULINE}daily${NULINE} and not by ${ULINE}size${NULINE}, and
-  that ${ULINE}compression${NULINE} is not being used.${BOLD}${CYAN}
-  ${ULINE}FIRST${NULINE}${RESET}${CYAN} Stop the bleeding${GREEN}
+  that ${ULINE}compression${NULINE} is not being used.${BOLD}${CYN}
+  ${ULINE}FIRST${NULINE}${RESET}${CYN} Stop the bleeding${GRN}
 # cd /opt
 # tar -czvf secure_2018-09-14.tar.gz -C /var/log/ secure-2018* --remove-files
-# logrotate /etc/logrotate.d/syslog${YELLOW} ##Compress this file too, team-mate review${GREEN}
+# logrotate /etc/logrotate.d/syslog${YLLW} ##Compress this file too, team-mate review${GRN}
 # tar -czvf secure_2018-09-14_15-21.tar.gz -C /var/log/ secure-2018* --remove-files
-# df -h /var/log${YELLOW} ##verify free space${GREEN}
-# mv secure_2018-09-14.tar.gz /var/log/.${YELLOW}
-    We used the /opt partition in this case for Free Space available.${BOLD}${CYAN}
-  ${ULINE}SECOND${NULINE}${RESET}${CYAN} Prevent future occurances${YELLOW}
+# df -h /var/log${YLLW} ##verify free space${GRN}
+# mv secure_2018-09-14.tar.gz /var/log/.${YLLW}
+    We used the /opt partition in this case for Free Space available.${BOLD}${CYN}
+  ${ULINE}SECOND${NULINE}${RESET}${CYN} Prevent future occurances${YLLW}
     Notify the puppet team to modify the syslog/logrotate module to include
-  compress, dateext, and size, ${BOLD}${SOMODE}NOT${NSOMODE}${RESET}${YELLOW} daily.
+  compress, dateext, and size, ${BOLD}${SOMODE}NOT${NSOMODE}${RESET}${YLLW} daily.
 ${RESET}
 EOT
 }
@@ -1807,10 +1812,10 @@ EOT
 smpl_math () {
     clear
     cat <<EOT
-${BOLD}${YELLOW}
-    Performing Simple Math calculations in command line and scripting${RESET}${YELLOW}
+${BOLD}${YLLW}
+    Performing Simple Math calculations in command line and scripting${RESET}${YLLW}
   Using cal and expr to find number of days between 2 dates, in this
-  example using employment start date to current date.${GREEN}
+  example using employment start date to current date.${GRN}
 > cal -j 2 4 2018${LTCYN}
          April 2018        
 Sun Mon Tue Wed Thu Fri Sat
@@ -1818,7 +1823,7 @@ Sun Mon Tue Wed Thu Fri Sat
  98  99 100 101 102 103 104 
 105 106 107 108 109 110 111 
 112 113 114 115 116 117 118 
-119 120${GREEN}
+119 120${GRN}
 > cal -j 18 9 2018${LTCYN}
        September 2018      
 Sun Mon Tue Wed Thu Fri Sat
@@ -1827,18 +1832,171 @@ Sun Mon Tue Wed Thu Fri Sat
 252 253 254 255 256 257 258 
 259 260 ${SOMODE}261${NSOMODE} 262 263 264 265 
 266 267 268 269 270 271 272 
-273${GREEN}                         
+273${GRN}                         
 > expr 261 - 92${LTCYN}
 ${SOMODE}169${NSOMODE}
 ${RESET}
 EOT
 }
 #
+#
+###########################################################
+##    Snippets and Mapping
+###########################################################
+#
+examp_date () {
+    cat <<EOT
+${LTCYN}
+#
+###########################################################
+##    Date Variables
+###########################################################
+#
+CASDATE="\$(date +%a\ %b\ %d\ %Y)"
+INTNDATE="\$(date +%d\ %b\ %Y)"
+FILNMDATE="\$(date +%y%m%d-%H.%M.%S)"
+LOGFILDATE="\$(date +%Y-%m-%d_%H-M)"
+LOGDATE="\$(date +%Y-%m-%d_%H:%M)"${RESET}
+EOT
+}
+examp_globvar () {
+    cat <<EOT
+${LTCYN}
+###########################################################
+##    Global Variables and Information Gathering
+###########################################################
+#
+PROGNAME=\$(basename \$0)
+PROGVERS="0.0.0-01"
+PROGDATE="\$INTNDATE"${RESET}
+EOT
+}
+#
+examp_usage () {
+    cat <<EOF
+${LTCYN}#
+###########################################################
+##    Script Options/Usage
+###########################################################
+#
+usage () {
+    cat <<EOT
+\${BOLD}\${YLLW}
+Description-\${RESET}\${YLLW}
+    Begin Description\${BOLD}
+Options-\${RESET}\${YLLW}
+    Begin Options\${BOLD}
+Usage-\${RESET}\${YLLW}
+    Begin Usage
+\${RESET}
+EOT
+}${RESET}
+EOF
+}
+examp_args () {
+    cat <<EOT
+${LTCYN}#
+###########################################
+####    Declare Arg Checks
+###########################################
+#
+[[ \$1 ]] || { usage; echo -e "\t\${BOLD}\${RED}Requires at least 1 parameter\n\${RESET}"; exit 1; }
+[[ \$# -ne 2 ]] && { usage; echo -e "\t\${BOLD}\${RED}Requires exactly 2 arguementss\n\${RESET}"; exit 1; }
+[[ \$@ =~ "help" ]] && { usage; exit 0; }
+[[ \$@ =~ "nocolor" ]] && NOCOLR=true || NOCOLR=false${RESET}
+EOT
+}
+my_vimrc () {
+    cat <<EOT
+${BOLD}${GRN}
+$ ls ~/snippets${RESET}${LTCYN}
+argchks  colors  dates  globvars  optsusage${BOLD}${GRN}
+$ cat ~/.vimrc${RESET}${LTCYN}
+map <F2> <ESC>:r ~/VI/snippets/argchks <ESC>:r ~/VI/snippets/optsusage <ESC>:r ~/VI/snippets/colors <ESC>:r ~/VI/snippets/globvars <ESC>:r ~/VI/snippets/dates <ESC>:r ~/VI/snippets/shebangplus <ESC>k:1,.d <ESC>:w
+${RESET}
+EOT
+}
+vism () {
+    clear
+    cat <<EOT
+${BOLD}${YLLW}
+Description-${RESET}${LTYLLW}
+  Using VIM Snippets and Mapping${LTCYN}
+    VIM has so many built-in functions and abilities that we all should take advantage of.
+    Just a few of those that I have found most useful is the use of ${BOLD}${ULINE}Snippets${NULINE}${RESET}${LTCYN} and ${BOLD}${ULINE}Mapping${NULINE}${RESET}${LTCYN},
+    and making some of those permanent by adding them to your ~/.vimrc file.${BOLD}${YLLW}
+Snippets-${RESET}${LTYLLW}
+    Create a directory to hold your 'snippets', in this example I will use ~/snippets
+    Create a separate file for each snippet, I have ones for "globalvariables", 
+      "colorvars", while, until, & for loops, casestatements, etc.${BOLD}${GRN}
+  $ vi ~/snippets/usage${RESET}${LTCYN}
+  #
+  ###########################################################
+  ##    Script Options/Usage
+  ###########################################################
+  #
+  usage () {
+      cat <<EOT
+  \${BOLD}\${YLLW}
+  Description-\${RESET}\${YLLW}
+      Begin Description\${BOLD}
+  Options-\${RESET}\${YLLW}
+      Begin Options\${BOLD}
+  Usage-\${RESET}\${YLLW}
+      Begin Usage
+  \${RESET}
+  EOT
+  }${LTYLLW}
+    Save and quit with "${LTCYN}:wq"${LTYLLW}.
+    Now, when you create or edit a script, and want to add a Usage function you 
+    can do the following:${BOLD}${GRN}
+  $ vi newscript.sh${RESET}${LTYLLW}
+    Move the cursor to the line above where you want to inster the "Usage"
+    snippet and do the following:${LTCYN}
+  :r ~/snippets/usage${LTYLLW}
+    And hit ENTER, your 'snippet' will appear and you can begin editing.${BOLD}${YLLW}
+Mapping-${RESET}${LTYLLW}
+    Now, you can 'map' this in the vi session, but that wont be permanent, I'll 
+    put both examples here.
+  Inside vi-${LTCYN}
+  :map ${LTMAG}<F2> <ESC>${LTCYN}:r ~/snippets/usage${LTYLLW}
+    Then, inside vi, you can just hit the "${SOMODE}F2${NSOMODE}" key and insert it.
+    To make this permanent, edit/create your ${LTCYN}~/.vimrc${LTYLLW} with vi and add the same-${BOLD}${GRN}
+  $ vi ~/.vimrc${RESET}${LTCYN}
+  map ${LTMAG}<F2> <ESC>${LTCYN}:r ~/snippets/usage${LTYLLW}
+    Save and quit with <ESC>${LTCYN} :wq${LTYLLW}
+    You can just hit the "${SOMODE}F2${NSOMODE}" key at any time and insert it.
+${BOLD}${YLLW}
+Resource-${RESET}${LTCYN}
+  The Urban Penguin
+  https://www.youtube.com/watch?time_continue=1&v=mZXO0iPLaB8
+${RESET}
+EOT
+echo -e "\tYou can see all my snippets, and my ~/.vimrc by pressing 's'\n\tPress any other key to exit...\n"
+read -r -n 1 -s anykey
+if [[ $anykey == "s" ]]; then
+    examp_date
+    examp_globvar
+    examp_usage
+    examp_args
+    my_vimrc
+    exit 0
+else
+    exit 0
+fi
+}
+#
+###########################################################
+##    END OF Snippets and Mapping
+###########################################################
+#
+###########################################
+###    END OF DEFINE FUNCTIONS
+###########################################
+#
 ###########################################
 ####    Run script & exit
 ###########################################
-#
-###    END OF DEFINE FUNCTIONS
 #
 ###########################################
 ### Define Execution
@@ -2008,6 +2166,10 @@ case $MYOPT in
         clear
         smpl_math
     ;;
+    "snip")
+        clear
+        vism
+    ;;
     *)
         clear
 	show_objective
@@ -2052,9 +2214,18 @@ exit $?
 #      Fixed syntax mistake in the "Usage" output
 #      Fixed allignment mistake in the "Usage" output
 #      Cleaned up structure of entire "Usage"... MUCH cleaner output
-#    Change- '0.0.2-07' 18 Sep 2018- 
+#    Change- '0.0.2-07' to '0.0.2-09' 18 Sep 2018 - 26 Sep 2018
 #      Added Enter/Exit standout mode
 #      Added tars and math
 #      Added colr-info
-#  Next- add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
+#    Change- '0.0.2-10' 29 Sep 2018- 
+#      Added 'nocolor' 2nd arg
+#      - Added 'Snippets' Map and Insert [27 Oct 2018]
+#      - Modified- Discovered I had wrong date/year in the GPL and Author section (2018 => 2017)
+#    Change- '0.0.2-11' 27 Oct 2018- 
+#  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
+#  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
+#
+#
+#
 #

@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
 ##    useful-tips
-##    Author       - Shawn Miller
-##    Date         - 2018 02 15
-##    Colaborators - 
+##    Author/Founder    - Shawn Miller
+##    Date              - 2017 02 15
+##    Colaborators      - 
 #
 ###########################################
 ####    Global Variables
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-10"
-PROGDATE="29 Sep 2018"
+PROGVERS="0.0.2-11"
+PROGDATE="27 Oct 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -24,7 +24,7 @@ ${LTCYN}
 ####c4#############################################################################
 ###                                                                             ###
 ##                      GNU/GPL Info                                             ##
-##        useful-tips.sh ver-0.0.0-01 - Colaborative begun 15 February 2018	 ##
+##        useful-tips.sh ver-0.0.0-01 - Colaborative begun 15 February 2017	 ##
 ##      Released under GPL v2.0, See www.gnu.org for full license info           ##
 ##      Copyright (C) 2015  Shawn Miller, The Wood-Bee Company			 ##
 ##              EMAIL- shawn@woodbeeco.com                                       ##
@@ -2220,6 +2220,12 @@ exit $?
 #      Added colr-info
 #    Change- '0.0.2-10' 29 Sep 2018- 
 #      Added 'nocolor' 2nd arg
+#      - Added 'Snippets' Map and Insert [27 Oct 2018]
+#      - Modified- Discovered I had wrong date/year in the GPL and Author section (2018 => 2017)
+#    Change- '0.0.2-11' 27 Oct 2018- 
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
+#
+#
+#
 #
