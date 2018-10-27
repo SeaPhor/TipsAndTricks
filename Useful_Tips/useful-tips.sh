@@ -142,6 +142,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [help]${BOLD}    Help       ${RESET}${LTCYN}   Shows the entire menu and exits
   [sobj]${BOLD}    Objective  ${RESET}${LTCYN}   Show the Objective for this script and all coding, commands, and structure.
   [vers]${BOLD}    Version    ${RESET}${LTCYN}   Shows this revision's Verion and exits.
+  [gpli]${BOLD}    GPL Info   ${RESET}${LTCYN}   Shows the GNU/GPL Info and exits.
   [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are meta-characters including by-inode number.
   [lvmn]${BOLD}    LVM Notes${RESET}${LTCYN}     Shows LVM management for adding a disk.
   [tool]${BOLD}    Useful Tools${RESET}${LTCYN}  Tools- Security, Monitoring, and troubleshooting
@@ -2015,6 +2016,11 @@ case $MYOPT in
 	show_objective
         exit 0
     ;;
+    "gpli")
+        clear
+	gpl_info
+        exit 0
+    ;;
     "meta")
         rem_meta
         exit $?
@@ -2223,6 +2229,7 @@ exit $?
 #      - Added 'Snippets' Map and Insert [27 Oct 2018]
 #      - Modified- Discovered I had wrong date/year in the GPL and Author section (2018 => 2017)
 #    Change- '0.0.2-11' 27 Oct 2018- 
+#      Added GNU/GPL Info [gpli] to Options
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
 #
