@@ -72,7 +72,7 @@ SSH to the VM and Login to the VM, become root/sudo
   Restart all Services- apache2 & mysql
   Be Sure that your hostname is configured correctly-
     [CLI] hostname # Should show short name
-    [CLI] hostname # Should show FQDN
+    [CLI] hostname -f # Should show FQDN
 Launch Virtualbox and take a snapshot
 Edit your /etc/hosts with the info for your webserver VM
   [/etc/hosts]
