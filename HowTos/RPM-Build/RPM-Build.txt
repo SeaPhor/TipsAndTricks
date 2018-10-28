@@ -1,4 +1,4 @@
-PM-Build
+RPM-Build
     How To Build RPM Packages.
 Contents
   Building rpms with 'rpmbuild'
