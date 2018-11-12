@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+##    Color Variables [snippet]
+##    Author: Shawn Miller
+##    Date: 26 October 2018
+#
+source /home/wbc/MyGitRepos/home/github/SeaPhor-Scripts/Sourcing/Colors/color-source.sh
+#
+#############################
+####    BASH Insulter    ####
+#############################
+#
+##    bash-insulter [snippet]
+##    Author: Shawn Miller
+##    Date: 26 October 2018
+#
+####    BEGINUSEFULSTRUCTURE
+####    Bash Insulter
+insult_bash () {
+    cat <<EOT
+${BOLD}${YLLW}
+    ${ULINE}bash-insulter-${NULINE}${RESET}${LTCYN} A nifty little '${RED}cnf${LTCYN}' substitute that corrects you when you issue an impropper command${LTYLLW}
+  Backup the existing config-${GRN}
+$ sudo cp /etc/bash_command_not_found /etc/bash_command_not_found.bak${LTYLLW}
+  Get the config and replace the existing one...${GRN}
+$ sudo wget -O /etc/bash.command-not-found https://raw.githubusercontent.com/hkbakke/bash-insulter/master/src/bash.command-not-found${LTYLLW}
+  Source the config for new users, and existing...${GRN}
+$ sudo vi /etc/bash.bashrc${LTCYN}
+if [ -f /etc/bash.command-not-found ]; then
+    . /etc/bash.command-not-found
+fi${LTYLLW}
+  Then logout and back in again, type bad commands,,, '${GRN}lr${LTYLLW}' as an example...${BOLD}${LTRED}
+  What if... you type an actual command the next time!${RESET}${LTYLLW}
+  done.
+${RESET}
+EOT
+}
+####    ENDUSEFULSTRUCTURE
+#
+insult_bash
+#

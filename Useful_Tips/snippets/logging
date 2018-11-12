@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-#######################
-####    Logging    ####
-#######################
-#
 ##    Logging [snippet]
 ##    Author: Shawn Miller
 ##    Date: 26 October 2018
+#
+#######################
+####    Logging    ####
+#######################
 #
 ####    Static Logging Variables- [Change these values]
 #
