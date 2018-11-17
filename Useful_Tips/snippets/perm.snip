@@ -1,0 +1,110 @@
+#
+####################################################
+####    PERMISSIONS on files and directories    ####
+####################################################
+#
+#  [perm]    Permissions    Permissions on files and directories
+perm_snip () {
+    cat <<EOT
+${BOLD}${YLLW}
+Files, Directories, Permissions, and Values
+${RESET}${GRN}
+> ls -la ~/Directory1/${LTCYN}
+total 8
+drwxr-xr-x  2 wbc users 4096 Nov 17 08:28 .       <<== Current directory being listed Permissions
+drwxr-xr-x 63 wbc users 4096 Nov 17 09:38 ..      <<== Parent Directory Permissions
+-rw-r--r--  1 wbc users    0 Nov 17 08:28 file1   <<== Listed file/s in Current directory
+${GRN}
+> ls -l ~/Directory1${LTCYN}
+total 0
+-rw-r--r-- 1 user users 0 Nov 17 08:28 file1
+│    │     │  │     │   │      │         └─────${LTYLLW}  File name${GRN}
+│    │     │  │     │   │      └───────────────${LTYLLW}  Date/time last modified${GRN}
+│    │     │  │     │   └──────────────────────${LTYLLW}  File Size${GRN}
+│    │     │  │     └──────────────────────────${LTYLLW}  Owning Group${GRN}
+│    │     │  └────────────────────────────────${LTYLLW}  Owning User${GRN}
+│    │     └───────────────────────────────────${LTYLLW}  Number of files, including self${GRN}
+│    └─────────────────────────────────────────${LTYLLW}  644${GRN}
+└──────────────────────────────────────────────${LTYLLW}  "-" is Regular File, "d" is Directory${LTYLLW}
+
+Field 1 - Permissions${LTCYN}
+ - ___ ___ ___${GRN}
+ │  │   │   │
+ │  │   │   └──${LTYLLW} World permissions, All 'Others'${GRN}
+ │  │   └──────${LTYLLW} Owner's or assigned Group permissions${GRN}
+ │  └──────────${LTYLLW} Owner's permisions${GRN}
+ └─────────────${LTYLLW} File Type, "-" is regular File, "d" is Directory, there are others.${LTYLLW}
+
+Each 'set' of 3 positions are the same,${BOLD}
+
+Position-   ──────    ──────    ──────
+${ULINE}Value-       Read     Write     Execute${RESET}${NULINE}${LTCYN}
+A "-" in the Value is "0" or None
+    r = Read     Value = 4
+    w = Write    Value = 2
+    x = Execute  Value = 1${LTYLLW}
+So:${LTCYN}
+    rwx = 111 in binary = 7${LTYLLW} (4+2+1)${LTCYN}
+    rw- = 110 in binary = 6${LTYLLW} (4+2+0)${LTCYN}
+    r-x = 101 in binary = 5${LTYLLW} (4+0+1)${LTCYN}
+    r-- = 100 in binary = 4${LTYLLW} (4+0+0)${LTYLLW}
+When you see a perm like "644", that is Owner=6(rw) Owner'sGroup=4(r) AllOthers=4(r) so it looks like so:${LTCYN}
+-rw-r--r-- 1 user users 0 Nov 17 08:28 file1
+
+Using the "stat" command to see properties of a file-${GRN}
+> stat ~/Directory1/${LTCYN}
+  File: /home/user/Directory1/
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: fe05h/65029d	Inode: 13384080    Links: 2
+Access: (0755/drwxr-xr-x)  Uid: ( 1000/     user)   Gid: (  100/   users)
+Access: 2018-11-17 08:30:24.984393675 -0600
+Modify: 2018-11-17 08:28:59.322223499 -0600
+Change: 2018-11-17 08:28:59.322223499 -0600
+ Birth: -${GRN}
+> stat ~/Directory1/file1${LTCYN}
+  File: /home/user/Directory1/file1
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fe05h/65029d	Inode: 13384081    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/     user)   Gid: (  100/   users)
+Access: 2018-11-17 08:28:59.322223499 -0600
+Modify: 2018-11-17 08:28:59.322223499 -0600
+Change: 2018-11-17 08:28:59.322223499 -0600
+ Birth: -${GRN}
+
+> stat -c %A ~/Directory1/${LTCYN}
+drwxr-xr-x${GRN}
+> stat -c %a ~/Directory1/${LTCYN}
+755${GRN}
+> stat -c %A ~/Directory1/file1${LTCYN}
+-rw-r--r--${GRN}
+> stat -c %a ~/Directory1/file1${LTCYN}
+644${GRN}
+> stat -c %f ~/Directory1/${LTCYN}
+41ed${GRN}
+> printf "%o\n" 0x41ed${LTCYN}
+40755${GRN}
+> stat -c %f ~/Directory1/file1${LTCYN}
+81a4${GRN}
+> printf "%o\n" 0x81a4${LTCYN}
+100644
+${LTYLLW}
+Changing permissions and ownership-${GRN}
+> chown User:Group /path/to/file${LTCYN}  <<<===${LTYLLW} Will set the owning user to User and the owning group to Group
+Or${GRN}
+> chown User: /path/to/file       <<<=== Will use the Uer's primary group by default${GRN}
+> chown -R User: /path/to/file    <<<=== Same, but Recursively, all sub-files/directories as well (CAPITAL "R")${GRN}${BOLD}
+> chmod who/what/value /path/to/file${RESET}${GRN}
+> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "-R here for Recursive)${GRN}
+> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "-R here)
+${LTYLLW}
+Further reading,
+See the '${LTCYN}sftp${LTYLLW}' Option for mainipulating owner/group for special circumstances like this:${GRN}
+# ls -l /sftp/chroot/home/${LTCYN}
+drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${LTYLLW}
+
+See "${LTCYN}acls${LTYLLW}" from Options menu for allowing multiple sets of permissions
+${RESET}
+EOT
+}
+perm_snip
+
