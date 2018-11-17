@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 ##    useful-tips
 ##    Author/Founder    - Shawn Miller
@@ -11,7 +11,7 @@
 #
 PROGNAME=$(basename $0)
 PROGVERS="0.0.2-11"
-PROGDATE="27 Oct 2018"
+PROGDATE="17 Nov 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -169,6 +169,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [tars]${BOLD}    Tar Command${RESET}${LTCYN}   Common uses of the tar command
   [math]${BOLD}    Simple Math${RESET}${LTCYN}   Performing simple math in the command line and scripting
   [snip]${BOLD}    Snippet & Map${RESET}${LTCYN} Using Snippets and Mapping in VI/M
+  [perm]${BOLD}    Permissions${RESET}${LTCYN}   Permissions on files and directories
 ${RESET}
 EOT
 }
@@ -1991,6 +1992,117 @@ fi
 ##    END OF Snippets and Mapping
 ###########################################################
 #
+#
+####################################################
+####    PERMISSIONS on files and directories    ####
+####################################################
+#
+perm_snip () {
+    cat <<EOT
+${BOLD}${YLLW}
+Files, Directories, Permissions, and Values
+${RESET}${LTGRN}
+> ls -la ~/Directory1/${LTCYN}
+total 8
+drwxr-xr-x  2 wbc users 4096 Nov 17 08:28 .${LTGRN}       <<==${YLLW} Current directory being listed Permissions${LTCYN}
+drwxr-xr-x 63 wbc users 4096 Nov 17 09:38 ..${LTGRN}      <<==${YLLW} Parent Directory Permissions${LTCYN}
+-rw-r--r--  1 wbc users    0 Nov 17 08:28 file1${LTGRN}   <<==${YLLW} Listed file/s in Current directory
+${LTGRN}
+> ls -l ~/Directory1${LTCYN}
+total 0
+-rw-r--r-- 1 user users 0 Nov 17 08:28 file1${LTGRN}
+│    │     │  │     │   │      │         └─────${LTYLLW}  File name${LTGRN}
+│    │     │  │     │   │      └───────────────${LTYLLW}  Date/time last modified${LTGRN}
+│    │     │  │     │   └──────────────────────${LTYLLW}  File Size${LTGRN}
+│    │     │  │     └──────────────────────────${LTYLLW}  Owning Group${LTGRN}
+│    │     │  └────────────────────────────────${LTYLLW}  Owning User${LTGRN}
+│    │     └───────────────────────────────────${LTYLLW}  Number of files, including self${LTGRN}
+│    └─────────────────────────────────────────${LTYLLW}  644${LTGRN}
+└──────────────────────────────────────────────${LTYLLW}  "-" is Regular File, "d" is Directory${LTYLLW}
+
+Field 1 - Permissions${LTCYN}
+ - ___ ___ ___${LTGRN}
+ │  │   │   │
+ │  │   │   └──${LTYLLW} World permissions, All 'Others'${LTGRN}
+ │  │   └──────${LTYLLW} Owner's or assigned Group permissions${LTGRN}
+ │  └──────────${LTYLLW} Owner's permisions${LTGRN}
+ └─────────────${LTYLLW} File Type, "-" is regular File, "d" is Directory, there are others.${LTYLLW}
+
+Each 'set' of 3 positions are the same,${BOLD}
+
+Position-   ──────    ──────    ──────
+${ULINE}Value-       Read     Write     Execute${RESET}${NULINE}${LTCYN}
+A "-" in the Value is "0" or None
+    r = Read     Value = 4
+    w = Write    Value = 2
+    x = Execute  Value = 1${LTYLLW}
+So:${LTCYN}
+    rwx = 111 in binary = 7${LTYLLW} (4+2+1)${LTCYN}
+    rw- = 110 in binary = 6${LTYLLW} (4+2+0)${LTCYN}
+    r-x = 101 in binary = 5${LTYLLW} (4+0+1)${LTCYN}
+    r-- = 100 in binary = 4${LTYLLW} (4+0+0)${LTYLLW}
+When you see a perm like "644", that is Owner=6(rw) Owner'sGroup=4(r) AllOthers=4(r) so it looks like so:${LTCYN}
+-rw-r--r-- 1 user users 0 Nov 17 08:28 file1${LTYLLW}
+
+Using the "stat" command to see properties of a file-${LTGRN}
+> stat ~/Directory1/${LTCYN}
+  File: /home/user/Directory1/
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: fe05h/65029d	Inode: 13384080    Links: 2
+Access: (0755/drwxr-xr-x)  Uid: ( 1000/     user)   Gid: (  100/   users)
+Access: 2018-11-17 08:30:24.984393675 -0600
+Modify: 2018-11-17 08:28:59.322223499 -0600
+Change: 2018-11-17 08:28:59.322223499 -0600
+ Birth: -${LTGRN}
+> stat ~/Directory1/file1${LTCYN}
+  File: /home/user/Directory1/file1
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fe05h/65029d	Inode: 13384081    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/     user)   Gid: (  100/   users)
+Access: 2018-11-17 08:28:59.322223499 -0600
+Modify: 2018-11-17 08:28:59.322223499 -0600
+Change: 2018-11-17 08:28:59.322223499 -0600
+ Birth: -${LTGRN}
+
+> stat -c %A ~/Directory1/${LTCYN}
+drwxr-xr-x${LTGRN}
+> stat -c %a ~/Directory1/${LTCYN}
+755${LTGRN}
+> stat -c %A ~/Directory1/file1${LTCYN}
+-rw-r--r--${LTGRN}
+> stat -c %a ~/Directory1/file1${LTCYN}
+644${LTGRN}
+> stat -c %f ~/Directory1/${LTCYN}
+41ed${LTGRN}
+> printf "%o\n" 0x41ed${LTCYN}
+40755${LTGRN}
+> stat -c %f ~/Directory1/file1${LTCYN}
+81a4${LTGRN}
+> printf "%o\n" 0x81a4${LTCYN}
+100644
+${LTYLLW}
+Changing permissions and ownership-${LTGRN}
+> chown User:Group /path/to/file${LTCYN}  <<<===${LTYLLW} Will set the owning user to User and the owning group to Group
+Or${LTGRN}
+> chown User: /path/to/file ${LTCYN}      <<<===${LTYLLW} Will use the Uer's primary group by default${LTGRN}
+> chown -R User: /path/to/file${LTCYN}    <<<===${LTYLLW} Same, but Recursively, all sub-files/directories as well (CAPITAL "R")${LTGRN}${BOLD}
+> chmod who/what/value /path/to/file${RESET}${LTGRN}
+> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "-R here for Recursive)${LTGRN}
+> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "-R here)
+${LTYLLW}
+Further reading,
+See the '${LTCYN}sftp${LTYLLW}' Option for mainipulating owner/group for special circumstances like this:${LTGRN}
+# ls -l /sftp/chroot/home/${LTCYN}
+drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${LTYLLW}
+
+See "${LTCYN}acls${LTYLLW}" from Options menu for allowing multiple sets of permissions${LTBLU}
+https://www.theurbanpenguin.com/read-linux-file-permissions/?fbclid=IwAR01p8LDQx-GUa_Sn5RfVptTIKR9xhHD1NQaKrKcgaal5jdERb7CKJmLoQo
+${RESET}
+EOT
+}
+
+
+#
 ###########################################
 ###    END OF DEFINE FUNCTIONS
 ###########################################
@@ -2176,6 +2288,10 @@ case $MYOPT in
         clear
         vism
     ;;
+    "perm")
+        clear
+        perm_snip
+    ;;
     *)
         clear
 	show_objective
@@ -2230,6 +2346,7 @@ exit $?
 #      - Modified- Discovered I had wrong date/year in the GPL and Author section (2018 => 2017)
 #    Change- '0.0.2-11' 27 Oct 2018- 
 #      Added GNU/GPL Info [gpli] to Options
+#      Added [perm] option for file permissions
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
 #
