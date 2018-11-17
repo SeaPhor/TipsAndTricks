@@ -10,7 +10,7 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-11"
+PROGVERS="0.0.2-12"
 PROGDATE="17 Nov 2018"
 MYOPT="$1"
 #
@@ -2344,9 +2344,11 @@ exit $?
 #      Added 'nocolor' 2nd arg
 #      - Added 'Snippets' Map and Insert [27 Oct 2018]
 #      - Modified- Discovered I had wrong date/year in the GPL and Author section (2018 => 2017)
-#    Change- '0.0.2-11' 27 Oct 2018- 
+#    Change- '0.0.2-11' 27 Oct 2018-17 Nov 2018 
 #      Added GNU/GPL Info [gpli] to Options
 #      Added [perm] option for file permissions
+#    Change- '0.0.2-12' 17 Nov 2018-
+#      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
 #
