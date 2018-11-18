@@ -10,8 +10,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-12"
-PROGDATE="17 Nov 2018"
+PROGVERS="0.0.2-13"
+PROGDATE="18 Nov 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -2407,7 +2407,9 @@ exit $?
 #      Added [perm] option for file permissions
 #    Change- '0.0.2-12' 17 Nov 2018-
 #      Modified- minor color and structure of perm - 18 Nov 2018-
-#      
+#      Modified- Major change to perm- added 'anykey' options for readability
+#      Promoting to Latest_Stable - 18 Nov 2018-
+#    Change- '0.0.2-13' 18 Nov 2018-
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
