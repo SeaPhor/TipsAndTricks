@@ -1,59 +1,9 @@
-#!/bin/bash
 #
-###########################################
-####    Global Variables
-###########################################
+#################################################
+####    SOP, Standard Operating Procedure    ####
+#################################################
 #
-PROGNAME=$(basename $0)
-PROGVERS="1.0.2-01"
-PROGDATE="21 Sep 2018"
-#
-###########################################
-####    Color Variables
-###########################################
-#
-RED="$(tput setaf 1)"
-GRN="$(tput setaf 2)"
-YLLW="$(tput setaf 3)"
-BLU="$(tput setaf 4)"
-MAG="$(tput setaf 5)"
-CYN="$(tput setaf 6)"
-LTRED="$(tput setaf 9)"
-LTGRN="$(tput setaf 10)"
-LTYLLW="$(tput setaf 11)"
-LTBLU="$(tput setaf 12)"
-LTMAG="$(tput setaf 13)"
-LTCYN="$(tput setaf 14)"
-BGBLU="$(tput setab 4)"
-BGYLLW="$(tput setab 3)"
-BGLYLLW="$(tput setab 11)"
-ULINE="$(tput smul)"
-NULINE="$(tput rmul)"
-SOMODE="$(tput smso)"
-NSOMODE="$(tput rmso)"
-BOLD="$(tput bold)"
-RESET="$(tput sgr0)"
-#
-#
-#
-###########################################
-####    SOP, Standard Operating Procedure
-###########################################
-#
-###########################################
-####    Declare Environment Variables
-###########################################
-#
-cont_choice () {
-read -p "${BOLD}${YLLW}Would you like to make another selection? [Y/n]${RESET}
-" nextchoice
-if [[ $nextchoice = "n" ]]; then
-    exit 0
-else
-    start_sop
-fi
-}
-#
+#  [sopb]    SOP-BASH    ${BOLD}${YLLW}S${RESET}${LTCYN}tandard ${BOLD}${YLLW}O${RESET}${LTCYN}perating ${BOLD}${YLLW}P${RESET}${LTCYN}rocedure for BASH Coding and Collaboration
 ###########################################
 ####    Declare Functions
 ###########################################
@@ -291,47 +241,38 @@ case $anykey in
     1)
         clear
 	start_syn
-	cont_choice
     ;;
     2)
         clear
         start_scp
-	cont_choice
     ;;
     3)
         clear
         start_gens
-	cont_choice
     ;;
     4)
         clear
         start_scom
-	cont_choice
     ;;
     5)
         clear
         start_slog
-	cont_choice
     ;;
     6)
         clear
         start_sind
-	cont_choice
     ;;
     7)
         clear
         start_svar
-	cont_choice
     ;;
     8)
         clear
         start_sif
-	cont_choice
     ;;
     9)
         clear
         start_sloop
-	cont_choice
     ;;
     q)
         exit 0

@@ -114,8 +114,8 @@ ${YLLW}${BOLD}    PEP8 Compliance Guidelines and suggested Resolution${LTYLLW}
     PEP8 is technically for Python coding but we believe it is a good
   standard for all coding.${YLLW}
   Find more at${CYN}
-https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code
- And Here-  https://www.python.org/dev/peps/pep-0008/${RESET}
+https://www.datacamp.com/community/tutorials/pep8-tutorial-python-code${YLLW}
+ And Here-${CYN}  https://www.python.org/dev/peps/pep-0008/${RESET}
 
 EOT
 }
@@ -170,16 +170,71 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [math]${BOLD}    Simple Math${RESET}${LTCYN}   Performing simple math in the command line and scripting
   [snip]${BOLD}    Snippet & Map${RESET}${LTCYN} Using Snippets and Mapping in VI/M
   [perm]${BOLD}    Permissions${RESET}${LTCYN}   Permissions on files and directories
+  [desc]${BOLD}    Description${RESET}${LTCYN}   Description and structure of this script and collaboration
 ${RESET}
 EOT
 }
 #
 [[ ${MYOPT} ]] || { show_opts; echo -e "\t${BOLD}${RED}Requires at least 1 parameter\n${RESET}"; exit 1; }
 #
+desc_show () {
+    cat <<EOT
+${BOLD}${YLLW}
+${SOMODE}${ULINE}Description${NSOMODE}${NULINE}${RESET}${LTCYN}
+    It is hoped that this will be a "Living" script, a collaboative effort with contributions
+from many, and that this script and it's users will grow, learn, teach, and evolve.
+    This script is a collection of little snippets of shorcuts, tips, hacks, and samples
+of helpful info gathered over many years, and placed in a central place in man-page
+like format.${BOLD}${YLLW}
+  ${ULINE}Collaboration-${NULINE}${RESET}${LTCYN}
+    Collaboration on this script is encouraged, welcome and appreciated!
+However, we all need to follow the same structure and guidelines, here is what I do and 
+expect from others:${BOLD}${YLLW}
+  Latest_Stable, Git Push, is only for me to do
+  Only edit in your own branch
+  The script in the Useful_Tips directory is the edit script, "running script", I manage the versioning
+  Only commit after testing not only your own edit, but the script as a whole
+  Follow the same structure as the rest of the script-
+    New Option goes at the bottom of the list in the "Options" list
+    New Functions goes at the bottom of the Funtions section, above "END of Define Functions"
+    New Case actions goes at the bottom of the list
+${RESET}
+EOT
+desc_more
+}
+#
+desc_more () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || desc_next
+}
+desc_next () {
+    cat <<EOT
+${BOLD}${LTYLLW}
+  My steps:${RESET}${LTCYN}
+    1. Create and checkout new branch with my nick as part of the name
+    2. Create a new snippet in the snippets dir named as such-${BOLD}${YLLW} <${CYN}4-digit-option_name${YLLW}>${LTCYN}.snip${RESET}${LTCYN}
+    3. Edit the new snip and import the shebang and the color variables from another snippet
+    4. Create a boxed header containg a keyword in UPPERCASE (for searching this large script)
+    5. Create the line for the Options menu (use dd and p to put in place when putting into script)
+    6. Create the function to be used as so-${BOLD}${YLLW} <${CYN}4-digit-option_name${YLLW}>${LTCYN}_snip () {    }${RESET}${LTCYN}
+    7. Create the case statement function call (use dd and p to put in place when putting into script)
+    8. Test, fix typos, add/adjust colors, test more... until satisfied
+    9. git add and commit
+    10. Edit the "running script", arrow/search to above the "END of Define Functions" and do ":r snippets/<4-digit-option_name>.snip
+    11. Use dd to move the Options line to the bottom of the Options menu
+    12. Use dd to move the function call to the bottom of the case actions
+    13. test, edit, retest, retest, retest
+    14. git add and commit, request merge${LTYLLW}
+      I will checkout the branch and test, and either reject, request change, or accept and merge, then I will add your name/nick to the "Collaborators" at the top, I will add description to the CHANGELOG at the bottom, I will version it, delete the branch, copy to Latest_Stable, build a new rpm and place in RPMS dir, commit and push to repo.
+${RESET}
+EOT
+}
+#
 set_chroot () {
 	cat <<EOT
-
-${LTCYN}${BOLD}    Create a secure SFTP environment with chroot-jailed users.
+${LTCYN}${BOLD}
+    Create a secure SFTP environment with chroot-jailed users.
     There are some things are required before this will function properly-${RESET}${YLLW}
   The base file structure must exist and${BOLD} MUST be OWNED by root${RESET}${YLLW},
   preferably on it's own partition [see lvmn option]
@@ -2350,6 +2405,10 @@ case $MYOPT in
         fith_run
         sixth_run
     ;;
+    "desc")
+        clear
+        desc_show
+    ;;
     *)
         clear
 	show_objective
@@ -2410,10 +2469,12 @@ exit $?
 #      Modified- Major change to perm- added 'anykey' options for readability
 #      Promoting to Latest_Stable - 18 Nov 2018-
 #    Change- '0.0.2-13' 18 Nov 2018-
+#      Added a desc option for Description and Collaboration
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
-#
+#  Next - add 'SOP' to script
+#      
 #
 #
 #
