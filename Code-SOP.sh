@@ -36,23 +36,9 @@ RESET="$(tput sgr0)"
 #
 #
 #
-###########################################
-####    SOP, Standard Operating Procedure
-###########################################
-#
-###########################################
-####    Declare Environment Variables
-###########################################
-#
-cont_choice () {
-read -p "${BOLD}${YLLW}Would you like to make another selection? [Y/n]${RESET}
-" nextchoice
-if [[ $nextchoice = "n" ]]; then
-    exit 0
-else
-    start_sop
-fi
-}
+#################################################
+####    SOP, Standard Operating Procedure    ####
+#################################################
 #
 ###########################################
 ####    Declare Functions
@@ -68,13 +54,8 @@ Synopsis${RESET}${LTCYN}
   The reason for creating the SOP is to standardize all code written so that it can be efficiently read, understood, modified, and communicated without the need for either excessive time spent deciphering, or re-writing a new code ('re-inventing the wheel').
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_scp || new_choice
-#}
+nextset=start_scp
+next_set
 }
 start_scp () {
     cat <<EOT
@@ -93,13 +74,8 @@ Scope${RESET}${LTCYN}
     "Script-Template" - As a team we should create, agree, and use a standardized script-template.
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_gens || new_choice
-#}
+nextset=start_gens 
+next_set
 }
 start_gens () {
     cat <<EOT
@@ -123,13 +99,8 @@ General Standards${RESET}${LTCYN}
         }
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_scom || new_choice
-#}
+nextset=start_scom 
+next_set
 }
 start_proc () {
     cat <<EOT
@@ -151,13 +122,8 @@ Standards${LTCYN}
     Good comments explain 'why', not just how what is being done.
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_slog || new_choice
-#}
+nextset=start_slog 
+next_set
 }
 start_slog () {
     cat <<EOT
@@ -169,13 +135,8 @@ Standards${LTCYN}
     Date-Time-Stamps for logs should be structured for ease of debugging, eg. "${YLLW}2018_07_23-14:32:29${LTCYN}"
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_sind || new_choice
-#}
+nextset=start_sind 
+next_set
 }
 start_sind () {
     cat <<EOT
@@ -189,13 +150,8 @@ Standards${LTCYN}
       TABS (last choice)
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_svar || new_choice
-#}
+nextset=start_svar 
+next_set
 }
 start_svar () {
     cat <<EOT
@@ -213,13 +169,8 @@ Standards${LTCYN}
     Always variable-ize the arguments passed on the cli, eg. "OPT_1=\$1", "PARAM_1=\$2", etc.
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_sif || new_choice
-#}
+nextset=start_sif 
+next_set
 }
 start_sif () {
     cat <<EOT
@@ -232,13 +183,8 @@ Standards${LTCYN}
     Always use exit statements
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_sloop || new_choice
-#}
+nextset=start_sloop 
+next_set
 }
 start_sloop () {
     cat <<EOT
@@ -248,13 +194,8 @@ Standards${LTCYN}
     Not started
 ${RESET}
 EOT
-#
-#secnd_run () {
-echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
-read -n 1 -s anykey
-[[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_sop || new_choice
-#}
+nextset=start_sop 
+next_set
 }
 #
 start_sop () {
@@ -274,14 +215,15 @@ ${BOLD}${YLLW}
   [9]${LTCYN}        └───── Loops- for, while, until${YLLW}
   [q]${LTCYN}    Quit/Exit${RESET}
 EOT
-#new_choice
+nextset=start_syn
+next_set
+}
+next_set () {
 #
-#secnd_run () {
 echo -e "${BOLD}${LTCYN}Press any key to continue, Or select an option... 'q' Quits${RESET}"
 read -n 1 -s anykey
 [[ $anykey = "q" ]] &&  exit 0
-[[ $anykey != [0-9] ]] && start_syn || new_choice
-#}
+[[ $anykey != [0-9] ]] && $nextset || new_choice
 }
 new_choice () {
 #read -p "Please select an option...
@@ -291,47 +233,38 @@ case $anykey in
     1)
         clear
 	start_syn
-	cont_choice
     ;;
     2)
         clear
         start_scp
-	cont_choice
     ;;
     3)
         clear
         start_gens
-	cont_choice
     ;;
     4)
         clear
         start_scom
-	cont_choice
     ;;
     5)
         clear
         start_slog
-	cont_choice
     ;;
     6)
         clear
         start_sind
-	cont_choice
     ;;
     7)
         clear
         start_svar
-	cont_choice
     ;;
     8)
         clear
         start_sif
-	cont_choice
     ;;
     9)
         clear
         start_sloop
-	cont_choice
     ;;
     q)
         exit 0
