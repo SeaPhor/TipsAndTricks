@@ -855,7 +855,7 @@ irsi_logs () {
 ${BOLD}${YLLW}    How-To setup Logging with IRSSI IRC${LTYLLW}
   Set the directory structure${LTCYN}
 # sudo mkdir /var/log/irclogs
-# sudo chown wbc:LinuxAdmins /var/log/irclogs${LTYLLW}
+# sudo chown user:LinuxAdmins /var/log/irclogs${LTYLLW}
 
   In IRC Irssi Console${YLLW}
 [#channel] /SET autolog ON
@@ -2004,9 +2004,9 @@ Files, Directories, Permissions, and Values
 ${RESET}${LTGRN}
 > ls -la ~/Directory1/${LTCYN}
 total 8
-drwxr-xr-x  2 wbc users 4096 Nov 17 08:28 .${LTGRN}       <<==${YLLW} Current directory being listed Permissions${LTCYN}
-drwxr-xr-x 63 wbc users 4096 Nov 17 09:38 ..${LTGRN}      <<==${YLLW} Parent Directory Permissions${LTCYN}
--rw-r--r--  1 wbc users    0 Nov 17 08:28 file1${LTGRN}   <<==${YLLW} Listed file/s in Current directory
+drwxr-xr-x  2 user users 4096 Nov 17 08:28 .${LTGRN}       <<==${YLLW} Current directory being listed Permissions${LTCYN}
+drwxr-xr-x 63 user users 4096 Nov 17 09:38 ..${LTGRN}      <<==${YLLW} Parent Directory Permissions${LTCYN}
+-rw-r--r--  1 user users    0 Nov 17 08:28 file1${LTGRN}   <<==${YLLW} Listed file/s in Current directory
 ${LTGRN}
 > ls -l ~/Directory1${LTCYN}
 total 0
@@ -2018,33 +2018,52 @@ total 0
 │    │     │  └────────────────────────────────${LTYLLW}  Owning User${LTGRN}
 │    │     └───────────────────────────────────${LTYLLW}  Number of files, including self${LTGRN}
 │    └─────────────────────────────────────────${LTYLLW}  644${LTGRN}
-└──────────────────────────────────────────────${LTYLLW}  "-" is Regular File, "d" is Directory${LTYLLW}
-
+└──────────────────────────────────────────────${LTYLLW}  "${LTCYN}-${LTYLLW}" is Regular File, "${LTCYN}d${LTYLLW}" is Directory${RESET}
+EOT
+}
+#
+secnd_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || secnd_set
+}
+secnd_set () {
+    cat <<EOT
+${LTYLLW}
 Field 1 - Permissions${LTCYN}
  - ___ ___ ___${LTGRN}
  │  │   │   │
  │  │   │   └──${LTYLLW} World permissions, All 'Others'${LTGRN}
- │  │   └──────${LTYLLW} Owner's or assigned Group permissions${LTGRN}
+ │  │   └──────${LTYLLW} Owner's Group, or Assigned Group permissions${LTGRN}
  │  └──────────${LTYLLW} Owner's permisions${LTGRN}
- └─────────────${LTYLLW} File Type, "-" is regular File, "d" is Directory, there are others.${LTYLLW}
+ └─────────────${LTYLLW} File Type, "${LTCYN}-${LTYLLW}" is regular File, "${LTCYN}d${LTYLLW}" is Directory, there are others.${LTYLLW}
 
 Each 'set' of 3 positions are the same,${BOLD}
-
-Position-   ──────    ──────    ──────
-${ULINE}Value-       Read     Write     Execute${RESET}${NULINE}${LTCYN}
-A "-" in the Value is "0" or None
+${LTYLLW}                  Owner              Owning Group        All Others (World)
+Position-${LTCYN}  ─────  ─────  ─────    ─────  ─────  ─────    ─────  ─────  ─────${LTYLLW}
+${ULINE}Value-     Read   Write  Execute  Read   Write  Execute  Read   Write  Execute${RESET}${NULINE}${LTYLLW}
+A "${LTCYN}-${LTYLLW}" in the Value is "${LTCYN}0${LTYLLW}" or None${LTCYN}
     r = Read     Value = 4
     w = Write    Value = 2
-    x = Execute  Value = 1${LTYLLW}
+    x = Execute  Value = 1
+    - = None     Value = 0${LTYLLW}
 So:${LTCYN}
     rwx = 111 in binary = 7${LTYLLW} (4+2+1)${LTCYN}
     rw- = 110 in binary = 6${LTYLLW} (4+2+0)${LTCYN}
     r-x = 101 in binary = 5${LTYLLW} (4+0+1)${LTCYN}
-    r-- = 100 in binary = 4${LTYLLW} (4+0+0)${LTYLLW}
-When you see a perm like "644", that is Owner=6(rw) Owner'sGroup=4(r) AllOthers=4(r) so it looks like so:${LTCYN}
--rw-r--r-- 1 user users 0 Nov 17 08:28 file1${LTYLLW}
-
-Using the "stat" command to see properties of a file-${LTGRN}
+    r-- = 100 in binary = 4${LTYLLW} (4+0+0)${RESET}
+EOT
+}
+#
+third_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || third_set
+}
+third_set () {
+    cat <<EOT
+${LTYLLW}
+Using the "${SOMODE}stat${NSOMODE}" command to see properties of a file-${LTGRN}
 > stat ~/Directory1/${LTCYN}
   File: /home/user/Directory1/
   Size: 4096      	Blocks: 8          IO Block: 4096   directory
@@ -2062,8 +2081,19 @@ Access: (0644/-rw-r--r--)  Uid: ( 1000/     user)   Gid: (  100/   users)
 Access: 2018-11-17 08:28:59.322223499 -0600
 Modify: 2018-11-17 08:28:59.322223499 -0600
 Change: 2018-11-17 08:28:59.322223499 -0600
- Birth: -${LTGRN}
-
+ Birth: -${LTYLLW}
+    Want to see more advanced use of the 'stat' command?...${RESET}
+EOT
+}
+#
+forth_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || forth_set
+}
+forth_set () {
+    cat <<EOT
+${LTGRN}
 > stat -c %A ~/Directory1/${LTCYN}
 drwxr-xr-x${LTGRN}
 > stat -c %a ~/Directory1/${LTCYN}
@@ -2073,22 +2103,46 @@ drwxr-xr-x${LTGRN}
 > stat -c %a ~/Directory1/file1${LTCYN}
 644${LTGRN}
 > stat -c %f ~/Directory1/${LTCYN}
-41ed${LTGRN}
+41ed  <<<===${LTYLLW} HEX Value${LTGRN}
 > printf "%o\n" 0x41ed${LTCYN}
-40755${LTGRN}
+40755  <<<===${LTYLLW} '4' means it is a directory${LTGRN}
 > stat -c %f ~/Directory1/file1${LTCYN}
-81a4${LTGRN}
+81a4  <<<===${LTYLLW} HEX Value${LTGRN}
 > printf "%o\n" 0x81a4${LTCYN}
-100644
+100644  <<<===${LTYLLW} '10' means it is a regular file
+${RESET}
+EOT
+}
+#
+fith_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || fith_set
+}
+fith_set () {
+    cat <<EOT
 ${LTYLLW}
 Changing permissions and ownership-${LTGRN}
 > chown User:Group /path/to/file${LTCYN}  <<<===${LTYLLW} Will set the owning user to User and the owning group to Group
 Or${LTGRN}
 > chown User: /path/to/file ${LTCYN}      <<<===${LTYLLW} Will use the Uer's primary group by default${LTGRN}
-> chown -R User: /path/to/file${LTCYN}    <<<===${LTYLLW} Same, but Recursively, all sub-files/directories as well (CAPITAL "R")${LTGRN}${BOLD}
-> chmod who/what/value /path/to/file${RESET}${LTGRN}
-> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "-R here for Recursive)${LTGRN}
-> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "-R here)
+> chown -R User: /path/to/file${LTCYN}    <<<===${LTYLLW} Same, Recursively, sub-files/directories as well (CAPITAL "R")${LTGRN}
+> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "-R" here for Recursive)${LTYLLW}
+Can also use 0perators '+' and '-' with u, a, g, o and r, w, x,
+    [${LTCYN}u = User${LTYLLW}] [${LTCYN}a = All${LTYLLW}] [${LTCYN}g = Group${LTYLLW}] [${LTCYN}o = Other${LTYLLW}]${LTGRN}
+> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "-R" here)${LTGRN}
+> chmod a+x /path/to/file ${LTCYN}        <<<=== ${LTYLLW}Make the file Executable for ${LTCYN}a${LTYLLW}ll users, replace ${LTCYN}a${LTYLLW} with ${LTCYN}u${LTYLLW}ser (default), ${LTCYN}g${LTYLLW}roup, etc.... can also use the "-R" here)
+${RESET}
+EOT
+}
+#
+sixth_run () {
+    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    read -r -n 1 -s anykey
+    [[ $anykey = "q" ]] && exit 0 || sixth_set
+}
+sixth_set () {
+    cat <<EOT
 ${LTYLLW}
 Further reading,
 See the '${LTCYN}sftp${LTYLLW}' Option for mainipulating owner/group for special circumstances like this:${LTGRN}
@@ -2096,12 +2150,11 @@ See the '${LTCYN}sftp${LTYLLW}' Option for mainipulating owner/group for special
 drwxr-xr-x 10 root sftponly 4096 Mar 16 12:15 sftpuser${LTYLLW}
 
 See "${LTCYN}acls${LTYLLW}" from Options menu for allowing multiple sets of permissions${LTBLU}
+
 https://www.theurbanpenguin.com/read-linux-file-permissions/?fbclid=IwAR01p8LDQx-GUa_Sn5RfVptTIKR9xhHD1NQaKrKcgaal5jdERb7CKJmLoQo
 ${RESET}
 EOT
 }
-
-
 #
 ###########################################
 ###    END OF DEFINE FUNCTIONS
@@ -2291,6 +2344,11 @@ case $MYOPT in
     "perm")
         clear
         perm_snip
+        secnd_run
+        third_run
+        forth_run
+        fith_run
+        sixth_run
     ;;
     *)
         clear
@@ -2348,6 +2406,8 @@ exit $?
 #      Added GNU/GPL Info [gpli] to Options
 #      Added [perm] option for file permissions
 #    Change- '0.0.2-12' 17 Nov 2018-
+#      Modified- minor color and structure of perm - 18 Nov 2018-
+#      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
