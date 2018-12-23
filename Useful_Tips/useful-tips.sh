@@ -171,7 +171,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [snip]${BOLD}    Snippet & Map${RESET}${LTCYN} Using Snippets and Mapping in VI/M
   [perm]${BOLD}    Permissions${RESET}${LTCYN}   Permissions on files and directories
   [desc]${BOLD}    Description${RESET}${LTCYN}   Description and structure of this script and collaboration
-  [sopb]${BOLD}    SOP-BASH${RESET}${LTCYN}      ${BOLD}${YLLW}S${RESET}${LTCYN}tandard ${BOLD}${YLLW}O${RESET}${LTCYN}perating ${BOLD}${YLLW}P${RESET}${LTCYN}rocedure for BASH Coding and Collaboration
+  [sopb]${BOLD}    SOP-BASH${RESET}${LTCYN}      ${BOLD}${YLLW}S${RESET}${LTCYN}tandard ${BOLD}${YLLW}O${RESET}${LTCYN}perating ${BOLD}${YLLW}P${RESET}${LTCYN}rocedure for ${BOLD}${YLLW}B${RESET}${LTCYN}ASH Coding and Collaboration
 ${RESET}
 EOT
 }
