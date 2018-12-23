@@ -208,5 +208,5 @@ Services-
  systemctl restart apache2.service 
  systemctl status mysql.service 
  systemctl enable mysql.service 
- systemctl status mysql.service 
+ systemctl start mysql.service 
 
