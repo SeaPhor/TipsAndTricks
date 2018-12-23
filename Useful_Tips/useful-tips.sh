@@ -11,7 +11,7 @@
 #
 PROGNAME=$(basename $0)
 PROGVERS="0.0.2-13"
-PROGDATE="18 Nov 2018"
+PROGDATE="23 Dec 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -172,6 +172,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [perm]${BOLD}    Permissions${RESET}${LTCYN}   Permissions on files and directories
   [desc]${BOLD}    Description${RESET}${LTCYN}   Description and structure of this script and collaboration
   [sopb]${BOLD}    SOP-BASH${RESET}${LTCYN}      ${BOLD}${YLLW}S${RESET}${LTCYN}tandard ${BOLD}${YLLW}O${RESET}${LTCYN}perating ${BOLD}${YLLW}P${RESET}${LTCYN}rocedure for ${BOLD}${YLLW}B${RESET}${LTCYN}ASH Coding and Collaboration
+  [logs]${BOLD}    Logging${RESET}${LTCYN}       Add Logging and self-cleaning to your scripts
 ${RESET}
 EOT
 }
@@ -2452,6 +2453,95 @@ case $anykey in
 esac
 }
 #
+##    Logging [snippet]
+##    Author: Shawn Miller
+##    Date: 26 October 2018
+#
+#######################
+####    Logging    ####
+#######################
+#
+#
+logs_snip () {
+clear
+    cat <<EOT
+${BOLD}${YLLW}
+    ${ULINE}  Logging Scripts Actions and Results  ${NULINE}${RESET}${LTYLLW}
+    In all automation scripts, and most any other scripts, there is some level of
+  logging that is needed and sometimes required.
+
+    This tip is designed to setup a standardized logging structure that with minimal
+  editing can be simply inserted into any script and logging is setup (except for need
+  to direct your script's action to the log file).
+${BOLD}
+    This tip's example structure:${RESET}${LTCYN}
+  Log file location${LTYLLW}            =>${LTGRN} /tmp/<scriptname>-logs/<scriptname>.log (default)${LTCYN}
+  Log size max before rotation${LTYLLW} =>${LTGRN} 10 units of 1024 bytes (default)${LTCYN}
+  Log compression type${LTYLLW}         =>${LTGRN} gzip${LTCYN}
+  Number of Archives to retain${LTYLLW} =>${LTGRN} 5 (default)${LTCYN}
+  Archive file name${LTYLLW}            =>${LTGRN} <scriptname>.log-<YYYY-MM-DD_HH-MM-SS>.tar.gz${LTYLLW}
+
+    Press any key to see the Main logic and Variable structure for a script...
+${RESET}
+EOT
+echo -e "${BOLD}${LTYLLW}Press any key to continue... '${LTCYN}q${LTYLLW}' Quits${RESET}"
+read -n 1 -s anykey
+[[ $anykey = "q" ]] &&  { echo ""; exit 0; } || main_log
+}
+main_log () {
+    cat <<EOT
+####    Main logic and Variable structure${LTYLLW}
+    The following can be directly input into a script, edit the 3 'Mutable Variables'
+  if needed, and you're ready to go.${RESET}${LTCYN}
+####    Mutable Variables (Adjust these to need)${LTGRN}
+declare -i tarkeep=5
+declare -i tarsize=10
+logloc=/tmp${LTCYN}
+####    Non-Mutable Variables (Be carful changing any values here)${LTGRN}
+PROGNAME=\$(basename \$0)
+ldate="\$(date +%Y-%m-%d_%H-%M-%S)"
+logdesc=\${PROGNAME}
+logfil=\${logdesc}.log
+logdir=\${logloc}/\${logdesc}-logs
+[[ -d \${logdir} ]] || mkdir \${logdir}
+scriptlog=\${logdir}/\${logfil}
+[[ -e \${scriptlog} ]] || touch \${scriptlog}
+tarmax=\$(du -s \${scriptlog} | awk '{print \$1}')
+tarname=\${logfil}-\${ldate}.tar.gz
+declare -i tarcount=\$(ls \${logdir}/\${logfil}-* | wc -l)
+[[ \${tarmax} -ge \${tarsize} ]] && tardo=true || tardo=false
+taroldst=\$(ls -1rt \${scriptlog}-* | head -n 1)
+${RESET}
+EOT
+echo -e "${BOLD}${LTYLLW}Press any key to continue... '${LTCYN}q${LTYLLW}' Quits${RESET}"
+read -n 1 -s anykey
+[[ $anykey = "q" ]] &&  { echo ""; exit 0; } || exec_rot
+}
+exec_rot () {
+    cat <<EOT
+${LTYLLW}
+    You will need to redirect all output to the logfile throughout the script.
+    The following section is easily added to perform cleanup and rotation of 
+  the logs generated...${LTCYN}
+#
+####    Execution & Rotation
+#${LTGRN}
+if \${tardo}; then
+    tar -czvf \${logdir}/\${tarname} -C \${logdir}/ \${logfil}
+    > \${scriptlog}
+fi
+while [[ \${tarcount} -ge \${tarkeep} ]]; do
+    rm -f \${taroldst}
+done${LTCYN}
+#${LTYLLW}
+    To send ALL- stdin, stdout, & stderr to syslog, put these 2 lines at the top of 
+  the script, just under the shebang/hashbang${LTGRN}
+exec 1> >(exec logger -s -t \${0##*/}) 2>&1
+set -x
+${RESET}
+EOT
+}
+#
 ###########################################
 ###    END OF DEFINE FUNCTIONS
 ###########################################
@@ -2654,6 +2744,11 @@ case $MYOPT in
         clear
         start_sop
     ;;
+    "logs")
+        clear
+        logs_snip
+        exit $?
+    ;;
     *)
         clear
 	show_objective
@@ -2718,6 +2813,8 @@ exit $?
 #      Added [sopb] for SOP bash coding
 #      Found a typo in perm, changed "Uer's" to "User's"
 #      Modified color enhancement to perm
+#      Added [logs] for Logging/rotating - 23 Dec 2018
+#      Promoting to Latest_Stable - 23 Dec 2018
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
