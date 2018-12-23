@@ -2079,7 +2079,7 @@ EOT
 }
 #
 secnd_run () {
-    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    echo -e "${BOLD}${LTCYN}Press any key to continue, '${LTYLLW}q${LTCYN}' Quits/Exits...${RESET}"
     read -r -n 1 -s anykey
     [[ $anykey = "q" ]] && exit 0 || secnd_set
 }
@@ -2112,7 +2112,7 @@ EOT
 }
 #
 third_run () {
-    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    echo -e "${BOLD}${LTCYN}Press any key to continue, '${LTYLLW}q${LTCYN}' Quits/Exits...${RESET}"
     read -r -n 1 -s anykey
     [[ $anykey = "q" ]] && exit 0 || third_set
 }
@@ -2143,7 +2143,7 @@ EOT
 }
 #
 forth_run () {
-    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    echo -e "${BOLD}${LTCYN}Press any key to continue, '${LTYLLW}q${LTCYN}' Quits/Exits...${RESET}"
     read -r -n 1 -s anykey
     [[ $anykey = "q" ]] && exit 0 || forth_set
 }
@@ -2171,7 +2171,7 @@ EOT
 }
 #
 fith_run () {
-    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    echo -e "${BOLD}${LTCYN}Press any key to continue, '${LTYLLW}q${LTCYN}' Quits/Exits...${RESET}"
     read -r -n 1 -s anykey
     [[ $anykey = "q" ]] && exit 0 || fith_set
 }
@@ -2181,19 +2181,19 @@ ${LTYLLW}
 Changing permissions and ownership-${LTGRN}
 > chown User:Group /path/to/file${LTCYN}  <<<===${LTYLLW} Will set the owning user to User and the owning group to Group
 Or${LTGRN}
-> chown User: /path/to/file ${LTCYN}      <<<===${LTYLLW} Will use the Uer's primary group by default${LTGRN}
+> chown User: /path/to/file ${LTCYN}      <<<===${LTYLLW} Will use the User's primary group by default${LTGRN}
 > chown -R User: /path/to/file${LTCYN}    <<<===${LTYLLW} Same, Recursively, sub-files/directories as well (CAPITAL "R")${LTGRN}
-> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "-R" here for Recursive)${LTYLLW}
+> chmod 755 /path/to/file${LTCYN}         <<<=== ${LTYLLW}Will set to rwxr-xr-x (can also use the "${LTGRN}-R${LTYLLW}" here for Recursive)${LTYLLW}
 Can also use 0perators '+' and '-' with u, a, g, o and r, w, x,
     [${LTCYN}u = User${LTYLLW}] [${LTCYN}a = All${LTYLLW}] [${LTCYN}g = Group${LTYLLW}] [${LTCYN}o = Other${LTYLLW}]${LTGRN}
-> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "-R" here)${LTGRN}
-> chmod a+x /path/to/file ${LTCYN}        <<<=== ${LTYLLW}Make the file Executable for ${LTCYN}a${LTYLLW}ll users, replace ${LTCYN}a${LTYLLW} with ${LTCYN}u${LTYLLW}ser (default), ${LTCYN}g${LTYLLW}roup, etc.... can also use the "-R" here)
+> chmod +x /path/to/file ${LTCYN}         <<<=== ${LTYLLW}Make the file Executable for current user (can also use the "${LTGRN}-R${LTYLLW}" here)${LTGRN}
+> chmod a+x /path/to/file ${LTCYN}        <<<=== ${LTYLLW}Make the file Executable for ${LTCYN}a${LTYLLW}ll users, replace ${LTCYN}a${LTYLLW} with ${LTCYN}u${LTYLLW}ser (default), ${LTCYN}g${LTYLLW}roup, etc.... can also use the "${LTGRN}-R${LTYLLW}" here)
 ${RESET}
 EOT
 }
 #
 sixth_run () {
-    echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+    echo -e "${BOLD}${LTCYN}Press any key to continue, '${LTYLLW}q${LTCYN}' Quits/Exits...${RESET}"
     read -r -n 1 -s anykey
     [[ $anykey = "q" ]] && exit 0 || sixth_set
 }
@@ -2716,6 +2716,8 @@ exit $?
 #    Change- '0.0.2-13' 18 Nov 2018-
 #      Added a desc option for Description and Collaboration
 #      Added [sopb] for SOP bash coding
+#      Found a typo in perm, changed "Uer's" to "User's"
+#      Modified color enhancement to perm
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions

@@ -1,3 +1,31 @@
+
+#
+###########################################
+####    Color Variables
+###########################################
+#
+RED="$(tput setaf 1)"
+GRN="$(tput setaf 2)"
+YLLW="$(tput setaf 3)"
+BLU="$(tput setaf 4)"
+MAG="$(tput setaf 5)"
+CYN="$(tput setaf 6)"
+LTRED="$(tput setaf 9)"
+LTGRN="$(tput setaf 10)"
+LTYLLW="$(tput setaf 11)"
+LTBLU="$(tput setaf 12)"
+LTMAG="$(tput setaf 13)"
+LTCYN="$(tput setaf 14)"
+BGBLU="$(tput setab 4)"
+BGYLLW="$(tput setab 3)"
+BGLYLLW="$(tput setab 11)"
+ULINE="$(tput smul)"
+NULINE="$(tput rmul)"
+SOMODE="$(tput smso)"
+NSOMODE="$(tput rmso)"
+BOLD="$(tput bold)"
+RESET="$(tput sgr0)"
+#
 #
 ####################################################
 ####    PERMISSIONS on files and directories    ####
@@ -17,7 +45,7 @@ drwxr-xr-x 63 wbc users 4096 Nov 17 09:38 ..      <<== Parent Directory Permissi
 ${GRN}
 > ls -l ~/Directory1${LTCYN}
 total 0
--rw-r--r-- 1 user users 0 Nov 17 08:28 file1
+-rw-r--r-- 1 user users 0 Nov 17 08:28 file1${GRN}
 │    │     │  │     │   │      │         └─────${LTYLLW}  File name${GRN}
 │    │     │  │     │   │      └───────────────${LTYLLW}  Date/time last modified${GRN}
 │    │     │  │     │   └──────────────────────${LTYLLW}  File Size${GRN}
@@ -107,4 +135,3 @@ ${RESET}
 EOT
 }
 perm_snip
-
