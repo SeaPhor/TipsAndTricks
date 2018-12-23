@@ -10,7 +10,7 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-13"
+PROGVERS="0.0.2-14"
 PROGDATE="23 Dec 2018"
 MYOPT="$1"
 #
@@ -2815,6 +2815,7 @@ exit $?
 #      Modified color enhancement to perm
 #      Added [logs] for Logging/rotating - 23 Dec 2018
 #      Promoting to Latest_Stable - 23 Dec 2018
+#    Change- '0.0.2-14' 23 Dec 2018-
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
