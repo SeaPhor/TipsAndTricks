@@ -11,7 +11,7 @@
 #
 PROGNAME=$(basename $0)
 PROGVERS="0.0.2-14"
-PROGDATE="23 Dec 2018"
+PROGDATE="24 Dec 2018"
 MYOPT="$1"
 #
 #####################################################################
@@ -143,6 +143,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [sobj]${BOLD}    Objective  ${RESET}${LTCYN}   Show the Objective for this script and all coding, commands, and structure.
   [vers]${BOLD}    Version    ${RESET}${LTCYN}   Shows this revision's Verion and exits.
   [gpli]${BOLD}    GPL Info   ${RESET}${LTCYN}   Shows the GNU/GPL Info and exits.
+  [logo]${BOLD}    My C4 Logo${RESET}${LTCYN}    Shows My C4 Logo with ascii characters.
   [meta]${BOLD}    Meta Chars${RESET}${LTCYN}    Shows ways to remove files with names that are meta-characters including by-inode number.
   [lvmn]${BOLD}    LVM Notes${RESET}${LTCYN}     Shows LVM management for adding a disk.
   [tool]${BOLD}    Useful Tools${RESET}${LTCYN}  Tools- Security, Monitoring, and troubleshooting
@@ -2542,6 +2543,20 @@ ${RESET}
 EOT
 }
 #
+logo_snip () {
+    cat <<EOT
+
+  🦎${BOLD}${LTMAG}            C4${RESET}${LTYLLW}
+  ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
+  ▉${BOLD}${LTBLU}    ✝✡${RESET} 󾓦 ${LTYLLW}     █
+  ▉${LTGRN}   𝐀 𝐑 𝐌 𝐘${LTYLLW}    █
+  ▉${BOLD}${LTCYN} 𝐑 𝐀 𝐍 𝐆 𝐄 𝐑${RESET}${LTYLLW}  █
+  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${BOLD}${LTMAG}
+  C4${RESET}             🦎
+${RESET}
+EOT
+}
+#
 ###########################################
 ###    END OF DEFINE FUNCTIONS
 ###########################################
@@ -2749,6 +2764,11 @@ case $MYOPT in
         logs_snip
         exit $?
     ;;
+    "logo")
+        clear
+        logo_snip
+        exit $?
+    ;;
     *)
         clear
 	show_objective
@@ -2816,6 +2836,7 @@ exit $?
 #      Added [logs] for Logging/rotating - 23 Dec 2018
 #      Promoting to Latest_Stable - 23 Dec 2018
 #    Change- '0.0.2-14' 23 Dec 2018-
+#      Added [logo] for My C4 Logo with ascii characters
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
