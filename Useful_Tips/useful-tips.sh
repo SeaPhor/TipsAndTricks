@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #
 ##    useful-tips
 ##    Author/Founder    - Shawn Miller
@@ -2548,7 +2549,7 @@ logo_snip () {
 
   🦎${BOLD}${LTMAG}            C4${RESET}${LTYLLW}
   ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂
-  ▉${BOLD}${LTBLU}    ✝✡${RESET} 󾓦 ${LTYLLW}     █
+  ▉${BOLD}${LTBLU}    ✡✝${RESET} 󾓦 ${LTYLLW}     █
   ▉${LTGRN}   𝐀 𝐑 𝐌 𝐘${LTYLLW}    █
   ▉${BOLD}${LTCYN} 𝐑 𝐀 𝐍 𝐆 𝐄 𝐑${RESET}${LTYLLW}  █
   ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${BOLD}${LTMAG}
@@ -2574,7 +2575,7 @@ case $MYOPT in
         #show_objective
         #sleep 5
         clear
-	show_opts
+	show_opts | less
         exit 0
     ;;
     "sobj")
