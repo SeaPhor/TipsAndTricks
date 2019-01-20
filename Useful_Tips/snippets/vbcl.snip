@@ -1,0 +1,32 @@
+#!/bin/bash
+colorsource=/home/wbc/MyGitRepos/home/github/SeaPhor-Scripts/Sourcing/Colors/color-source.sh
+[[ -e $colorsource ]] && source $colorsource
+#
+vbcl_snip () {
+    cat <<EOT
+${BOLD}${LTYLLW}
+${ULINE}VirtualBox Command Line Usage and Tips${NULINE}${RESET}${CYN}
+  List All VirtualBox VMs on the system-${GRN}
+$ VBoxManage list vms${CYN}
+  List Only Running VirtualBox VMs on the system-${GRN}
+$ VBoxManage list runningvms${CYN}
+  Get Very detailed Information about the entire Virtual Machine-${GRN}
+$ VBoxManage showvminfo leap-def${CYN}
+  Start a VirtualBox Virtual Machine-${GRN}
+$ VBoxManage startvm leap-def --type headless${CYN}
+  Shutdown a VirtualBox Virtual Machine cleanly-${GRN}
+$ VBoxManage controlvm leap-def acpipowerbutton${CYN}
+  Take a VirtualBox Snapshot of a Virtual Machine-${GRN}
+$ VBoxManage snapshot leap-def take apache-vhost
+$ VBoxManage snapshot seaphor-web take 20190113${BOLD}${LTYLLW}
+    To add in the future:${RESET}${CYN}
+  Restore VM from Snapshot
+  Clone a VM
+  Set the Hostname of a VirtualBox Virtual Machine-
+  Set the Network-Info/IP-Address of a VirtualBox Virtual Machine-
+  Export and Import a VM
+  Create a VM, Empty and Unattended
+${RESET}
+EOT
+}
+vbcl_snip

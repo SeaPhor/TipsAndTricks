@@ -1,0 +1,13 @@
+#!/bin/bash
+colorsource=/home/wbc/MyGitRepos/home/github/SeaPhor-Scripts/Sourcing/Colors/color-source.sh
+[[ -e $colorsource ]] && source $colorsource
+#
+sysd_snip () {
+    cat <<EOT
+${BOLD}${LTYLLW}
+${ULINE}SystemD Usage and Tips${NULINE}${RESET}${CYN}
+  
+${RESET}
+EOT
+}
+sysd_snip
