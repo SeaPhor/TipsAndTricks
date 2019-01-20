@@ -1,0 +1,19 @@
+#!/bin/bash
+colorsource=/home/wbc/MyGitRepos/home/github/SeaPhor-Scripts/Sourcing/Colors/color-source.sh
+[[ -e $colorsource ]] && source $colorsource
+#
+lapt_snip () {
+    cat <<EOT
+${BOLD}${LTYLLW}
+${ULINE}Laptop Settings and tools${NULINE}${CYN}
+  Lid Switch settings-${RESET}${LTYLLW}    Actions for customizing the behavior when closing the Lid
+    I want the laptop and display to do ${BOLD}${ULINE}NOTHING${NULINE}${RESET}${LTYLLW} when I close the lid-${LTMAG}
+    Edit /etc/systemd/logind.conf with your editor of choice and change the line as shown:${GRN}
+# vi /etc/systemd/logind.conf${LTCYN}
+#HandleLidSwitch=suspend
+HandleLidSwitch=ignore
+${RESET}
+EOT
+}
+lapt_snip
+
