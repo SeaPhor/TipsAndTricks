@@ -1,0 +1,7 @@
+Use sshpass:
+
+sshpass -p "password" scp -r user@example.com:/some/remote/path /some/local/path
+or so the password does not show in the bash history
+
+sshpass -f "/path/to/passwordfile" scp -r user@example.com:/some/remote/path /some/local/path
+The above copies contents of path from the remote host to your local.

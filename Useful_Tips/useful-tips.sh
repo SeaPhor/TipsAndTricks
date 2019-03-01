@@ -131,7 +131,7 @@ ${SOMODE}Usage-${NSOMODE}${RESET}${GRN}
       [${GRN}quiet${YLLW}] for non-interactive (not needed for most)
       [${GRN}nocolor${YLLW}] To print the output without enhanced colors
   Some options have an 'INFO' option- Add '${GRN}-info${YLLW}' to the option to get 
-    more detailed description-
+    more detailed description-${BOLD}${YLLW}
   EXAMPLES-${GRN}
     ${PROGNAME} rpmb
     ${PROGNAME} rpmb nocolor
@@ -159,7 +159,7 @@ ${SOMODE}Options-${NSOMODE}${RESET}${YLLW}
   [pep8]${BOLD}    PEP8 Tools${RESET}${LTCYN}    PEP8 Living Doc- Code compliane structure and tips.
   [irsi]${BOLD}    IRSSI Tips${RESET}${LTCYN}    IRSSI Living Doc- Helpful Info and tips.
   [link]${BOLD}    My Links${RESET}${LTCYN}      Links to various helpful tools, tips, tutorials, etc.
-  [read]${BOLD}    User Input${RESET}${LTCYN}    Request user input in bash script, supress the stdin/out
+  [read]${BOLD}    User Input${RESET}${LTCYN}    Request user input in bash script, supress the stdin/out, and 'sourcing' the variables.
   [date]${BOLD}    Custom Date${RESET}${LTCYN}   Using custom date command in scripts and/or cli
   [type]${BOLD}    Type Command${RESET}${LTCYN}  Using the type command to find other command in scripting.
   [colr]${BOLD}    Add Colors${RESET}${LTCYN}    Add colors and effects to the output of your scripts and commands.
@@ -1222,7 +1222,15 @@ ${BOLD}${YLLW}    To ask the user for input to be set in a variable,
     Thank you ryan we now have your login details${RESET}${LTYLLW}
 
   Resource-${CYN}
-    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php${YLLW}
+    https://ryanstutorials.net/bash-scripting-tutorial/bash-input.php${RESET}
+EOT
+echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+read -n 1 -s read_anykey
+[[ $read_anykey = "q" ]] && exit 0 || read_one
+}
+read_one () {
+    cat <<EOT
+${YLLW}
   Now, there are 2 tnings you can do with these variables
     1. Use it within the script to execute other cammands passing
        the variables instead of prompting once or multiple times.${LTYLLW}
@@ -1237,8 +1245,15 @@ ${BOLD}${YLLW}    To ask the user for input to be set in a variable,
     do
       sshpass -p \$passvar ssh \$uservar@\$i \$MYHOST && \$MYOS && \$MYKERN >> myhosts-details.txt
       echo >> myhosts-details.txt
-    done${YLLW}
-       
+    done${RESET}
+EOT
+echo -e "${BOLD}${LTCYN}Press any key to continue, 'q' Quits/Exits...${RESET}"
+read -n 1 -s read_anykey
+[[ $read_anykey = "q" ]] && exit 0 || read_two
+}
+read_two () {
+    cat <<EOT
+${YLLW}
     2. Set the variable values to a [Local]'source' file
        to be used in subsequent runs of your script/s.${LTYLLW}
   EXAMPLE- For the 2nd Option, using the example above${LTCYN}
@@ -1249,19 +1264,17 @@ ${BOLD}${YLLW}    To ask the user for input to be set in a variable,
         read -p 'Username: ' uservar
         read -sp 'Password: ' passvar
         echo
-        printf "Thank you \$uservar we now have your login details"
-        echo
         echo "MYUSER=\$uservar" > ~/.myusercreds
         echo "MYPASS=\$passvar" >> ~/.myusercreds
-        chmod +x ~/.myusercreds
+        chmod 700 ~/.myusercreds
+        printf "Thank you \$uservar we now have your login details,\nIf you need to change them you can find them at '~/.myusercreds'"
+        echo
         source ~/.myusercreds
     else
         source ~/.myusercreds
     fi${LTYLLW}
-
   Resource- Find out more about this and much more at...${CYN}
     https://github.com/SeaPhor/SeaPhor-Scripts/tree/master/Sourcing${RESET}
-
 EOT
 }
 #
@@ -2575,7 +2588,7 @@ case $MYOPT in
         #show_objective
         #sleep 5
         clear
-	show_opts | less
+	show_opts # | less
         exit 0
     ;;
     "sobj")
@@ -2838,6 +2851,9 @@ exit $?
 #      Promoting to Latest_Stable - 23 Dec 2018
 #    Change- '0.0.2-14' 23 Dec 2018-
 #      Added [logo] for My C4 Logo with ascii characters
+#      Modified 'read' with better logic, included 'sourcing' in the help description
+#      Modified 'read' to be separated into parts, using the 'anykey' option
+#      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
