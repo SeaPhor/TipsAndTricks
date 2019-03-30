@@ -11,8 +11,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-14"
-PROGDATE="24 Dec 2018"
+PROGVERS="0.0.2-15"
+PROGDATE="30 Mar 2019"
 MYOPT="$1"
 #
 #####################################################################
@@ -1328,11 +1328,11 @@ $ date -d @1521415551${LTCYN}
 Sun, Mar 18, 2018  6:25:51 PM${YLLW}
 
 for log/output-filename${CYN}
-LOGFILDATE="\$(date +%Y-%m-%d_%H-M)"${LTCYN}
+LOGFILDATE="\$(date +%Y-%m-%d_%H-%M-%S)"${LTCYN}
 2018-04-30_09-53-27${YLLW}
 
 for logging${CYN}
-LOGDATE="\$(date +%Y-%m-%d_%H:%M)"${LTCYN}
+LOGDATE="\$(date +%Y-%m-%d_%H:%M:%S)"${LTCYN}
 2018-04-30_09:53:27${YLLW}
 
 Add a date/time-stamp to your history,${CYN}
@@ -2853,6 +2853,8 @@ exit $?
 #      Added [logo] for My C4 Logo with ascii characters
 #      Modified 'read' with better logic, included 'sourcing' in the help description
 #      Modified 'read' to be separated into parts, using the 'anykey' option
+#    Change- '0.0.2-15' 30 Mar 2019-
+#      Fixed 'date' for logging, missing % and a %S
 #      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
