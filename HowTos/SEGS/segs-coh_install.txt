@@ -1,0 +1,43 @@
+SEGS install configure and COH [OpenSUSE Leap 15.0]
+Some of the content here is the same as from the RHEL/CentOS document located at:
+https://github.com/Segs/Segs/blob/develop/docs/SEGS-COMPILE_AND_INSTALL-CENTOS.md
+And all rights here to that doc.
+
+1. Install required packages
+sudo zypper in discord devel_C_C++ gcc-c++ patterns-devel-C-C++-devel_C_C++ cmake-gui cmake extra-cmake-modules libqt5-creator libqt5-creator-plugin-devel ##maybe gcc-c++-32bit
+sudo zypper in libQt5WebSockets5 libQt5WebSockets5-32bit libQt5WebSockets5-imports libQt5WebKit5 libQt5WebKit5-32bit libQt5WebKit5-devel libQt5WebKit5-imports libqt5-qtwebsockets-devel libqt5-qtwebsockets-devel-32bit
+
+2. Get the project [ A. GUI or B. CLI ]
+  A. GUI
+    1. Start QTCreator and select New Project. The New Project dialog box will appear. From the list on the left, select [Import Project], and from the middle column [Git Clone], then press the [Choose...] button at the bottom right of the dialog window.
+    In the new Git Clone dialog box enter in the GitHub repository for SEGS [https://github.com/Segs/Segs.git], and select the local folder where you'd like to store your copy of the SEGS repository.
+    Select Next to clone a copy of the SEGS repo, and when completed select Finish to complete this step.
+    2. Configure Project
+    Next, QTCreator will ask you to configuration your project. This is where you'll select which development kit to use and define the paths for temporary build files.
+    QTCreator uses kits to group various settings for building and running projects.
+    Begin by selecting MinGW 32bit. 
+[ I had to manually type {copy/paste} that into the "Add" seletion on the right]
+    Finally, click Configure Project.
+    3. Build All
+    If everything went well, you'll see the SEGS file tree in the Projects Pane of QTCreator.
+    Now, select Build > Build All from the menu at the top of QTCreator. The bottom half of the window will show compiling output as SEGS builds. The first time you build SEGS it may take several minutes and the output window may show hundreds of warnings, but if compiled successfully, you'll see the following in the Compile Output window.
+[100%] Built target authserver
+00:00:00: The process 'cmake' exited normally.
+[ I had 235 issues 1 error 152 warnings ]
+  B. CLI
+mkdir Myrepos
+git clone https://github.com/Segs/Segs.git
+cd Segs/
+mkdir build
+cd build/
+cmake ..
+make -j
+echo $?
+[ If output is other than "0" then errors ]
+
+For Game box (and server)
+Get coh client here:
+zypper in -y BitTorrent
+magnet:?xt=urn:btih:c2e7e0aa72004594337d73ae6a305242e23d815f
+copy the "CoX-Setup.exe" to the server
+
