@@ -26,10 +26,11 @@ sudo zypper in libQt5WebSockets5 libQt5WebSockets5-32bit libQt5WebSockets5-impor
 [ I had 235 issues 1 error 152 warnings ]
   B. CLI
 mkdir Myrepos
+cd !$
 git clone https://github.com/Segs/Segs.git
 cd Segs/
 mkdir build
-cd build/
+cd !$
 cmake ..
 make -j
 echo $?
