@@ -7,6 +7,10 @@ And all rights here to that doc.
 sudo zypper in discord devel_C_C++ gcc-c++ patterns-devel-C-C++-devel_C_C++ cmake-gui cmake extra-cmake-modules libqt5-creator libqt5-creator-plugin-devel ##maybe gcc-c++-32bit
 sudo zypper in libQt5WebSockets5 libQt5WebSockets5-32bit libQt5WebSockets5-imports libQt5WebKit5 libQt5WebKit5-32bit libQt5WebKit5-devel libQt5WebKit5-imports libqt5-qtwebsockets-devel libqt5-qtwebsockets-devel-32bit
 
+  328  sudo zypper in sqlite3-devel sqlite3
+  340  sudo zypper in sqlite3-devel sqlite3
+  347  sudo zypper in libqt5-qtbase libqt5-qttools libqt5-qttools-32bit libqt5-qttools-devel libqt5-qttools-devel-32bit
+
 2. Get the project [ A. GUI or B. CLI ]
   A. GUI
     1. Start QTCreator and select New Project. The New Project dialog box will appear. From the list on the left, select [Import Project], and from the middle column [Git Clone], then press the [Choose...] button at the bottom right of the dialog window.
