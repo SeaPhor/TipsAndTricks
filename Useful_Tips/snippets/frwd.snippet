@@ -1,0 +1,7 @@
+
+systemctl enable firewalld.service
+systemctl start firewalld.service
+systemctl restart firewalld.service
+systemctl status firewalld.service
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+

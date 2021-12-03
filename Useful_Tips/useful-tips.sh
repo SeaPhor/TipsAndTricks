@@ -11,8 +11,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-15"
-PROGDATE="30 Mar 2019"
+PROGVERS="0.0.2-16"
+PROGDATE="03 Dec 2021"
 MYOPT="$1"
 #
 #####################################################################
@@ -849,7 +849,16 @@ done${YLLW}
  https://stackoverflow.com/questions/2709458/how-to-replace-spaces-in-file-names-using-a-bash-script${BOLD}${LTCYN}
     Remove Empty Lines in a file, including white-space and tabs...${YLLW}
 Using sed example-${CYN}
-# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${RESET}
+# cat /etc/apache2/httpd.conf | grep -v '^#' | sed '/^\s*$/d'${BOLD}${LTCYN}
+
+    Exclued lines that start with a '#' and empty lines in a file${LTMAG}
+ sed -e '/^#.*$/d;/^\s*$/d' filename${LTYLLW}
+    Remove lines that start with a '#' and empty lines from a file${LTMAG}
+ sed -i '/^#.*$/d;/^\s*$/d' filename${LTYLLW}
+    Remove lines that start with a '#' and empty lines from a file and creat a backup before editing${LTMAG}
+ sed -i.bak '/^#.*$/d;/^\s*$/d' filename
+ sed "-i.`date +%F`" '/^#.*$/d;/^\s*$/d' filename${RESET}
+
 EOT
 rep_tabs
 rem_emty
@@ -2855,6 +2864,8 @@ exit $?
 #      Modified 'read' to be separated into parts, using the 'anykey' option
 #    Change- '0.0.2-15' 30 Mar 2019-
 #      Fixed 'date' for logging, missing % and a %S
+#    Change- '0.0.2-15' 03 Dec 2021-
+#      Added more sed command useful info
 #      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
