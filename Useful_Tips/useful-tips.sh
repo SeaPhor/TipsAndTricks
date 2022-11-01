@@ -11,8 +11,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-16"
-PROGDATE="03 Dec 2021"
+PROGVERS="0.0.2-17"
+PROGDATE="01 Nov 2022"
 MYOPT="$1"
 #
 #####################################################################
@@ -179,6 +179,7 @@ ${RESET}
 EOT
 }
 #
+[[ $1 == "version" ]] && { echo -e "\n$PROGNAME ${BLYLW}version $PROGVERS${RESET} released on $PROGDATE\n"; exit 0; }
 [[ ${MYOPT} ]] || { show_opts; echo -e "\t${BOLD}${RED}Requires at least 1 parameter\n${RESET}"; exit 1; }
 #
 desc_show () {
@@ -2866,12 +2867,14 @@ exit $?
 #      Fixed 'date' for logging, missing % and a %S
 #    Change- '0.0.2-15' 03 Dec 2021-
 #      Added more sed command useful info
+#    Change- '0.0.2-15' 01 Nov 2022-
+#      Added [version] option to just print the script-name - Version Release - and release date
 #      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
 #  Next - add 'loop' to describe while, until, and for loops, nesting, and arithmetic expressions
-#  
-#      
+#  Next - expand the rpmbuild to include 'rpmdev-setuptree'
+#  Next - add sections for snapper, btrfs, and installing nvidia drivers 
 #
 #
 #
