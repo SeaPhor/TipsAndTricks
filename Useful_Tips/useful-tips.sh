@@ -11,7 +11,7 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-17"
+PROGVERS="0.0.2-18"
 PROGDATE="01 Nov 2022"
 MYOPT="$1"
 #
@@ -1540,20 +1540,29 @@ ${BOLD}${YLLW}
       a. Requirements${CYN}
         ####    Install the 'rpm-build' package/s
         ####    -SUSE${LTGRN}
-        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build${CYN}
+        $ sudo zypper in patterns-devel-base-devel_rpm_build rpm-build rpmdevtools${CYN}
         ####    -Redhat${LTGRN}
-        $ sudo yum install rpm-build${LTCYN}
+        $ sudo yum install rpm-build rpmdevtools${LTCYN}
       b. The rpm directory structure
         It is best to start with a standard rpmbuild directory structure in your
          user's \${HOME}/ directory, don't get in the habbit of building rpms as
          root, there is potential for breaking things if you do.${CYN}
         ####    rpmbuild directory structure${LTGRN}
-        $ mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+        $ rpmdev-setuptree
         $ cd ~/rpmbuild
         $ tree -L 1 .${LTCYN}
         .
         ├── BUILD
-        ├── BUILDROOT
+        ├── RPMS
+        ├── SOURCES
+        ├── SPECS
+        └── SRPMS${CYN}
+        OR${LTGRN}
+        $ mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+        $ cd ~/rpmbuild
+        $ tree -L 1 .${LTCYN}
+        .
+        ├── BUILD
         ├── RPMS
         ├── SOURCES
         ├── SPECS
@@ -2867,8 +2876,10 @@ exit $?
 #      Fixed 'date' for logging, missing % and a %S
 #    Change- '0.0.2-15' 03 Dec 2021-
 #      Added more sed command useful info
-#    Change- '0.0.2-15' 01 Nov 2022-
+#    Change- '0.0.2-17' 01 Nov 2022-
 #      Added [version] option to just print the script-name - Version Release - and release date
+#    Change- '0.0.2-18' 01 Nov 2022-
+#      Added rpmdev-setuptree instruction in [rpmb]
 #      
 #      
 #  Next - add shc building binary from script- add https://www.thegeekstuff.com/2012/05/encrypt-bash-shell-script/
