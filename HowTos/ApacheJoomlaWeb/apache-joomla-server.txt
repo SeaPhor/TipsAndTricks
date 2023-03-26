@@ -30,7 +30,11 @@ Launch Virtualbox and create the linux VM
   When complete, reboot the VM
 SSH to the VM and Login to the VM, become root - Either remain root or add your user to the sudoers
     Set your Network settings, DNS, Default Route/Gateway, and Hostname
-    Enable SSHD, ensure ports are open
+    Enable SSHD, ensure ports are open - - 
+      # firewall-cmd --permanent --zone=public --add-port=80/tcp
+      success
+      # firewall-cmd --permanent --zone=public --add-port=8080/tcp
+      success
     Enable any addtional repos you may want/need
     Update/Patch the OS to ALL the latest available Patches & Updates
   Reboot
@@ -65,8 +69,7 @@ SSH to the VM and Login to the VM, become root/sudo
        Be sure that the version number matches the Latest- Joomla3/3-8-6 was latest at time of this writing
   Decompress and configure Joomla
     cd /srv/www/htdocs/<sitename>
-    cp ../../tools/Joomla_3-8-6-Stable-Full_Package.tar.gz .
-    tar -xzvf Joomla_3-8-6-Stable-Full_Package.tar.gz
+    tar -xzvf ../../tools/Joomla_3-8-6-Stable-Full_Package.tar.gz
     touch configuration.php
     chown -R wwwrun:www /srv/www/htdocs/
   Restart all Services- apache2 & mysql
@@ -203,10 +206,9 @@ Mysql shell commands-
 
 Services-
  systemctl status apache2.service 
- systemctl enable apache2.service
- systemctl start apache2.service 
- systemctl restart apache2.service 
+ systemctl enable --now apache2.service
+ systemctl status apache2.service 
  systemctl status mysql.service 
- systemctl enable mysql.service 
- systemctl start mysql.service 
+ systemctl enable --now mysql.service 
+ systemctl status mysql.service 
 
