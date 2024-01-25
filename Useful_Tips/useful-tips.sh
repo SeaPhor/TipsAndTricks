@@ -10,7 +10,7 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-19"
+PROGVERS="0.0.2-20"
 PROGDATE="25 Jan 2024"
 MYOPT="$1"
 #
@@ -1926,26 +1926,25 @@ Sun Mon Tue Wed Thu Fri Sat
 266 267 268 269 270 271 272 
 273${GRN}                         
 > expr 261 - 92${LTCYN}
-${SOMODE}169${NSOMODE}
-${RESET}
+${SOMODE}169${NSOMODE}${RESET}
 ${BOLD}${YLLW}
     Using ${GRN}expr${YLLW} for simple count of lines minus a header or footer-${RESET}${GRN}
-$ expr $(wc -l myspecialscript.sh) - 1
+$ expr \$(wc -l myspecialscript.sh) - 1
 $ 3499${BOLD}${YLLW}
     Using 'Arithmetic Expansion' to calculate number of days-
-  I quit smoking on 2018-11-19 - lets see how many days that is (from that we can easily get tears/months)${RESET}${GRN}
-$ vim numdays.sh${LTBLU}
-declare -i numdays=$($((($(date +%s --date 2018-11-19)-$(date +%s))/(3600/24))) | sed 's/[^0-9]//g')
-echo $numdays${GRN}
+  I quit smoking on 2018-11-19 - lets see how many days that is (from that we can easily get years/months)${RESET}${GRN}
+$ vim numdays.sh${LTCYN}
+declare -i numdays=\$(\$(((\$(date +%s --date 2018-11-19)-\$(date +%s))/(3600/24))) | sed 's/[^0-9]//g')
+echo \$numdays${GRN}
 $ ./numdays.sh
 $ 1893${BOLD}${YLLW}
-  Or if you wanted an arg passed to the script then the first line would look like this:${RESET}${LTBLU}
-[[ ! $1 ]] && { echo -e "Requires 1 argument -\nnumdays.sh [date] -- in this format [YYYY-MM-DD]" ; exit 1 }${BOLD}${YLLW}
+  Or if you wanted an arg passed to the script then the first line would look like this:${RESET}${LTCYN}
+[[ ! \$1 ]] && { echo -e "Requires 1 argument -\\nnumdays.sh [date] -- in this format [YYYY-MM-DD]" ; exit 1 }${BOLD}${YLLW}
     Floats:
   Using 'bc' to get [2] decimal outputs-${RESET}${GRN}
 $ bc -l <<< 'scale=2 ; 100/3'
 $ 33.33${BOLD}${YLLW}
-Refs: ${LTBLU} bash-hackers.org and stackoverflow.com
+Refs: ${LTCYN} bash-hackers.org and stackoverflow.com
 ${RESET}
 EOT
 }
@@ -2831,6 +2830,8 @@ exit $?
 # Next steps
 #   ChangeLog
 #
+#    Change- "0.0.2-20" 25 JAN 2024
+#      MATH- forgot to \escape all the \$
 #    Change- "0.0.2-19" 25 JAN 2024
 #      Added to MATH - numdays and Floats- bc
 #
