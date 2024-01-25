@@ -10,7 +10,7 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-20"
+PROGVERS="0.0.2-21"
 PROGDATE="25 Jan 2024"
 MYOPT="$1"
 #
@@ -193,7 +193,7 @@ like format.${BOLD}${YLLW}
   ${ULINE}Collaboration-${NULINE}${RESET}${LTCYN}
     Collaboration on this script is encouraged, welcome and appreciated!
 However, we all need to follow the same structure and guidelines, here is what I do and 
-expect from others:${BOLD}${YLLW}
+expect from others:${YLLW}
   Latest_Stable, Git Push, is only for me to do
   Only edit in your own branch
   The script in the Useful_Tips directory is the edit script, "running script", I manage the versioning
@@ -201,7 +201,15 @@ expect from others:${BOLD}${YLLW}
   Follow the same structure as the rest of the script-
     New Option goes at the bottom of the list in the "Options" list
     New Functions goes at the bottom of the Funtions section, above "END of Define Functions"
-    New Case actions goes at the bottom of the list
+    New Case actions goes at the bottom of the list${BOLD}${YLLW}
+  ${ULINE}Versioning-${NULINE}${RESET}${LTCYN}
+    This is a simplistic versioning methodology:${YLLW}
+  Version/Release - 2.4.1-21
+  MAJOR.MINOR.SIGNIFICANT-Incremental
+  MAJOR=${LTCYN} Changes that affect the whole of the code${YLLW}
+  MINOR=${LTCYN} New additions and/or Removal of sections${YLLW}
+  SIGNIFICANT=${LTCYN} Changes to specific sections that change the functionality of that specific section${YLLW}
+  Incremental=${LTCYN} Typos, wording, grammar, and low impact changes
 ${RESET}
 EOT
 desc_more
@@ -2830,6 +2838,8 @@ exit $?
 # Next steps
 #   ChangeLog
 #
+#    Change- "0.0.2-21" 25 JAN 2024
+#      DESC added Versioning to desc
 #    Change- "0.0.2-20" 25 JAN 2024
 #      MATH- forgot to \escape all the \$
 #    Change- "0.0.2-19" 25 JAN 2024
