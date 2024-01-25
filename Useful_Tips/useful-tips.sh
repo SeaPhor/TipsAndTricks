@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #
 ##    useful-tips
 ##    Author/Founder    - Shawn Miller
@@ -11,8 +10,8 @@
 ###########################################
 #
 PROGNAME=$(basename $0)
-PROGVERS="0.0.2-18"
-PROGDATE="01 Nov 2022"
+PROGVERS="0.0.2-19"
+PROGDATE="25 Jan 2024"
 MYOPT="$1"
 #
 #####################################################################
@@ -1929,6 +1928,25 @@ Sun Mon Tue Wed Thu Fri Sat
 > expr 261 - 92${LTCYN}
 ${SOMODE}169${NSOMODE}
 ${RESET}
+${BOLD}${YLLW}
+    Using ${GRN}expr${YLLW} for simple count of lines minus a header or footer-${RESET}${GRN}
+$ expr $(wc -l myspecialscript.sh) - 1
+$ 3499${BOLD}${YLLW}
+    Using 'Arithmetic Expansion' to calculate number of days-
+  I quit smoking on 2018-11-19 - lets see how many days that is (from that we can easily get tears/months)${RESET}${GRN}
+$ vim numdays.sh${LTBLU}
+declare -i numdays=$($((($(date +%s --date 2018-11-19)-$(date +%s))/(3600/24))) | sed 's/[^0-9]//g')
+echo $numdays${GRN}
+$ ./numdays.sh
+$ 1893${BOLD}${YLLW}
+  Or if you wanted an arg passed to the script then the first line would look like this:${RESET}${LTBLU}
+[[ ! $1 ]] && { echo -e "Requires 1 argument -\nnumdays.sh [date] -- in this format [YYYY-MM-DD]" ; exit 1 }${BOLD}${YLLW}
+    Floats:
+  Using 'bc' to get [2] decimal outputs-${RESET}${GRN}
+$ bc -l <<< 'scale=2 ; 100/3'
+$ 33.33${BOLD}${YLLW}
+Refs: ${LTBLU} bash-hackers.org and stackoverflow.com
+${RESET}
 EOT
 }
 #
@@ -2812,6 +2830,10 @@ esac
 exit $?
 # Next steps
 #   ChangeLog
+#
+#    Change- "0.0.2-19" 25 JAN 2024
+#      Added to MATH - numdays and Floats- bc
+#
 #@CLN Need to fix the '%u' in the sftp option
 #   FIXED it with
 #   PASSP=`echo '/sftp/chroot/home/%' | sed -e 's/$/u/' `
